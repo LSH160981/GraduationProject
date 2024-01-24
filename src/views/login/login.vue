@@ -1,0 +1,150 @@
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router"; // 引入路由
+import { ElMessage, ElLoading, ElNotification } from "element-plus";
+import { SetToken } from "@/utils/HandlerToken.js";
+
+let $Router = useRouter(); // 实例化路由
+let Account = ref("adminboss"); // 账号
+let Password = ref("119110112"); // 密码
+
+/**
+ * https://login.xiaoliao.eu.org/?account=admin&password=123456
+ * 登录
+ */
+const SignIn = () => {
+  let Loading = LoadFullScreen(); // 开始loading
+  let username = Account.value.trim();
+  let password = Password.value.trim();
+  if (!RuleVerification(username, password)) {
+    Loading.close(); // 关闭loading效果
+    ElMessage({
+      message: "请输入正确的账号和密码",
+      grouping: true,
+      type: "warning",
+    });
+    return;
+  }
+
+  let url = `https://login.xiaoliao.eu.org/?account=${username}&password=${password}`;
+  fetch(url)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      }
+    })
+    .then((result) => {
+      Loading.close(); // 关闭loading效果
+      if (result.status === 200) {
+        // 提示成功信息
+        ElNotification({
+          type: "success",
+          duration: 2700,
+          message: `登录成功`,
+          title: `欢迎回来`,
+        });
+        SetToken("Token", result.token);
+        $Router.push("/");
+      }
+      if (result.status === 201) {
+        // 提示失败信息
+        ElMessage({
+          message: "账号或密码错误",
+          type: "error",
+        });
+      }
+    });
+};
+
+/**
+ * 对账号密码进行规则校验
+ * @param {string} username - 需要校验的账号
+ * @param {string} password - 需要校验的密码
+ * @returns {boolean} 如果账号密码均满足规则则返回true，否则返回false
+ */
+const RuleVerification = (username, password) => {
+  // 账号规则：长度5位以上，全部是英文，不能为空
+  let usernameRule = /^[a-zA-Z]{5,}$/;
+  // 密码规则：长度6位以上 全部是数字，不能为空
+  let passwordRule = /^[0-9]{6,}$/;
+  return usernameRule.test(username) && passwordRule.test(password);
+};
+
+/**
+ * 全面添加遮罩层，并显示loading效果
+ */
+const LoadFullScreen = () => {
+  return ElLoading.service({
+    lock: true,
+    text: "Loading",
+    background: "rgba(0, 0, 0, 0.6)",
+  });
+  // loading.close();
+};
+</script>
+
+<template>
+  <div class="w-screen h-screen flex justify-center items-center select-none">
+    <div
+      class="flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 border-pink-500-500 shadow-lg shadow-indigo-500/50 maxd:w-5/6">
+      <div class="mb-8 text-center">
+        <h1 class="my-3 text-4xl font-bold">Sign in</h1>
+        <p class="text-sm dark:text-gray-400">Sign in to access your account</p>
+      </div>
+      <div class="space-y-12">
+        <div class="space-y-4">
+          <div class="py-3">
+            <!-- <label class="block mb-2 text-sm">Account</label>
+            <input
+              v-model.lazy="Account"
+              placeholder="adminboss"
+              class="w-full px-3 py-2 border rounded-md" /> -->
+            <label
+              class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+              <input
+                v-model.lazy="Account"
+                type="text"
+                class="peer px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                placeholder="Account" />
+              <span
+                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white dark:bg-slate-400 p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                Account
+              </span>
+            </label>
+          </div>
+          <div>
+            <!-- <div class="flex justify-between mb-2">
+              <label class="text-sm">Password</label>
+            </div>
+            <input
+              v-model.lazy="Password"
+              type="password"
+              placeholder="*******"
+              class="w-full px-3 py-2 border rounded-md" /> -->
+            <label
+              class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+              <input
+                v-model.lazy="Password"
+                type="password"
+                class="peer px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                placeholder="Password" />
+              <span
+                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                Password
+              </span>
+            </label>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div>
+            <button @click="SignIn" class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400">
+              Sign in
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>
