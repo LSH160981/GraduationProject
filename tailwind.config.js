@@ -11,6 +11,8 @@ export default {
       // => @media (max-width: 767px) { ... } 
     },
   },
-  plugins: [],
+  plugins: [
+    require("daisyui")
+  ],
 }
 
