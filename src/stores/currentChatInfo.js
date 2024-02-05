@@ -1,8 +1,7 @@
-import { ref, toRaw, watch, nextTick } from 'vue'
+import { ref, toRaw, watch, nextTick, isProxy } from 'vue'
 import { defineStore } from 'pinia'
 import { HandlerGPTReturnInfo } from '@/utils/HandlerGPTReturnInfo.js';
 import { useGlobalInformationStore } from './GlobalInformation.js'
-// let { GetChatInfoByUUID, AddChat, AllUUID } = useGlobalInformationStore();
 let GlobalInformation = useGlobalInformationStore();
 
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
@@ -47,6 +46,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
       // 本地就有的对话  1.点击 sliderbaritem 传过来的uuid
       if (GlobalInformation.AllUUID.includes(newValue)) {
         let result = GlobalInformation.GetChatInfoByUUID(newValue)
+        // console.log(isProxy(result.messages)); // true
+        // 数据在这里实现 数据联动
         messages.value = result.messages;
         title.value = result.title;
       } else {
@@ -103,15 +104,13 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     const signal = controller.signal;
 
     // 这里再做一些判断
-    // 
+    // 处理网路返回的信息
     HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal)
 
-    function abort() {
-      controller.abort()
-    }
     // 把停止功能返回出去
     return {
-      abort
+      controller,
+      signal
     }
   }
 

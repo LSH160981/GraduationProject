@@ -1,4 +1,4 @@
-import { ref, watch, toRaw, computed } from 'vue'
+import { ref, watch, toRaw, computed, isProxy } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useGlobalInformationStore = defineStore('GlobalInformation', () => {
@@ -70,6 +70,8 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
 
   // 添加新的对话
   const AddChat = (newChat) => {
+    // 新加进来的数据 依旧是代理对象 实现了 数据联动
+    // console.log(isProxy(newChat.messages)); // true
     // 新的对话中必须要有 uuid title 对话有长度
     if (newChat.uuid && newChat.title && newChat.messages.length > 0) {
       // unshift 从上面插入数据

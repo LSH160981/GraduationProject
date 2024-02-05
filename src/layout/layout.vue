@@ -11,7 +11,6 @@ let ParametsSetting = useParametsSettingStore();
     class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
     <div
       class="w-70vw h-83vh border-2 border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0">
-      <!-- {{ ParametsSetting.w_phone }} -->
       <el-row>
         <el-col :span="24">
           <Top></Top>
@@ -27,6 +26,7 @@ let ParametsSetting = useParametsSettingStore();
       </el-row>
     </div>
   </div>
+  <!-- 只有 小屏幕模式下 才会启用的 抽屉组件 -->
   <el-drawer
     v-model="ParametsSetting.SliderBarDrawerFlag"
     size="75%"

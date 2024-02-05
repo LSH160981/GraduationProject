@@ -1,20 +1,21 @@
 
 /**
- * 
- * @param {RefImpl} messages 以规定的数组形式
+ * @param {RefImpl} messages 响应式数据
  * @param {String} model 模型版本号
  * @param {AbortSignal} signal 终止网络请求的标记
  * @returns undefind
  */
 export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", signal) => {
-    // console.log(ref);
+    // console.log(messages); // 输出的是一个代理对象
     const apiUrl = "https://api.chatanywhere.com.cn/v1/chat/completions";
     const AI_API_KEY = "sk-foH2NFqFeSDLfj3OiCttrsB0Gza9JZBYBwE9RutauvBc5ipD";
+    // 请求体
     const requestBody = {
         model,
         messages: messages.value,
         stream: true, // 开启流式读取
     };
+    // 请求参数: 方式 请求头 请求体的JSON格式 网络终止型号
     const fetchOptions = {
         method: "POST",
         headers: {
@@ -42,7 +43,6 @@ export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", si
         messages.value[messages.value.length - 1].content += handlerStr(content)
         // console.log(handlerStr(content)); 
     }
-    
 }
 
 /**
