@@ -40,7 +40,7 @@ const SendButton = () => {
     CurrentChatInfo.ChangeUUID(generateUUID());
   }
 
-  // stopHandler = CurrentChatInfo.GetGPTMsg();
+  stopHandler = CurrentChatInfo.GetGPTMsg();
 };
 
 // 停止当前对话

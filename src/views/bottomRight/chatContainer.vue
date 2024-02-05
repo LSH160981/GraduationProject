@@ -23,6 +23,7 @@ watch(
     immediate: true,
   }
 );
+// CurrentChatInfo.messages 的变化
 watch(
   () => CurrentChatInfo.messages,
   () => {

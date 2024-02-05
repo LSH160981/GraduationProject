@@ -1,21 +1,15 @@
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, toRaw, watch, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import { HandlerGPTReturnInfo } from '@/utils/HandlerGPTReturnInfo.js';
 import { useGlobalInformationStore } from './GlobalInformation.js'
-// let { GetChatMessagesByUUID, AddChat, AllUUID } = useGlobalInformationStore();
+// let { GetChatInfoByUUID, AddChat, AllUUID } = useGlobalInformationStore();
 let GlobalInformation = useGlobalInformationStore();
 
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
   let uuid = ref("");
   let messages = ref([]);
-  let title = computed(() => {
-    if (messages.value.length <= 0) {
-      return "New Chat"
-    }
-    let result = messages.value.find((item) => item.role == "user")
-    return result.content
-  });
+  let title = ref("New Chat")
 
   // 用户的提问
   const UserQuestion = (content) => {
@@ -45,14 +39,16 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
-        console.log('新建');
+        console.log('新建对话');
         messages.value = []
         return
       }
 
       // 本地就有的对话  1.点击 sliderbaritem 传过来的uuid
       if (GlobalInformation.AllUUID.includes(newValue)) {
-        messages.value = GlobalInformation.GetChatMessagesByUUID(newValue)
+        let result = GlobalInformation.GetChatInfoByUUID(newValue)
+        messages.value = result.messages;
+        title.value = result.title;
       } else {
         // 2.新对话 重新生成的uuid bottomRight 传过来
         //  bottomRight 传过来的话，肯定由 chatInput.vue 提供第一个问题
@@ -80,6 +76,24 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         });
       })
     },
+  )
+
+  /**
+   * messages 变化
+   * 要确定当前对话的title
+   */
+  watch(
+    () => messages.value,
+    (newValue) => {
+      if (toRaw(newValue).length <= 0) {
+        return
+      }
+      let result = newValue.find((item) => item.role == "user")
+      title.value = result.content
+    },
+    {
+      deep: true,
+    }
   )
 
   // 通过GPT获取问题的答案

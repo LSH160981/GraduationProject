@@ -30,11 +30,11 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
   })
 
   // 通过UUID 查询有没有这个对话 
-  const GetChatMessagesByUUID = (uuid) => {
-    let result = [];
+  const GetChatInfoByUUID = (uuid) => {
+    let result = {};
     AllChatInfo.value.forEach((item) => {
       if (item.uuid === uuid) {
-        result = item.messages
+        result = item
       }
     })
     if (result) {
@@ -82,6 +82,6 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
   return {
     AllChatInfo, AllUUID,
     DeleteChatByUUID, ChangeChatTitleByUUID, ChangeChatMessagesByUUID,
-    GetChatMessagesByUUID, AddChat
+    GetChatInfoByUUID, AddChat
   }
 })

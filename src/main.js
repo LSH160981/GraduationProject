@@ -22,6 +22,8 @@ import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
 // markdown支持显示代码行数
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index';
+// 数学函数 解析
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm';
 
 // Prism
 import Prism from 'prismjs';
@@ -35,12 +37,13 @@ VMdPreview.use(vuepressTheme, {
 VMdPreview.use(createCopyCodePlugin());
 // markdown支持显示代码行数
 VMdPreview.use(createLineNumbertPlugin())
+// 数学函数 解析
+VMdPreview.use(createKatexPlugin())
 
 const app = createApp(App)
 app.use(createPinia()) // pinia插件
 app.use(ElementPlus) // el-ui
 app.use(router) // 路由
-// use v-md-editor预览组件
-app.use(VMdPreview);
+app.use(VMdPreview);// use v-md-editor预览组件
 
 app.mount('#app')
