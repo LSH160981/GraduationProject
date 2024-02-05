@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: ^2.3.1
+    version: 2.3.1(vue@3.3.11)
   '@kangc/v-md-editor':
     specifier: ^2.3.18
     version: 2.3.18(@vue/compiler-sfc@3.3.11)(vue@3.3.11)

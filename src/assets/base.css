@@ -1,1 +1,47 @@
 /* 一些样式的重写 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  transition: all 0.6s;
+}
+
+div.el-drawer__body {
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  width: 6px;
+  background-color: rgba(117, 119, 113, 0.726);
+  border-radius: 6px;
+}
+
+html {
+  transition: all 0.5s;
+}
+
+/* 暗黑模式 */
+html.dark {
+  background-color: #212129;
+  color: #ddddf0;
+}
+
+/* parseMarkdown 组件的文字的样式 */
+div.vuepress-markdown-body {
+  /* 背景颜色透明 */
+  background-color: #ffffff00;
+}
+div.vuepress-markdown-body:not(.custom) {
+  padding: 0 5px;
+}
+@media (max-width: 419px) {
+  div.vuepress-markdown-body div[class*="v-md-pre-wrapper-"] {
+    margin: 0;
+    border-radius: 6px;
+  }
+}
