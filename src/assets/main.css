@@ -3,3 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.SliderItemTop {
+  @apply w-[47%] bg-[#fff] shadow-md truncate flex justify-evenly items-center p-3 rounded-lg cursor-pointer hover:bg-violet-300;
+}

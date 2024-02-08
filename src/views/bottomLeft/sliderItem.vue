@@ -3,6 +3,8 @@ import { ref, computed, nextTick } from "vue";
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
+import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
+let ParametsSetting = useParametsSettingStore();
 
 // 父组件传递的 数据
 const { ChatInfo } = defineProps({
@@ -22,14 +24,12 @@ let TempTitle = computed({
     $Emit("ChangeTitle", ChatInfo.uuid, newValue);
   },
 });
-
 // chat改标题 false显示span,true显示input
 let ReNameFlag = ref(false);
 // 根据UUID  重命名 对话的标题
 const ReName = () => {
   ReNameFlag.value = true;
 };
-
 // 根据UUID  删除 该对话
 const DeleteMsg = () => {
   $Emit("DeleteMsg", ChatInfo.uuid);
@@ -44,7 +44,7 @@ const InputBlur = () => {
 };
 // SliderItem 点击之后 通过TWCSS改变背景颜色
 const SliderItemChangeBGC = ($event, uuid) => {
-  $event.target.classList.remove("bg-gray-200");
+  $event.target.classList.remove("bg-gray-100");
   // 获取所有带有 'uuid' 属性的元素
   let elements = document.querySelectorAll("[uuid]");
   // 遍历元素并打印 uuid
@@ -60,22 +60,23 @@ const SliderItemChangeBGC = ($event, uuid) => {
 const SliderItemMouseEnter = ($event) => {
   // console.log($event.target);
   if (!$event.target.classList.contains("bg-gray-300")) {
-    $event.target.classList.add("bg-gray-200");
+    $event.target.classList.add("bg-gray-100");
   }
 };
 // SliderItem 鼠标离开之后 触发的回调
 const SliderItemMouseLeave = ($event) => {
-  $event.target.classList.remove("bg-gray-200");
+  $event.target.classList.remove("bg-gray-100");
 };
 // SliderItem 点击之后 触发的回调
 const SliderItemClick = ($event, uuid) => {
   // 改BGC
-  // SliderItemChangeBGC($event, uuid);
+  SliderItemChangeBGC($event, uuid);
   // 1.通知兄弟组件 并把UUID传过去
-
   CurrentChatInfo.ChangeUUID(uuid);
-  // 2.如果 w_phone为真的话 还要通知top把draw关掉
-  // ？？？？
+  // 2.如果 w_phone为真的话 还要把 el-drawer 关掉
+  if (ParametsSetting.w_phone) {
+    ParametsSetting.SliderBarDrawerFlag = false;
+  }
 };
 
 // 在模板中启用 v-focus 在 <script setup> 中 任何以 v 开头的驼峰式命名的变量都可以被用作一个自定义指令
@@ -86,7 +87,6 @@ const vFocus = {
     setTimeout(() => {
       nextTick(() => {
         input.focus(); // 原生聚焦
-        input.select(); // 原生全选
       });
     }, 30);
   },
@@ -98,7 +98,7 @@ const vFocus = {
   <!-- 添加自定义属性[uuid] -->
   <div
     :uuid="ChatInfo.uuid"
-    class="flex justify-between items-center p-3 rounded-lg cursor-pointer"
+    class="bg-[#fff] shadow-md mb-2 flex justify-between items-center p-3 rounded-lg cursor-pointer"
     @mouseenter="SliderItemMouseEnter"
     @mouseleave="SliderItemMouseLeave"
     @click.self="SliderItemClick($event, ChatInfo.uuid)">
@@ -113,6 +113,7 @@ const vFocus = {
       v-model.lazy="TempTitle"
       class="h-[26px]"
       v-focus
+      clearable
       @blur="InputBlur"
       @keyup.enter="InputBlur" />
     <!-- <el-input

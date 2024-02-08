@@ -3,9 +3,10 @@
  * @param {RefImpl} messages 响应式数据
  * @param {String} model 模型版本号
  * @param {AbortSignal} signal 终止网络请求的标记
+ * @param {Function} callback 回调函数  在执行完所有的的代码后才会运行这个函数
  * @returns undefind
  */
-export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", signal) => {
+export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", signal, callback) => {
     // console.log(messages); // 输出的是一个代理对象
     const apiUrl = "https://api.chatanywhere.com.cn/v1/chat/completions";
     const AI_API_KEY = "sk-foH2NFqFeSDLfj3OiCttrsB0Gza9JZBYBwE9RutauvBc5ipD";
@@ -43,6 +44,8 @@ export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", si
         messages.value[messages.value.length - 1].content += handlerStr(content)
         // console.log(handlerStr(content)); 
     }
+    // 当数据处理完毕 返回1 表示函数执行完毕
+    callback && callback()
 }
 
 /**

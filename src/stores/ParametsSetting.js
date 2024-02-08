@@ -7,7 +7,9 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   // container 宽高
   let ContainerWidth = computed(() => BrowserWidth.value * 0.83)
   let ContainerHeight = computed(() => BrowserHeight.value * 0.83)
-  // 当浏览器视口宽度【小于767px 结果为true】 【大于767px 结果为false】
+  /*
+  当浏览器视口宽度【小于767px 结果为true】 【大于767px 结果为false】
+  */
   let w_phone = computed(() => {
     if (BrowserWidth.value >= 767) {
       return false

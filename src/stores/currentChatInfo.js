@@ -65,16 +65,19 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
       }
       // 添加类样式
       nextTick(() => {
-        // 获取所有带有 'uuid' 属性的元素
-        let elements = document.querySelectorAll("[uuid]");
-        // 遍历元素 排他 上样式
-        elements.forEach((element) => {
-          let element_uuid = element.getAttribute("uuid");
-          element.classList.remove("bg-gray-300");
-          if (element_uuid === newValue) {
-            element.classList.add("bg-gray-300");
-          }
-        });
+        // 加到微队列
+        Promise.resolve().then(() => {
+          // 获取所有带有 'uuid' 属性的元素
+          let elements = document.querySelectorAll("[uuid]");
+          // 遍历元素 排他 上样式
+          elements.forEach((element) => {
+            let element_uuid = element.getAttribute("uuid");
+            element.classList.remove("bg-gray-300");
+            if (element_uuid === newValue) {
+              element.classList.add("bg-gray-300");
+            }
+          });
+        })
       })
     },
   )
@@ -90,22 +93,26 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         return
       }
       let result = newValue.find((item) => item.role == "user")
-      title.value = result.content
+      // title  不要太长 32就够了
+      title.value = result.content.substring(0, 32)
     },
     {
       deep: true,
     }
   )
 
+  // 用于表示 网络的状态 
+  let GPTFinish = ref(0)
+
   // 通过GPT获取问题的答案
-  const GetGPTMsg = () => {
+  const GetGPTMsg = (callback) => {
     // 设置一个终止信号
     const controller = new AbortController();
     const signal = controller.signal;
 
-    // 这里再做一些判断
+    // 这里再做一些判断 
     // 处理网路返回的信息
-    HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal)
+    GPTFinish.value = HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, callback)
 
     // 把停止功能返回出去
     return {
