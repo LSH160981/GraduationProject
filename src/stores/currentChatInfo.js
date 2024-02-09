@@ -5,10 +5,12 @@ import { useGlobalInformationStore } from './GlobalInformation.js'
 let GlobalInformation = useGlobalInformationStore();
 
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
-
   let uuid = ref("");
   let messages = ref([]);
   let title = ref("New Chat")
+  // 设置一个终止信号
+  let controller = ref(null);
+  let signal = ref(null);
 
   // 用户的提问
   const UserQuestion = (content) => {
@@ -79,6 +81,18 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
           });
         })
       })
+
+      // uuid 变化的时候 有网络请求就 中断网课请求，没有就算了
+      if (controller.value === null) {
+        // 进入这里说明没有发起过网络请求 什么都不干
+      } else {
+        // 进入这里说明 有网络请求进行中，却突然改了uuid
+        // 有网络请求，就要停止
+        controller.value.abort()
+        // 仓库的终止信号 置空
+        controller.value = null
+        signal.value = null
+      }
     },
   )
 
@@ -101,29 +115,27 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     }
   )
 
-  // 用于表示 网络的状态 
-  let GPTFinish = ref(0)
-
   // 通过GPT获取问题的答案
   const GetGPTMsg = (callback) => {
-    // 设置一个终止信号
-    const controller = new AbortController();
-    const signal = controller.signal;
+    // 每次调用该函数 就设置一次新的终止信号
+    controller.value = new AbortController();
+    signal.value = controller.value.signal;
 
     // 这里再做一些判断 
     // 处理网路返回的信息
-    GPTFinish.value = HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, callback)
-
-    // 把停止功能返回出去
-    return {
-      controller,
-      signal
-    }
+    HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, () => {
+      // 这个callback 是 chatInput.vue 的
+      callback && callback()
+      // 下面这部分是 currentChatInfo.js 的
+      // 网络请求结束后把 仓库的终止信号 置空
+      controller.value = null
+      signal.value = null
+    })
   }
 
 
   return {
-    uuid
-    , title, messages, ChangeUUID, UserQuestion, GetGPTMsg,
+    uuid, title, messages, ChangeUUID, UserQuestion, GetGPTMsg,
+    controller, signal
   }
 })

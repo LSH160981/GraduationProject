@@ -24,7 +24,7 @@ export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", si
             Authorization: `Bearer ${AI_API_KEY}`,
         },
         body: JSON.stringify(requestBody),
-        signal
+        signal: signal.value
     };
     // 发起Fetch请求
     let response = await fetch(apiUrl, fetchOptions)

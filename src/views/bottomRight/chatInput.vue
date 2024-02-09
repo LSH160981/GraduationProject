@@ -25,8 +25,24 @@ watch(
 // 控制 停止对话的按钮 是否显示
 let ShowStopButtonFlag = ref(false);
 
+// 检测 CurrentChatInfo.controller 如果为空,说明网络 中断了 按钮也要消失
+watch(
+  () => CurrentChatInfo.controller,
+  (newValue) => {
+    if (newValue === null) {
+      // 进入这个判断说明 GPT发送的网络请求中断了  | 或者压根就没有发送过请求
+      // 无论是哪一种，都要让按钮消失
+      // 让按钮消失
+      ShowStopButtonFlag.value = false;
+    }
+  },
+  {
+    deep: true,
+  }
+);
+
 // 控制 当前对话的终止
-let stopHandler = null;
+// let stopHandler = null;
 // 输入框的值
 let InputValue = ref("");
 // 发送按钮 点击事件
@@ -45,7 +61,7 @@ const SendButton = () => {
     CurrentChatInfo.ChangeUUID(generateUUID());
   }
 
-  stopHandler = CurrentChatInfo.GetGPTMsg(() => {
+  CurrentChatInfo.GetGPTMsg(() => {
     // 让按钮消失
     ShowStopButtonFlag.value = false;
   });
@@ -54,16 +70,16 @@ const SendButton = () => {
 // 停止当前对话
 const StopFetch = () => {
   // 1.如果用户直接点的话
-  if (!stopHandler) {
+  if (!CurrentChatInfo.controller) {
     return;
   }
   // 2.当你调用了 controller.abort() 函数后, signal.aborted 属性的值将会变为 true。
-  if (stopHandler.signal.aborted) {
+  if (CurrentChatInfo.signal.aborted) {
     // console.log("AbortController has been used.");
     return;
   }
   // 让网络请求停止
-  stopHandler.controller.abort();
+  CurrentChatInfo.controller.abort();
   // 让按钮消失
   ShowStopButtonFlag.value = false;
 };
