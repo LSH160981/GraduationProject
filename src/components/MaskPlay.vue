@@ -20,18 +20,23 @@ const ShowDialogFlag = ref(false);
 // 父组件传递的事件
 let $Emit = defineEmits(["NewChat"]);
 
-// 使用预定词进行 新的对话
-const MaskNewChat = () => {
-  // 父组件的事件  新对话
-  $Emit("NewChat");
+// 展示 身份选择器
+const ShowMask = () => {
   // 显示 选择身份的组件
   ShowDialogFlag.value = true;
+};
+
+// 选择新的身份 与GPT对话
+const ChoiceMaskChat = (maskStr) => {
+  console.log(maskStr);
+  // 父组件的事件  新对话
+  // $Emit("NewChat");
 };
 </script>
 
 <template>
   <!--  -->
-  <div class="SliderItemTop" @click="MaskNewChat">
+  <div class="SliderItemTop" @click="ShowMask">
     <div>
       <svg
         t="1707375433941"
@@ -84,7 +89,7 @@ const MaskNewChat = () => {
 
       <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.8">
         <div v-for="item in ProxyPrompts" class="border-2 rounded-lg shadow-md mb-3 cursor-pointer">
-          <div class="p-2 flex flex-col">
+          <div class="p-2 flex flex-col" @click="ChoiceMaskChat(item[1])">
             <!-- title -->
             <span class="text-2xl font-normal w-60 text-black">{{ item[0] }}</span>
             <!-- content -->

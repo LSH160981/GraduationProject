@@ -22,9 +22,6 @@ watch(
   }
 );
 
-// 控制 停止对话的按钮 是否显示
-let ShowStopButtonFlag = ref(false);
-
 // 检测 CurrentChatInfo.controller 如果为空,说明网络 中断了 按钮也要消失
 watch(
   () => CurrentChatInfo.controller,
@@ -33,7 +30,7 @@ watch(
       // 进入这个判断说明 GPT发送的网络请求中断了  | 或者压根就没有发送过请求
       // 无论是哪一种，都要让按钮消失
       // 让按钮消失
-      ShowStopButtonFlag.value = false;
+      CurrentChatInfo.ShowStopButtonFlag = false;
     }
   },
   {
@@ -52,7 +49,7 @@ const SendButton = () => {
     return;
   }
   // 显示 停止按钮
-  ShowStopButtonFlag.value = true;
+  CurrentChatInfo.ShowStopButtonFlag = true;
   // 添加数据到  CurrentChatInfoStore
   CurrentChatInfo.UserQuestion(InputValue.value);
   // 置空
@@ -63,7 +60,7 @@ const SendButton = () => {
 
   CurrentChatInfo.GetGPTMsg(() => {
     // 让按钮消失
-    ShowStopButtonFlag.value = false;
+    CurrentChatInfo.ShowStopButtonFlag = false;
   });
 };
 
@@ -81,7 +78,7 @@ const StopFetch = () => {
   // 让网络请求停止
   CurrentChatInfo.controller.abort();
   // 让按钮消失
-  ShowStopButtonFlag.value = false;
+  CurrentChatInfo.ShowStopButtonFlag = false;
 };
 </script>
 
@@ -90,7 +87,7 @@ const StopFetch = () => {
   <div ref="ChatInput" class="w-full flex flex-col justify-between items-center">
     <!-- 不要让这个按钮 破坏下面的结果 -->
     <div class="relative -top-3">
-      <div v-show="ShowStopButtonFlag">
+      <div v-show="CurrentChatInfo.ShowStopButtonFlag">
         <el-button link @click="StopFetch">
           <div class="rounded-md flex justify-between items-center gap-1">
             <span>
@@ -113,7 +110,7 @@ const StopFetch = () => {
           </div>
         </el-button>
       </div>
-      <div v-show="!ShowStopButtonFlag" class="h-[30px] w-[10px]"></div>
+      <div v-show="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px]"></div>
     </div>
 
     <div class="w-full mb-2">

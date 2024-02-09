@@ -8,6 +8,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   let uuid = ref("");
   let messages = ref([]);
   let title = ref("New Chat")
+  // 控制 停止对话的按钮 是否显示
+  let ShowStopButtonFlag = ref(false);
   // 设置一个终止信号
   let controller = ref(null);
   let signal = ref(null);
@@ -35,13 +37,20 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
    */
   watch(
     () => uuid.value,
-    (newValue) => {
+    (newValue, oldValue) => {
       console.log("current uuid改动了");
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
         console.log('新建对话');
-        messages.value = []
+        messages.value = [];
+        // 让chatInput.vue 中的停止按钮 消失
+        ShowStopButtonFlag.value = false;
+        // 如果是新建对话  1.本来就是空的发起了对话，2.是别的对话来的 --> 终止之前的对话
+        if (controller.value != null) {
+          // 如果不停止对话 @/utils/HandlerGPTReturnInfo.js 就要报错了
+          controller.value.abort()
+        }
         return
       }
 
@@ -82,16 +91,20 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         })
       })
 
-      // uuid 变化的时候 有网络请求就 中断网课请求，没有就算了
+      // uuid 变化的时候 有网络请求就,中断网课请求; 没有就算了
       if (controller.value === null) {
         // 进入这里说明没有发起过网络请求 什么都不干
       } else {
-        // 进入这里说明 有网络请求进行中，却突然改了uuid
-        // 有网络请求，就要停止
-        controller.value.abort()
-        // 仓库的终止信号 置空
-        controller.value = null
-        signal.value = null
+        // oldValue 为空 说明要新建一个对话  不要中断对话
+        // oldValue 有数据 是从别的对话过来的 中断对话
+        if (oldValue) {
+          // 进入这里说明 有网络请求进行中，却突然改了uuid
+          // 有网络请求，就要停止
+          controller.value.abort()
+          // 仓库的终止信号 置空
+          controller.value = null
+          signal.value = null
+        }
       }
     },
   )
@@ -133,8 +146,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     })
   }
 
-
   return {
+    ShowStopButtonFlag,
     uuid, title, messages, ChangeUUID, UserQuestion, GetGPTMsg,
     controller, signal
   }
