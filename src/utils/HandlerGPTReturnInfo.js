@@ -44,7 +44,7 @@ export const HandlerGPTReturnInfo = async (messages, model = "gpt-3.5-turbo", si
         messages.value[messages.value.length - 1].content += handlerStr(content)
         // console.log(handlerStr(content)); 
     }
-    // 当数据处理完毕 返回1 表示函数执行完毕
+    // 当数据处理完毕 使用短路技巧 执行回调 
     callback && callback()
 }
 
