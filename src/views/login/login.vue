@@ -5,8 +5,8 @@ import { ElMessage, ElLoading, ElNotification } from "element-plus";
 import { SetToken } from "@/utils/HandlerToken.js";
 
 let $Router = useRouter(); // 实例化路由
-let Account = ref("adminboss"); // 账号
-let Password = ref("119110112"); // 密码
+let Account = ref(""); // 账号 adminboss
+let Password = ref(""); // 密码 119110112
 
 /**
  * https://login.xiaoliao.eu.org/?account=admin&password=123456
@@ -43,6 +43,7 @@ const SignIn = () => {
           message: `登录成功`,
           title: `欢迎回来`,
         });
+        // 保存 token
         SetToken("Token", result.token);
         $Router.push("/");
       }

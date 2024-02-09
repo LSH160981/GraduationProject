@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { GetToken } from "@/utils/HandlerToken.js";
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -7,7 +9,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/views/login/login.vue'),
-      // 路由守卫 当有token的时候 先判断 要重定向去 主页
     },
     {
       path: '/',
@@ -26,6 +27,7 @@ const router = createRouter({
       component: () => import('@/views/404/404.vue')
     }
   ],
+  // 当页面发生跳转的时候 新页面的top为0
   scrollBehavior() {
     return {
       left: 0,
@@ -34,7 +36,27 @@ const router = createRouter({
   },
 })
 
-// 全局路由守卫 ？？？
-
+// 全局路由守卫 
+router.beforeEach((to, from) => {
+  let Token = GetToken("Token");
+  if (!Token) {
+    // 没有token 没有登陆过
+    // 没有登录，去login 就会造成无限重定向 所以使用 to.name !== 'login' 避免无限重定向
+    /*
+      console.log(to.name !== 'login'); 第一次 true 跳到 login
+      console.log(to.name !== 'login'); 第二次 false 说明你就是去的login 我就不管了 直接通行
+    */
+    if (to.name !== 'login') {
+      return { name: 'login' }
+    }
+  } else {
+    // 登陆过 有 token
+    // 登录过后 不允许进入login
+    if (to.name == 'login') {
+      // 从哪来，回哪去
+      return { name: from.name }
+    }
+  }
+})
 
 export default router
