@@ -47,8 +47,7 @@ const SignIn = () => {
           message: `登录成功`,
           title: `欢迎回来`,
         });
-      }
-      if (result.status === 201) {
+      } else if (result.status === 201) {
         // 提示失败信息
         ElMessage({
           message: "账号或密码错误",

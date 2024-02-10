@@ -7,7 +7,7 @@ let GlobalInformation = useGlobalInformationStore();
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   let uuid = ref("");
   let messages = ref([]);
-  let title = ref("New Chat")
+  let title = ref("New Chat");
   // 控制 停止对话的按钮 是否显示
   let ShowStopButtonFlag = ref(false);
   // 设置一个终止信号
@@ -20,12 +20,12 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
       role: "user",
       content
     }
-    messages.value.push(obj)
+    messages.value.push(obj);
   }
 
   // 改变UUID
   const ChangeUUID = (uuidStr) => {
-    uuid.value = uuidStr
+    uuid.value = uuidStr;
 
   }
 
@@ -49,9 +49,9 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         // 如果是新建对话  1.本来就是空的发起了对话，2.是别的对话来的 --> 终止之前的对话
         if (controller.value != null) {
           // 如果不停止对话 @/utils/HandlerGPTReturnInfo.js 就要报错了
-          controller.value.abort()
+          controller.value.abort();
         }
-        return
+        return;
       }
 
       // 本地就有的对话  1.点击 sliderbaritem 传过来的uuid
@@ -71,8 +71,6 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         }
         // 存储到大仓库
         GlobalInformation.AddChat(TempChatInfo)
-        // 新对话 
-        console.log("New Chat");
       }
       // 添加类样式
       nextTick(() => {
@@ -117,11 +115,11 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     () => messages.value,
     (newValue) => {
       if (toRaw(newValue).length <= 0) {
-        return
+        return;
       }
-      let result = newValue.find((item) => item.role == "user")
+      let result = newValue.find((item) => item.role == "user");
       // title  不要太长 32就够了
-      title.value = result.content.substring(0, 32)
+      title.value = result.content.substring(0, 32);
     },
     {
       deep: true,
@@ -138,11 +136,11 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     // 处理网路返回的信息
     HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, () => {
       // 这个callback 是 chatInput.vue 的
-      callback && callback()
+      callback && callback();
       // 下面这部分是 currentChatInfo.js 的
       // 网络请求结束后把 仓库的终止信号 置空
-      controller.value = null
-      signal.value = null
+      controller.value = null;
+      signal.value = null;
     })
   }
 
