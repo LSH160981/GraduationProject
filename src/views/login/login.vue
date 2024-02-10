@@ -36,6 +36,10 @@ const SignIn = () => {
     .then((result) => {
       Loading.close(); // 关闭loading效果
       if (result.status === 200) {
+        // 保存 token
+        SetToken("Token", result.token);
+        // 路由跳到 主页
+        $Router.push("/");
         // 提示成功信息
         ElNotification({
           type: "success",
@@ -43,9 +47,6 @@ const SignIn = () => {
           message: `登录成功`,
           title: `欢迎回来`,
         });
-        // 保存 token
-        SetToken("Token", result.token);
-        $Router.push("/");
       }
       if (result.status === 201) {
         // 提示失败信息
