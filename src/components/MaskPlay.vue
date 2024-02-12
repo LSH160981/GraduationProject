@@ -1,112 +1,115 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, nextTick } from "vue";
+import { useRouter } from "vue-router";
+let $Router = useRouter();
+import prompts from "@/assets/prompts"; // 预设值
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
-import prompts from "@/assets/prompts";
 
-let ProxyPrompts = ref(prompts);
+// ElScrollbar组件元素
+const El_Scrollbar = ref(null);
 
-// 通过 w_phone 确定Dialog 的宽度
-let DialogWidth = computed(() => {
-  if (ParametsSetting.w_phone) {
-    return "96%";
-  } else {
-    return "800";
-  }
+// 搜索框的值
+let SearchInput = ref("");
+// ProxyPrompts 等于 原始数据 + 搜索框的值
+let ProxyPrompts = computed(() => {
+  // 去到 El-Scrollbar 顶部
+  nextTick(() => {
+    El_Scrollbar.value.setScrollTop(0);
+  });
+  let results = [];
+  let keyword = SearchInput.value;
+  prompts.forEach((item) => {
+    if (item[0].includes(keyword) || item[1].includes(keyword)) {
+      results.push(item);
+    }
+  });
+  return results;
 });
-
-// 控制 Dialog 组件是否显示
-const ShowDialogFlag = ref(false);
-// 父组件传递的事件
-let $Emit = defineEmits(["NewChat"]);
-
-// 展示 身份选择器
-const ShowMask = () => {
-  // 显示 选择身份的组件
-  ShowDialogFlag.value = true;
-};
+// 为了后续的增加
+prompts.unshift(["euwriout", "ewoiruuuuuuuuuuuu"]);
 
 // 选择新的身份 与GPT对话
 const ChoiceMaskChat = (maskStr) => {
   console.log(maskStr);
-  // 父组件的事件  新对话
-  // $Emit("NewChat");
+};
+
+// 返回上一级
+const GobackOne = () => {
+  $Router.back();
 };
 </script>
 
 <template>
-  <!--  -->
-  <div class="SliderItemTop" @click="ShowMask">
-    <div>
-      <svg
-        t="1707375433941"
-        class="icon"
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        p-id="7607"
-        width="24"
-        height="24">
-        <path
-          d="M709.792 477.248c-21.568-49.408-70.304-73.92-108.864-54.72-38.528 19.2-52.288 74.816-30.72 124.224 21.568 49.408 70.304 73.92 108.864 54.72 38.528-19.2 52.288-74.816 30.72-124.224zM314.208 477.248c21.568-49.408 70.304-73.92 108.864-54.72 38.528 19.2 52.288 74.816 30.72 124.224-21.568 49.408-70.304 73.92-108.864 54.72-38.528-19.2-52.288-74.816-30.72-124.224z"
-          fill="#53b1e2"
-          p-id="7608"></path>
-        <path
-          d="M628.864 400c-12.32 0-24.128 2.752-35.04 8.224-46.016 22.912-63.168 87.904-38.304 144.96 18.784 43.008 56.32 70.816 95.616 70.816 12.32 0 24.128-2.752 35.04-8.224 46.016-22.912 63.168-87.904 38.304-144.96-18.784-43.008-56.32-70.816-95.616-70.816z m43.072 187.136a46.08 46.08 0 0 1-20.8 4.864c-26.144 0-52.8-20.736-66.272-51.648-18.208-41.632-7.776-88.064 23.2-103.488a46.08 46.08 0 0 1 20.8-4.864c26.144 0 52.8 20.736 66.272 51.648 18.208 41.632 7.776 88.064-23.2 103.488zM468.48 553.184c24.864-57.056 7.712-122.048-38.272-144.96a77.984 77.984 0 0 0-35.072-8.224c-39.296 0-76.8 27.84-95.584 70.816-24.896 57.056-7.744 122.048 38.24 144.96 10.944 5.44 22.752 8.224 35.072 8.224 39.296 0 76.8-27.84 95.584-70.816z m-116.416 33.92c-30.976-15.392-41.408-61.824-23.2-103.456 13.472-30.912 40.128-51.648 66.272-51.648 7.328 0 14.304 1.632 20.8 4.864 30.976 15.424 41.408 61.856 23.2 103.488-17.28 39.552-57.408 61.568-87.072 46.784z"
-          fill="#53b1e2"
-          p-id="7609"></path>
-        <path
-          d="M640 544m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z"
-          fill="#53b1e2"
-          p-id="7610"></path>
-        <path
-          d="M384 544m-32 0a32 32 0 1 0 64 0 32 32 0 1 0-64 0Z"
-          fill="#53b1e2"
-          p-id="7611"></path>
-        <path
-          d="M832 64c-54.4 0-106.272 23.552-142.464 63.584C635.616 107.168 575.776 96 512 96c-63.744 0-123.584 11.168-177.472 31.552A191.744 191.744 0 0 0 192 64C86.112 64 0 150.112 0 256c0 60.64 29.12 117.6 77.12 153.6A415.168 415.168 0 0 0 64 512c0 247.04 200.96 448 448 448s448-200.96 448-448c0-35.68-4.864-69.824-13.12-102.464A192.864 192.864 0 0 0 1024 256c0-105.888-86.112-192-192-192zM64 256c0-70.592 57.408-128 128-128 29.856 0 58.176 10.56 80.736 28.96-77.28 43.648-137.824 108.32-173.248 187.2A128.384 128.384 0 0 1 64 256z m448 640C300.256 896 128 723.744 128 512 128 308.032 289.504 160 512 160s384 148.032 384 352c0 211.744-172.256 384-384 384z m412.544-551.776c-35.456-78.944-96.032-143.68-173.344-187.296A128.48 128.48 0 0 1 832 128c70.592 0 128 57.408 128 128 0 33.12-13.12 64.64-35.456 88.224z"
-          fill="#53b1e2"
-          p-id="7612"></path>
-        <path
-          d="M623.232 669.888a16 16 0 0 0-15.264 16.704c0.896 20.928-11.616 39.456-30.464 45.024a46.624 46.624 0 0 1-44.736-11.392 81.376 81.376 0 0 1-6.528-7.52c-5.376-10.56-22.816-10.656-28.384-0.192-1.12 1.6-3.616 4.608-6.624 7.68-11.328 11.52-29.76 16.512-44.736 12.064-18.56-5.504-31.36-24.576-30.464-45.376a16 16 0 1 0-31.968-1.408c-1.568 35.84 20.352 67.712 53.344 77.44 6.592 1.984 13.504 2.912 20.48 2.912 19.616 0 39.584-7.552 54.112-21.184 19.36 18.112 48.96 25.248 74.592 17.664 32.96-9.76 54.88-41.472 53.344-77.12a15.936 15.936 0 0 0-16.704-15.296z"
-          fill="#53b1e2"
-          p-id="7613"></path>
-      </svg>
-    </div>
-    <span>面具</span>
-  </div>
-  <Teleport to="body">
-    <!-- -->
-    <el-dialog
-      v-model="ShowDialogFlag"
-      title="选择一个新身份,开始新对话!"
-      :width="DialogWidth"
-      :close-on-click-modal="false"
-      align-center>
-      <!-- <template #header>
-        <div></div>
-      </template> -->
-
-      <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.8">
-        <div v-for="item in ProxyPrompts" class="border-2 rounded-lg shadow-md mb-3 cursor-pointer">
-          <div class="p-2 flex flex-col" @click="ChoiceMaskChat(item[1])">
-            <!-- title -->
-            <span class="text-2xl font-normal w-60 text-black">{{ item[0] }}</span>
-            <!-- content -->
-            <span class="truncate">
-              {{ item[1] }}
-            </span>
+  <!--  bg-violet-100 -->
+  <div class="w-full h-full">
+    <!-- 工具栏 -->
+    <div class="flex justify-between items-center gap-1 px-2 pb-4">
+      <!-- 返回 -->
+      <button class="btn maxd:btn-sm" @click="GobackOne">
+        <div class="flex justify-start items-center cursor-pointer">
+          <div>
+            <svg
+              t="1707725610910"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="4193"
+              width="24"
+              height="24">
+              <path
+                d="M659.748571 245.272381l-51.687619-51.687619-318.439619 318.585905 318.415238 318.268952 51.712-51.736381-266.703238-266.556952z"
+                p-id="4194"></path>
+            </svg>
           </div>
+          <span>返回</span>
         </div>
-      </el-scrollbar>
-      <template #footer>
-        <div>
-          <el-button @click="ShowDialogFlag = false">Cancel</el-button>
-          <el-button type="primary" @click="ShowDialogFlag = false"> Sure </el-button>
+      </button>
+      <!-- 搜索 -->
+      <input
+        v-model.trim="SearchInput"
+        class="shadow appearance-none border rounded-xl w-[70%] h-11 maxd:h-8 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-1"
+        type="text"
+        placeholder="搜索预设角色" />
+      <!-- 新建 -->
+      <button class="btn maxd:btn-sm">
+        <div class="flex justify-start items-center cursor-pointer gap-1">
+          <div>
+            <svg
+              t="1707726966085"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="6397"
+              width="24"
+              height="24">
+              <path
+                d="M512 938.667c-235.264 0-426.667-191.424-426.667-426.645 0-235.264 191.403-426.688 426.667-426.688 235.243 0 426.667 191.424 426.667 426.688 0 235.221-191.424 426.645-426.667 426.645zM512 128c-211.733 0-384 172.267-384 384.021 0 211.733 172.267 383.979 384 383.979s384-172.245 384-383.979c0-211.755-172.267-384.021-384-384.021z"
+                p-id="6398"></path>
+              <path d="M490.667 277.333l42.667 0 0 469.333-42.667 0 0-469.333z" p-id="6399"></path>
+              <path d="M277.333 490.667l469.333 0 0 42.667-469.333 0 0-42.667z" p-id="6400"></path>
+            </svg>
+          </div>
+          <span>新建</span>
         </div>
-      </template>
-    </el-dialog>
-  </Teleport>
+      </button>
+    </div>
+    <!-- 主体  -->
+    <el-scrollbar ref="El_Scrollbar" :max-height="ParametsSetting.BottomHeight * 0.8">
+      <div v-for="item in ProxyPrompts" class="border-2 rounded-lg shadow-md mb-3 cursor-pointer">
+        <div class="p-2 flex flex-col" @click="ChoiceMaskChat(item[1])">
+          <!-- title -->
+          <span class="text-2xl font-normal whitespace-nowrap w-60 text-black">{{ item[0] }}</span>
+          <!-- content -->
+          <span class="truncate">
+            {{ item[1] }}
+          </span>
+        </div>
+      </div>
+    </el-scrollbar>
+  </div>
 </template>
 
 <style scoped></style>

@@ -5,6 +5,8 @@ import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
+import { useRouter } from "vue-router";
+let $Router = useRouter();
 
 // 父组件传递的 数据
 const { ChatInfo } = defineProps({
@@ -16,7 +18,7 @@ const { ChatInfo } = defineProps({
 const $Emit = defineEmits(["DeleteMsg", "ChangeTitle"]);
 
 // 为了不打破单项数据流 使用computed处理 ChatInfo.title
-let TempTitle = computed({
+let ComputedTitle = computed({
   get() {
     return ChatInfo.title;
   },
@@ -35,12 +37,11 @@ const DeleteMsg = () => {
   $Emit("DeleteMsg", ChatInfo.uuid);
   // 判断删除的是不是当前对话
   if (ChatInfo.uuid === CurrentChatInfo.uuid) {
+    // 置空当前对话的UUID
     CurrentChatInfo.ChangeUUID("");
+    // 返回 对应的路由
+    $Router.push("/chat");
   }
-};
-// input 失去焦点 的回调
-const InputBlur = () => {
-  ReNameFlag.value = false;
 };
 // SliderItem 点击之后 通过TWCSS改变背景颜色
 const SliderItemChangeBGC = ($event, uuid) => {
@@ -72,11 +73,31 @@ const SliderItemClick = ($event, uuid) => {
   // 改BGC
   SliderItemChangeBGC($event, uuid);
   // 1.通知兄弟组件 并把UUID传过去
-  CurrentChatInfo.ChangeUUID(uuid);
+  // CurrentChatInfo.ChangeUUID(uuid);
   // 2.如果 w_phone为真的话 还要把 el-drawer 关掉
   if (ParametsSetting.w_phone) {
     ParametsSetting.SliderBarDrawerFlag = false;
   }
+};
+
+// 保存 ComputedTitle  的临时数据
+let TempData_title = ref("");
+// input 获得焦点 的回调
+const InputFocus = () => {
+  // 聚焦时 保存数据
+  TempData_title.value = ComputedTitle.value;
+};
+// input 失去焦点 的回调
+const InputBlur = () => {
+  // 判断数据是否为空
+  if (!ComputedTitle.value) {
+    // 空的话 把临时数据 改回去
+    ComputedTitle.value = TempData_title.value;
+  }
+  // 显示span
+  ReNameFlag.value = false;
+  // 置空 TempData_title
+  TempData_title.value = "";
 };
 
 // 在模板中启用 v-focus 在 <script setup> 中 任何以 v 开头的驼峰式命名的变量都可以被用作一个自定义指令
@@ -95,35 +116,25 @@ const vFocus = {
 
 <template>
   <!-- bg-gray-300  hover:bg-gray-200-->
-  <!-- 添加自定义属性[uuid] -->
+  <!-- 添加自定义属性[uuid]     -->
   <div
     :uuid="ChatInfo.uuid"
     class="bg-[#fff] shadow-md mb-2 flex justify-between items-center p-3 rounded-lg cursor-pointer"
     @mouseenter="SliderItemMouseEnter"
     @mouseleave="SliderItemMouseLeave"
     @click.self="SliderItemClick($event, ChatInfo.uuid)">
-    <span
-      v-if="!ReNameFlag"
-      @click.self="SliderItemClick($event, ChatInfo.uuid)"
-      class="truncate"
-      >{{ TempTitle }}</span
-    >
+    <span v-if="!ReNameFlag" @click.self="SliderItemClick($event, ChatInfo.uuid)" class="truncate">
+      {{ ComputedTitle }}
+    </span>
     <el-input
       v-else
-      v-model.lazy="TempTitle"
+      v-model.trim="ComputedTitle"
       class="h-[26px]"
       v-focus
       clearable
+      @focus="InputFocus"
       @blur="InputBlur"
       @keyup.enter="InputBlur" />
-    <!-- <el-input
-      v-else
-      v-model.lazy="TempTitle"
-      class="h-[26px]"
-      v-focus
-      @blur="InputBlur"
-      @keyup.enter="InputBlur"
-      clearable /> -->
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
         <button>

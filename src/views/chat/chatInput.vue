@@ -7,6 +7,9 @@ let ParametsSetting = useParametsSettingStore();
 import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
+import { useRouter } from "vue-router";
+let $Router = useRouter();
+
 // ChatInput组件元素
 const ChatInput = ref(null);
 // 控制ChatInput组件的高度
@@ -14,6 +17,7 @@ watch(
   () => ParametsSetting.BottomRight_ChatInputHeight,
   (newValue) => {
     nextTick(() => {
+      ChatInput.value.style.MinHeight = `79px`;
       ChatInput.value.style.height = `${newValue}px`;
     });
   },
@@ -44,6 +48,10 @@ watch(
 let InputValue = ref("");
 // 发送按钮 点击事件
 const SendButton = () => {
+  // 如果 判断为真 说明正在发送网络请求 禁用 SendButton 函数
+  if (CurrentChatInfo.ShowStopButtonFlag) {
+    return;
+  }
   // 简单的校验
   if (!InputValue.value.trim()) {
     return;
@@ -54,13 +62,19 @@ const SendButton = () => {
   CurrentChatInfo.UserQuestion(InputValue.value);
   // 置空
   InputValue.value = "";
+  let tempUUID;
   if (!CurrentChatInfo.uuid) {
-    CurrentChatInfo.ChangeUUID(generateUUID());
+    // 新建对话
+    // 生成UUID
+    tempUUID = generateUUID();
+    CurrentChatInfo.ChangeUUID(tempUUID);
   }
-
+  // 通过GPT获取回答
   CurrentChatInfo.GetGPTMsg(() => {
     // 让按钮消失
     CurrentChatInfo.ShowStopButtonFlag = false;
+    // tempUUID有值  说明是新建对话，所以要改变当前的路由
+    tempUUID && $Router.push(`/chat/${tempUUID}`);
   });
 };
 

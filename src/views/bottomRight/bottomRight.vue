@@ -1,8 +1,6 @@
 <script setup>
 import { ref, watch, nextTick } from "vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
-import ChatContainer from "./chatContainer.vue";
-import ChatInput from "./chatInput.vue";
 let ParametsSetting = useParametsSettingStore();
 
 // BottomRight 组件元素
@@ -23,13 +21,25 @@ watch(
 
 <template>
   <div ref="BottomRight" class="p-2">
-    <div class="chatContainer">
-      <ChatContainer></ChatContainer>
-    </div>
-    <div class="chatInput">
-      <ChatInput></ChatInput>
-    </div>
+    <!-- 二级路由出口 -->
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-from {
+  opacity: 0;
+  transform: scale(0);
+}
+.fade-enter-active {
+  transition: all 0.3s;
+}
+.fade-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+</style>

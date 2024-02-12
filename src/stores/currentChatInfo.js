@@ -26,7 +26,6 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   // 改变UUID
   const ChangeUUID = (uuidStr) => {
     uuid.value = uuidStr;
-
   }
 
   /**
@@ -39,6 +38,23 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     () => uuid.value,
     (newValue, oldValue) => {
       console.log("current uuid改动了");
+
+      // 添加类样式
+      nextTick(() => {
+        // 加到微队列
+        Promise.resolve().then(() => {
+          // 获取所有带有 'uuid' 属性的元素
+          let elements = document.querySelectorAll("[uuid]");
+          // 遍历元素 排他  再上样式
+          elements.forEach((element) => {
+            let element_uuid = element.getAttribute("uuid");
+            element.classList.remove("bg-gray-300");
+            if (element_uuid === newValue) {
+              element.classList.add("bg-gray-300");
+            }
+          });
+        });
+      });
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
@@ -72,22 +88,6 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         // 存储到大仓库
         GlobalInformation.AddChat(TempChatInfo)
       }
-      // 添加类样式
-      nextTick(() => {
-        // 加到微队列
-        Promise.resolve().then(() => {
-          // 获取所有带有 'uuid' 属性的元素
-          let elements = document.querySelectorAll("[uuid]");
-          // 遍历元素 排他 上样式
-          elements.forEach((element) => {
-            let element_uuid = element.getAttribute("uuid");
-            element.classList.remove("bg-gray-300");
-            if (element_uuid === newValue) {
-              element.classList.add("bg-gray-300");
-            }
-          });
-        })
-      })
 
       // uuid 变化的时候 有网络请求就,中断网课请求; 没有就算了
       if (controller.value === null) {
@@ -118,8 +118,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         return;
       }
       let result = newValue.find((item) => item.role == "user");
-      // title  不要太长 32就够了
-      title.value = result.content.substring(0, 32);
+      // title  不要太长 36就够了
+      title.value = result.content.substring(0, 36);
     },
     {
       deep: true,
@@ -135,12 +135,12 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     // 这里再做一些判断 
     // 处理网路返回的信息
     HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, () => {
-      // 这个callback 是 chatInput.vue 的
-      callback && callback();
       // 下面这部分是 currentChatInfo.js 的
       // 网络请求结束后把 仓库的终止信号 置空
       controller.value = null;
       signal.value = null;
+      // 这个callback 是 chatInput.vue 的
+      callback && callback();
     })
   }
 

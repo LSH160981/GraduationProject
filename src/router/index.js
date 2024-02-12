@@ -13,7 +13,25 @@ const router = createRouter({
     {
       path: '/',
       name: '/',
-      component: () => import('@/layout/layout.vue')
+      component: () => import('@/layout/layout.vue'),
+      redirect: "/chat",
+      children: [
+        {
+          path: 'chat/:uuid?',
+          name: 'chat',
+          component: () => import('@/views/chat/chat.vue'),
+        },
+        {
+          path: 'setting',
+          name: 'setting',
+          component: () => import('@/components/Setting.vue'),
+        },
+        {
+          path: 'maskplay',
+          name: 'maskplay',
+          component: () => import('@/components/MaskPlay.vue'),
+        },
+      ]
     },
     // 404 
     {
