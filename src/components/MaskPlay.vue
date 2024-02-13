@@ -1,42 +1,59 @@
 <script setup>
 import { computed, ref, nextTick } from "vue";
-import { useRouter } from "vue-router";
-let $Router = useRouter();
-import prompts from "@/assets/prompts"; // 预设值
+import { generateUUID } from "@/utils/GenerateUUID";
+import masks from "@/assets/masks"; // 预设值
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
+import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+let CurrentChatInfo = useCurrentChatInfoStore();
+import { useRouter } from "vue-router";
+let $Router = useRouter();
 
 // ElScrollbar组件元素
 const El_Scrollbar = ref(null);
 
 // 搜索框的值
 let SearchInput = ref("");
-// ProxyPrompts 等于 原始数据 + 搜索框的值
-let ProxyPrompts = computed(() => {
+// ProxyMasks 等于 原始数据 + 搜索框的值
+let ProxyMasks = computed(() => {
   // 去到 El-Scrollbar 顶部
   nextTick(() => {
     El_Scrollbar.value.setScrollTop(0);
   });
   let results = [];
   let keyword = SearchInput.value;
-  prompts.forEach((item) => {
+  masks.forEach((item) => {
     if (item[0].includes(keyword) || item[1].includes(keyword)) {
       results.push(item);
     }
   });
   return results;
 });
-// 为了后续的增加
-prompts.unshift(["euwriout", "ewoiruuuuuuuuuuuu"]);
 
 // 选择新的身份 与GPT对话
 const ChoiceMaskChat = (maskStr) => {
-  console.log(maskStr);
+  // 生成UUID
+  let G_UUID = generateUUID();
+  // 改 当前对话的UUID
+  CurrentChatInfo.ChangeUUID(G_UUID);
+  // 添加 当前对话的 系统提示词
+  CurrentChatInfo.messages.push({
+    role: "system",
+    content: maskStr,
+  });
+  // 路由的跳转
+  $Router.push(`/chat/${G_UUID}`);
 };
 
 // 返回上一级
 const GobackOne = () => {
   $Router.back();
+};
+
+// 新建一个预设角色
+const NewMaskplay = () => {
+  // 为了后续的增加
+  masks.unshift(["euwriout", "ewoiruuuuuuuuuuuu"]);
 };
 </script>
 
@@ -69,11 +86,12 @@ const GobackOne = () => {
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"
+        v-focus
         class="shadow appearance-none border rounded-xl w-[70%] h-11 maxd:h-8 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-1"
         type="text"
         placeholder="搜索预设角色" />
       <!-- 新建 -->
-      <button class="btn maxd:btn-sm">
+      <button class="btn maxd:btn-sm" @click="NewMaskplay">
         <div class="flex justify-start items-center cursor-pointer gap-1">
           <div>
             <svg
@@ -98,8 +116,8 @@ const GobackOne = () => {
     </div>
     <!-- 主体  -->
     <el-scrollbar ref="El_Scrollbar" :max-height="ParametsSetting.BottomHeight * 0.8">
-      <div v-for="item in ProxyPrompts" class="border-2 rounded-lg shadow-md mb-3 cursor-pointer">
-        <div class="p-2 flex flex-col" @click="ChoiceMaskChat(item[1])">
+      <div v-for="item in ProxyMasks" class="border-2 rounded-lg shadow-md mb-3 cursor-pointer">
+        <div class="p-2 flex flex-col hover:bg-violet-200" @click="ChoiceMaskChat(item[1])">
           <!-- title -->
           <span class="text-2xl font-normal whitespace-nowrap w-60 text-black">{{ item[0] }}</span>
           <!-- content -->

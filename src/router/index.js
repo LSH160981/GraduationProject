@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { GetToken } from "@/utils/HandlerToken.js";
 
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -65,14 +64,14 @@ router.beforeEach((to, from) => {
       console.log(to.name !== 'login'); 第二次 false 说明你就是去的login 我就不管了 直接通行
     */
     if (to.name !== 'login') {
-      return { name: 'login' }
+      return { name: 'login' };
     }
   } else {
     // 登陆过 有 token
     // 登录过后 不允许进入login
     if (to.name == 'login') {
       // 从哪来，回哪去
-      return { name: from.name }
+      return { name: from.name };
     }
   }
 })

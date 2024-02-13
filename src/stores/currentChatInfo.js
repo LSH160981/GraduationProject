@@ -58,7 +58,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
-        console.log('新建对话');
+        console.log('新建对话 current uuid为空');
         messages.value = [];
         // 让chatInput.vue 中的停止按钮 消失
         ShowStopButtonFlag.value = false;
@@ -78,8 +78,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         messages.value = result.messages;
         title.value = result.title;
       } else {
-        // 2.新对话 重新生成的uuid bottomRight 传过来
-        //  bottomRight 传过来的话，肯定由 chatInput.vue 提供第一个问题
+        console.log('新建对话 current uuid 有值');
+        // 2.新对话 重新生成的uuid 其他的组件 传过来 
         let TempChatInfo = {
           uuid: newValue,
           title: title.value,
@@ -89,7 +89,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         GlobalInformation.AddChat(TempChatInfo)
       }
 
-      // uuid 变化的时候 有网络请求就,中断网课请求; 没有就算了
+      // uuid 变化的时候 有网络请求,就中断网络请求; 没有就算了
       if (controller.value === null) {
         // 进入这里说明没有发起过网络请求 什么都不干
       } else {
@@ -114,10 +114,16 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   watch(
     () => messages.value,
     (newValue) => {
+      console.log("Current msg 变了");
       if (toRaw(newValue).length <= 0) {
         return;
       }
       let result = newValue.find((item) => item.role == "user");
+      // 找不到结果就结束
+      if (!result) {
+        title.value = "New Chat"
+        return
+      }
       // title  不要太长 36就够了
       title.value = result.content.substring(0, 36);
     },
@@ -126,13 +132,26 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     }
   )
 
+  /**
+   * title 变化
+   * 当前对话的title发生变化通知，主仓库通过UUID改对应的title
+   */
+  watch(
+    () => title.value,
+    (newTitle) => {
+      // 确定当前对话的UUID,主仓库是存在的
+      if (GlobalInformation.AllUUID.includes(uuid.value)) {
+        GlobalInformation.ChangeChatTitleByUUID(uuid.value, newTitle)
+      } else {
+        throw new Error("current chat the UUID not finded");
+      }
+    })
+
   // 通过GPT获取问题的答案
   const GetGPTMsg = (callback) => {
     // 每次调用该函数 就设置一次新的终止信号
     controller.value = new AbortController();
     signal.value = controller.value.signal;
-
-    // 这里再做一些判断 
     // 处理网路返回的信息
     HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, () => {
       // 下面这部分是 currentChatInfo.js 的

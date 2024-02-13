@@ -1,15 +1,16 @@
 // tailwindcss
-import './assets/main.css'
+import './assets/main.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+import router from './router'; // 路由
+import GlobalDirective from "@/utils/MyDirective"; // 自定义的全局指令
 
 // el-plus
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 
 // 预览组件以及样式
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
@@ -36,14 +37,15 @@ VMdPreview.use(vuepressTheme, {
 // 鼠标放置在代码区域，会出现复制按钮：
 VMdPreview.use(createCopyCodePlugin());
 // markdown支持显示代码行数
-VMdPreview.use(createLineNumbertPlugin())
+VMdPreview.use(createLineNumbertPlugin());
 // 数学函数 解析
-VMdPreview.use(createKatexPlugin())
+VMdPreview.use(createKatexPlugin());
 
-const app = createApp(App)
-app.use(createPinia()) // pinia插件
-app.use(ElementPlus) // el-ui
-app.use(router) // 路由
-app.use(VMdPreview);// use v-md-editor预览组件
+const app = createApp(App);
+app.use(createPinia()); // pinia插件
+app.use(ElementPlus); // el-ui
+app.use(router); // 路由
+app.use(VMdPreview); // use v-md-editor预览组件
+app.use(GlobalDirective); // 自定义指令
 
 app.mount('#app')

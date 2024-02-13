@@ -100,18 +100,19 @@ const InputBlur = () => {
   TempData_title.value = "";
 };
 
+// 这个指令(v-focus)已经被注册为全局指令 下面的注释，仅仅留作参考
 // 在模板中启用 v-focus 在 <script setup> 中 任何以 v 开头的驼峰式命名的变量都可以被用作一个自定义指令
-const vFocus = {
-  mounted: (el) => {
-    let input = el.querySelector("input");
-    // 这个30毫秒是适配移动端
-    setTimeout(() => {
-      nextTick(() => {
-        input.focus(); // 原生聚焦
-      });
-    }, 30);
-  },
-};
+// const vFocus = {
+//   mounted: (el) => {
+//     let input = el.querySelector("input");
+//     // 这个30毫秒是适配移动端
+//     setTimeout(() => {
+//       nextTick(() => {
+//         input.focus(); // 原生聚焦
+//       });
+//     }, 30);
+//   },
+// };
 </script>
 
 <template>

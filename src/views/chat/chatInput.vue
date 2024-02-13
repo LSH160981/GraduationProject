@@ -102,6 +102,8 @@ const StopFetch = () => {
     <!-- 不要让这个按钮 破坏下面的结果 -->
     <div class="relative -top-3">
       <div v-show="CurrentChatInfo.ShowStopButtonFlag">
+        <!-- 重新生成按钮 -->
+        <!-- 停止当前对话按钮 -->
         <el-button link @click="StopFetch">
           <div class="rounded-md flex justify-between items-center gap-1">
             <span>
@@ -131,6 +133,7 @@ const StopFetch = () => {
       <el-input
         v-model.lazy="InputValue"
         @keyup.enter="SendButton"
+        v-focus
         size="large"
         placeholder="我今天能帮你什么?">
         <template #suffix>
