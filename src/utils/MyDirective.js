@@ -16,12 +16,16 @@ export default {
                 // 如果该元素本身就是 input 直接聚焦
                 if (el.nodeName === 'INPUT') {
                     el.focus();
+                    el.select()
                     return
                 }
                 // 如果是 el-input 组件 通过querySelector选中子元素中的 input 再去聚焦
                 let input = el.querySelector("input");
                 nextTick(() => {
-                    input.focus(); // 原生聚焦
+                    setTimeout(() => {
+                        input.focus(); // 原生聚焦
+                        input.select(); // 原生全选
+                    }, 30);
                 });
             }
         })

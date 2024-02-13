@@ -1,4 +1,4 @@
-import { ref, toRaw, watch, nextTick, isProxy } from 'vue'
+import { ref, toRaw, watch, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import { HandlerGPTReturnInfo } from '@/utils/HandlerGPTReturnInfo.js';
 import { useGlobalInformationStore } from './GlobalInformation.js'
@@ -7,7 +7,6 @@ let GlobalInformation = useGlobalInformationStore();
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   let uuid = ref("");
   let messages = ref([]);
-  let title = ref("New Chat");
   // 控制 停止对话的按钮 是否显示
   let ShowStopButtonFlag = ref(false);
   // 设置一个终止信号
@@ -76,13 +75,14 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         // console.log(isProxy(result.messages)); // true
         // 数据在这里实现 数据联动
         messages.value = result.messages;
-        title.value = result.title;
+        // title.value = result.title;
       } else {
         console.log('新建对话 current uuid 有值');
+        let TempTitle = messages.value.find((item) => item.role == "user");
         // 2.新对话 重新生成的uuid 其他的组件 传过来 
         let TempChatInfo = {
           uuid: newValue,
-          title: title.value,
+          title: TempTitle ? TempTitle.content : "New Chat",
           messages: messages.value
         }
         // 存储到大仓库
@@ -107,9 +107,10 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     },
   )
 
+  // 值为真 运行当前对话更改大仓库的标题。false：不允许
+  let changeTltleFlag = ref(true);
   /**
-   * messages 变化
-   * 要确定当前对话的title
+   * messages 变化 
    */
   watch(
     () => messages.value,
@@ -118,34 +119,18 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
       if (toRaw(newValue).length <= 0) {
         return;
       }
-      let result = newValue.find((item) => item.role == "user");
-      // 找不到结果就结束
-      if (!result) {
-        title.value = "New Chat"
-        return
+      // 第一个角色必须是 system 也就是从 MaskPlay.vue 来的才允许更改
+      if (newValue[0].role == "system") {
+        let result = newValue.find((item) => item.role == "user");
+        // 有结果 且 changeTltleFlag 为真
+        if (result && changeTltleFlag.value) {
+          GlobalInformation.ChangeChatTitleByUUID(uuid.value, result.content);
+          // 这里表示每一次新对话只允许改一次
+          changeTltleFlag.value = false
+        }
       }
-      // title  不要太长 36就够了
-      title.value = result.content.substring(0, 36);
-    },
-    {
-      deep: true,
-    }
+    }, { deep: true }
   )
-
-  /**
-   * title 变化
-   * 当前对话的title发生变化通知，主仓库通过UUID改对应的title
-   */
-  watch(
-    () => title.value,
-    (newTitle) => {
-      // 确定当前对话的UUID,主仓库是存在的
-      if (GlobalInformation.AllUUID.includes(uuid.value)) {
-        GlobalInformation.ChangeChatTitleByUUID(uuid.value, newTitle)
-      } else {
-        throw new Error("current chat the UUID not finded");
-      }
-    })
 
   // 通过GPT获取问题的答案
   const GetGPTMsg = (callback) => {
@@ -165,7 +150,8 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
   return {
     ShowStopButtonFlag,
-    uuid, title, messages, ChangeUUID, UserQuestion, GetGPTMsg,
-    controller, signal
+    uuid, messages, ChangeUUID, UserQuestion, GetGPTMsg,
+    controller, signal,
+    changeTltleFlag
   }
 })

@@ -16,7 +16,11 @@ watch(
   () => ParametsSetting.BottomHeight,
   (newValue) => {
     nextTick(() => {
-      BottomLeft.value.style.height = `${newValue}px`;
+      if (ParametsSetting.w_phone) {
+        BottomLeft.value.style.height = `100vh`;
+      } else {
+        BottomLeft.value.style.height = `${newValue}px`;
+      }
     });
   },
   {

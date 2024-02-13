@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, nextTick } from "vue";
+import { ref, computed } from "vue";
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
@@ -124,13 +124,16 @@ const InputBlur = () => {
     @mouseenter="SliderItemMouseEnter"
     @mouseleave="SliderItemMouseLeave"
     @click.self="SliderItemClick($event, ChatInfo.uuid)">
-    <span v-if="!ReNameFlag" @click.self="SliderItemClick($event, ChatInfo.uuid)" class="truncate">
+    <span
+      v-if="!ReNameFlag"
+      @click.self="SliderItemClick($event, ChatInfo.uuid)"
+      class="truncate selection:bg-sky-300">
       {{ ComputedTitle }}
     </span>
     <el-input
       v-else
       v-model.trim="ComputedTitle"
-      class="h-[26px]"
+      class="h-[26px] text-xs"
       v-focus
       clearable
       @focus="InputFocus"

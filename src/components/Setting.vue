@@ -1,8 +1,12 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import RangeInput from "./RangeInput.vue";
+</script>
 
 <template>
-  <div class="w-full h-full bg-rose-50">
-    
+  <!-- bg-rose-50 -->
+  <div class="w-full h-full ">
+    <RangeInput />
   </div>
 </template>
 

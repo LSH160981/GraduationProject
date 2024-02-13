@@ -55,13 +55,13 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
   }
 
   // 通过UUID更改 某一个 对话
-  const ChangeChatMessagesByUUID = (uuid, messages) => {
-    AllChatInfo.value.forEach((item) => {
-      if (item.uuid === uuid) {
-        item.messages = messages;
-      }
-    })
-  }
+  // const ChangeChatMessagesByUUID = (uuid, messages) => {
+  //   AllChatInfo.value.forEach((item) => {
+  //     if (item.uuid === uuid) {
+  //       item.messages = messages;
+  //     }
+  //   })
+  // }
 
   // 通过UUID删除某一个对话
   const DeleteChatByUUID = (uuid) => {
@@ -83,7 +83,7 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
 
   return {
     AllChatInfo, AllUUID,
-    DeleteChatByUUID, ChangeChatTitleByUUID, ChangeChatMessagesByUUID,
+    DeleteChatByUUID, ChangeChatTitleByUUID,
     GetChatInfoByUUID, AddChat
   }
 })
