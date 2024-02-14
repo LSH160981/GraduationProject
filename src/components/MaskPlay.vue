@@ -192,7 +192,7 @@ const DialogSure = () => {
         v-for="item in ProxyMasks"
         :key="item[0]"
         class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer">
-        <div class="p-2 flex flex-col hover:bg-violet-100" @click="ChoiceMaskChat(item[1])">
+        <div class="p-3 flex flex-col hover:bg-violet-100" @click="ChoiceMaskChat(item[1])">
           <!-- title -->
           <span class="text-2xl font-normal whitespace-nowrap w-60 text-black">
             {{ item[0] }}
@@ -206,7 +206,7 @@ const DialogSure = () => {
         <button
           v-if="item[2]"
           @click="DeleteUserMask(item[2])"
-          class="absolute top-1/2 right-0 transform -translate-y-1/2 btn bg-rose-200 hover:bg-rose-500 mr-5">
+          class="w-16 h-11 rounded-md mr-5 bg-rose-300 transition-all absolute top-1/2 right-0 -translate-y-1/2 hover:bg-rose-500 active:scale-90">
           删除
         </button>
       </div>

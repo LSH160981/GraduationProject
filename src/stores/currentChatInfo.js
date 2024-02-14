@@ -108,7 +108,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   )
 
   // 值为真 运行当前对话更改大仓库的标题。false：不允许
-  let changeTltleFlag = ref(true);
+  let changeTltleFlag = ref(false);
   /**
    * messages 变化 
    */
