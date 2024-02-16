@@ -63,6 +63,11 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
   //   })
   // }
 
+  // 清除所有的对话信息
+  const ClearAllChatInfo = () => {
+    AllChatInfo.value = []
+  }
+
   // 通过UUID删除某一个对话
   const DeleteChatByUUID = (uuid) => {
     AllChatInfo.value = AllChatInfo.value.filter(chat => chat.uuid !== uuid);
@@ -84,6 +89,7 @@ export const useGlobalInformationStore = defineStore('GlobalInformation', () => 
   return {
     AllChatInfo, AllUUID,
     DeleteChatByUUID, ChangeChatTitleByUUID,
-    GetChatInfoByUUID, AddChat
+    GetChatInfoByUUID, AddChat,
+    ClearAllChatInfo
   }
 })

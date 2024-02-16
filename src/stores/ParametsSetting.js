@@ -51,6 +51,24 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
       return BottomHeight.value * 0.15 - 8
     }
   })
+  // 在layout.vue文件中 决定 BottomLeft BottomRight 的宽占比 (el-plus的el-col)
+  let BottomLeftWidth = ref(6);
+  let BottomRightWidth = ref(18);
+  // 在特定情况下 修改 BottomLeftWidth BottomRightWidth 的值
+  const ChangeBottomWidth = () => {
+    // 必须是大屏幕才能 作数 
+    if (w_phone.value) { return; }
+
+    if (BottomLeftWidth.value === 6) {
+      // 左6 右18 ---> 左0 右24 
+      BottomLeftWidth.value = 0;
+      BottomRightWidth.value = 24;
+    } else if (BottomLeftWidth.value === 0) {
+      // 左0 右24 ---> 左6 右18
+      BottomLeftWidth.value = 6;
+      BottomRightWidth.value = 18;
+    }
+  }
 
   window.addEventListener('resize', () => {
     BrowserWidth.value = window.innerWidth;
@@ -60,6 +78,7 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   return {
     BrowserWidth, w_phone, ContainerWidth, ContainerHeight,
     SliderBarDrawerFlag,
-    BottomHeight, BottomRight_ChatContainerHeight, BottomRight_ChatInputHeight
+    BottomHeight, BottomRight_ChatContainerHeight, BottomRight_ChatInputHeight,
+    BottomLeftWidth, BottomRightWidth, ChangeBottomWidth
   }
 })

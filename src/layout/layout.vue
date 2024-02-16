@@ -17,10 +17,10 @@ let ParametsSetting = useParametsSettingStore();
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6" :xs="0">
+        <el-col :span="ParametsSetting.BottomLeftWidth" :xs="0">
           <BottomLeft></BottomLeft>
         </el-col>
-        <el-col :span="18" :xs="24">
+        <el-col :span="ParametsSetting.BottomRightWidth" :xs="24">
           <BottomRight></BottomRight>
         </el-col>
       </el-row>
