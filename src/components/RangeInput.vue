@@ -28,32 +28,32 @@ const onChange = (e) => {
   display: flex;
   justify-content: space-between;
   max-width: 40%;
+}
 
-  input[type="range"] {
-    max-width: calc(100% - 34px);
-    appearance: none;
-    background-color: #fff;
-    color: #303030;
-    transition: all 0.3s;
-  }
-  input[type="range"]:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
+input[type="range"] {
+  max-width: calc(100% - 34px);
+  appearance: none;
+  background-color: #fff;
+  color: #303030;
+  transition: all 0.3s;
+}
+input[type="range"]:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 
-  input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: var(--RangeContent-w);
-    height: var(--RangeContent-h);
-    background: var(--RangeContent-bgc);
-    border-radius: 5px;
-  }
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--RangeContent-w);
+  height: var(--RangeContent-h);
+  background: var(--RangeContent-bgc);
+  border-radius: 5px;
+}
 
-  input[type="range"]::-moz-range-thumb {
-    width: var(--RangeContent-w);
-    height: var(--RangeContent-h);
-    background: var(--RangeContent-bgc);
-    border-radius: 5px;
-  }
+input[type="range"]::-moz-range-thumb {
+  width: var(--RangeContent-w);
+  height: var(--RangeContent-h);
+  background: var(--RangeContent-bgc);
+  border-radius: 5px;
 }
 </style>
