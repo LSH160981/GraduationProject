@@ -6,7 +6,7 @@ import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let { ChangeUUID } = useCurrentChatInfoStore();
 
 // 这个组件的根元素

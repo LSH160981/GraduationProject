@@ -11,7 +11,7 @@ let $Router = useRouter();
 
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
 // 路由变化 改变 CurrentChatInfo 的 UUID

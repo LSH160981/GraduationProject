@@ -4,7 +4,7 @@ import { generateUUID } from "@/utils/GenerateUUID";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
 import { useRouter } from "vue-router";

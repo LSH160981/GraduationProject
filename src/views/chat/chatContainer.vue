@@ -3,7 +3,7 @@ import { ref, nextTick, watch, onMounted } from "vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
 // ChatContainer组件元素

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { EditPen, Delete } from "@element-plus/icons-vue";
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();

@@ -3,7 +3,8 @@ import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+let $Route = useRoute();
 let $Router = useRouter();
 
 // 菜单栏 点击回调
@@ -14,15 +15,19 @@ const MenuBarClick = () => {
     ParametsSetting.SliderBarDrawerFlag = true;
   } else {
     // 大屏幕 {出现|消失} BottomLeft组件
-    // 这个功能不一定会写
     ParametsSetting.ChangeBottomWidth();
   }
 };
 // 对话提示框 的 确认按钮的回调
 const SureDeleteAllChat = () => {
+  // 清空所有的对话信息
   GlobalInformation.ClearAllChatInfo();
-  // 返回 主页
-  $Router.push("/chat");
+  // 比如说，我在[/setting]页面 就不要返回 '/'
+  // 判断当前的路径是否在聊天的页面
+  if ($Route.fullPath.includes("/chat")) {
+    // 在 就返回主页  作用：清空路径 清空ChatContainer的对话
+    $Router.push("/chat");
+  }
 };
 </script>
 
@@ -41,8 +46,8 @@ const SureDeleteAllChat = () => {
           <rect width="352" height="32" x="80" y="384"></rect>
         </svg>
       </el-button>
-      <div>
-        <!-- 清除全部的对话 -->
+      <!-- 清除全部的对话 -->
+      <div class="tooltip" data-tip=" 删除所有的对话 ">
         <el-popconfirm
           width="200"
           :hide-icon="true"

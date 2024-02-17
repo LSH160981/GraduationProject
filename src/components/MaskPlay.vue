@@ -2,9 +2,10 @@
 import { computed, ref, nextTick, watch, toRaw, onMounted } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID";
 import { ElMessage } from "element-plus";
+import GoBackButton from "./GoBackButton.vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
-import { useCurrentChatInfoStore } from "@/stores/currentChatInfo.js";
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
 import { useRouter } from "vue-router";
@@ -85,10 +86,6 @@ const ChoiceMaskChat = (maskStr) => {
   // 路由的跳转
   $Router.push(`/chat/${G_UUID}`);
 };
-// 返回上一级
-const GobackOne = () => {
-  $Router.back();
-};
 
 // 控制 添加新的预设角色 的对话框
 let DialogVisible = ref(false);
@@ -135,26 +132,7 @@ const DialogSure = () => {
     <!-- 工具栏 -->
     <div class="flex justify-between items-center gap-1 px-2 pb-4">
       <!-- 返回 -->
-      <button class="btn maxd:btn-sm" @click="GobackOne">
-        <div class="flex justify-start items-center cursor-pointer">
-          <div>
-            <svg
-              t="1707725610910"
-              class="icon"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              p-id="4193"
-              width="24"
-              height="24">
-              <path
-                d="M659.748571 245.272381l-51.687619-51.687619-318.439619 318.585905 318.415238 318.268952 51.712-51.736381-266.703238-266.556952z"
-                p-id="4194"></path>
-            </svg>
-          </div>
-          <span>返回</span>
-        </div>
-      </button>
+      <GoBackButton />
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"

@@ -1,17 +1,36 @@
 <script setup>
-import { ref } from "vue";
-let title = ref("0.5");
-let value = ref("0.5");
-const onChange = (e) => {
-  title.value = e.target.value;
-  value.value = e.target.value;
-};
+// 父组件传递的 数据
+/**
+ * value 默认值
+ */
+const { value, min, max, step, onChange } = defineProps({
+  value: {
+    type: Number,
+    require: true,
+  },
+  min: {
+    type: Number,
+    require: true,
+  },
+  max: {
+    type: Number,
+    require: true,
+  },
+  step: {
+    type: Number,
+    require: true,
+  },
+  onChange: {
+    type: Function,
+    require: true,
+  },
+});
 </script>
 
 <template>
   <div class="input-range">
-    {{ title }}
-    <input type="range" :value="value" :min="0" :max="1" :step="0.1" @input="onChange" />
+    {{ value }}
+    <input type="range" :value="value" :min="min" :max="max" :step="step" @input="onChange" />
   </div>
 </template>
 
@@ -20,7 +39,7 @@ const onChange = (e) => {
   --RangeContent-bgc: rgb(18, 131, 84);
   --RangeContent-w: 25px;
   --RangeContent-h: 10px;
-  width: 165px;
+  width: 180px;
   border: 1px solid #dedede;
   border-radius: 10px;
   padding: 5px 10px;
@@ -33,7 +52,7 @@ const onChange = (e) => {
 input[type="range"] {
   max-width: calc(100% - 34px);
   appearance: none;
-  background-color: #fff;
+  /* background-color: #fff; */
   color: #303030;
   transition: all 0.3s;
 }
