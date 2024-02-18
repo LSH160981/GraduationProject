@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { GetToken } from "@/utils/HandlerToken.js";
+import { GetToken, VerifyToken } from "@/utils/HandlerToken.js";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -68,6 +68,8 @@ router.beforeEach((to, from) => {
     }
   } else {
     // 登陆过 有 token
+    // 验证token是否有效
+    VerifyToken(Token);
     // 登录过后 不允许进入login
     if (to.name == 'login') {
       // 从哪来，回哪去

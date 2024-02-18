@@ -2,7 +2,7 @@
 /**
  * @param {RefImpl} messages 响应式数据
  * @param {String} model 模型版本号
- * @param {AbortSignal} signal 终止网络请求的标记
+ * @param {AbortSignal} signal 响应式数据 终止网络请求的标记
  * @param {Function} callback 回调函数  在执行完所有的的代码后才会运行这个函数
  * @returns undefind
  */

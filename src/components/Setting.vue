@@ -4,6 +4,8 @@ import RangeInput from "./RangeInput.vue";
 import GoBackButton from "./GoBackButton.vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
+// import { useGPTSettingStore } from "@/stores/GPTSetting.js";
+// let GPTSetting = useGPTSettingStore();
 
 // 记录选择的模型
 let Model = ref("gpt-3.5-turbo");

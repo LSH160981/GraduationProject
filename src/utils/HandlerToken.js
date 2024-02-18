@@ -26,3 +26,47 @@ export const SetToken = (name, value) => {
 export const DeleteToken = (name) => {
     localStorage.removeItem(name);
 }
+
+/**
+ * 清除本地  所有的 localStorage 存储的数据
+ * @returns {void} 无返回值
+ */
+export const ClearAll = () => {
+    // 移除本页面 所有 相关数据
+    localStorage.clear();
+}
+
+// 用于控制 该验证函数 只能运行一次
+let VerifyFlag = true;
+/**
+ * 验证token 是否有效
+ * @returns {void} 无返回值
+ */
+export const VerifyToken = (token) => {
+    if (!VerifyFlag) {
+        return;
+    }
+    if (!token) {
+        return new Error(`缺少参数token`);
+    }
+    // 1.发送请求，看看token 有没有过期
+    let url = `https://login.xiaoliao.eu.org/?token=${token}`;
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((result) => {
+            if (result.status === 200) {
+                // 1.1 有效 无事发生
+                // console.log("token有效");
+            } else {
+                // 1.2 无效 清除本地token 以及 其他所有的 localStorage存储的数据
+                // console.log("token无效");
+                ClearAll();
+                window.location.href = "/";
+                window.location.reload();
+            }
+        });
+    // 该函数 只能运行一次，完毕后将改为false
+    VerifyFlag = false;
+}
