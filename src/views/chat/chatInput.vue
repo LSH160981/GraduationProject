@@ -42,8 +42,6 @@ watch(
   }
 );
 
-// 控制 当前对话的终止
-// let stopHandler = null;
 // 输入框的值
 let InputValue = ref("");
 // 发送按钮 点击事件

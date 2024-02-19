@@ -3,10 +3,14 @@
 /**
  * value 默认值
  */
-const { value, min, max, step, onChange } = defineProps({
+const { value, type, min, max, step, onChange } = defineProps({
   value: {
     type: Number,
     require: true,
+  },
+  type: {
+    type: String,
+    default: "range",
   },
   min: {
     type: Number,
@@ -30,7 +34,7 @@ const { value, min, max, step, onChange } = defineProps({
 <template>
   <div class="input-range">
     {{ value }}
-    <input type="range" :value="value" :min="min" :max="max" :step="step" @input="onChange" />
+    <input :type="type" :value="value" :min="min" :max="max" :step="step" @input="onChange" />
   </div>
 </template>
 
@@ -47,6 +51,9 @@ const { value, min, max, step, onChange } = defineProps({
   display: flex;
   justify-content: space-between;
   max-width: 40%;
+}
+.input-range:active {
+  border: 1px solid rgb(29, 27, 27);
 }
 
 input[type="range"] {

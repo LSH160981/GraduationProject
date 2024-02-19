@@ -133,19 +133,25 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   )
 
   // 通过GPT获取问题的答案
-  const GetGPTMsg = (callback) => {
+  const GetGPTMsg = async (callback) => {
     // 每次调用该函数 就设置一次新的终止信号
     controller.value = new AbortController();
     signal.value = controller.value.signal;
-    // 处理网路返回的信息
-    HandlerGPTReturnInfo(messages, "gpt-3.5-turbo", signal, () => {
-      // 下面这部分是 currentChatInfo.js 的
-      // 网络请求结束后把 仓库的终止信号 置空
-      controller.value = null;
-      signal.value = null;
-      // 这个callback 是 chatInput.vue 的
-      callback && callback();
-    })
+    try {
+      // 处理网路返回的信息
+      await HandlerGPTReturnInfo(messages, signal, () => {
+        // 下面这部分是 currentChatInfo.js 的
+        // 网络请求结束后把 仓库的终止信号 置空
+        controller.value = null;
+        signal.value = null;
+        // 这个callback 是 chatInput.vue 的
+        callback && callback();
+      })
+    } catch (_) {
+      // console.log(error);
+      // 关闭 停止对话的按钮
+      ShowStopButtonFlag.value = false;
+    }
   }
 
   return {
