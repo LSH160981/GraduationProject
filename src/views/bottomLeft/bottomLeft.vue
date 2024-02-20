@@ -50,8 +50,8 @@ const IsCloseDrawer = () => {
 </script>
 
 <template>
-  <!-- bg-violet-100 -->
-  <div ref="BottomLeft" class="p-3 border-r rounded-bl bg-[#e7f8ff]">
+  <!-- BottomLeft -->
+  <div ref="BottomLeft" class="BottomLeft">
     <!-- max-height="20px" -->
     <el-scrollbar>
       <div class="flex justify-evenly items-center gap-2 border-b-2 pb-2 mb-2">
@@ -135,7 +135,21 @@ const IsCloseDrawer = () => {
 </template>
 
 <style scoped>
+.BottomLeft {
+  --BottomLeft-bgc: #e7f8ff;
+  @apply p-3 border-r rounded-bl bg-[color:var(--BottomLeft-bgc)];
+  /* @apply dark:[--BottomLeft-bgc:#e7f8ff]; */
+}
+
+/* Vue3 RouterLink 被激活的样式 */
 .maskplayActive {
   background-color: #e49fff;
+}
+/* TW 的 复合样式 */
+.SliderItemTop {
+  @apply w-[47%] bg-white shadow-md truncate
+  flex justify-evenly items-center
+  p-3 rounded-lg cursor-pointer
+  hover:bg-violet-300;
 }
 </style>

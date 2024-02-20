@@ -77,9 +77,9 @@ let ChangeCarriedHistoryMessages = (e) => {
     <!-- 主体  -->
     <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.85" class="p-2">
       <!-- 第一部分 -->
-      <div class="w-full border rounded-xl">
+      <div class="EverPart">
         <!-- 第一项 模型 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span class="min-w-36 flex justify-evenly items-center rounded-xl border p-3">
@@ -110,7 +110,7 @@ let ChangeCarriedHistoryMessages = (e) => {
           </el-dropdown>
         </div>
         <!-- 第二项 随机性 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">随机性 (temperature)</div>
             <div class="text-xs">值越大，回复越随机</div>
@@ -123,7 +123,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeTemperature" />
         </div>
         <!-- 第三项 核采样 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">核采样 (top_p)</div>
             <div class="text-xs">与随机性类似，但不要和随机性一起更改</div>
@@ -136,7 +136,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeTop_p" />
         </div>
         <!-- 第四项 单次交互所用的最大 Token 数 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">单次回复限制 (max_tokens)</div>
             <div class="text-xs">单次交互所用的最大 Token 数</div>
@@ -148,7 +148,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeMax_tokens" />
         </div>
         <!-- 第五项 话题新鲜度 (presence_penalty) -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">话题新鲜度 (presence_penalty)</div>
             <div class="text-xs">值越大，越有可能扩展到新话题</div>
@@ -161,7 +161,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangePresence_penalty" />
         </div>
         <!-- 第六项 频率惩罚度 (frequency_penalty) -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">频率惩罚度 (frequency_penalty)</div>
             <div class="text-xs">值越大，越有可能降低重复字词</div>
@@ -174,7 +174,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeFrequency_penalty" />
         </div>
         <!-- 第七项 历史消息长度压缩阈值 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">历史消息长度压缩阈值</div>
             <div class="text-xs">当未压缩的历史消息超过该值时，将进行压缩</div>
@@ -186,7 +186,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeHistoryCompression" />
         </div>
         <!-- 第八项 为每个输入消息生成多少个聊天完成选项。 -->
-        <div class="px-5 py-3 flex justify-between items-center border-b">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">返回的聊天个数 (n)</div>
             <div class="text-xs">为每个输入消息生成多少个聊天完成选项。</div>
@@ -199,7 +199,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeN" />
         </div>
         <!-- 第九项 附带历史消息数。 -->
-        <div class="px-5 py-3 flex justify-between items-center">
+        <div class="FirsPartItem">
           <div>
             <div class="text-base font-bold">附带历史消息数</div>
             <div class="text-xs">每次请求携带的历史消息数</div>
@@ -213,7 +213,7 @@ let ChangeCarriedHistoryMessages = (e) => {
         </div>
       </div>
       <!-- 第二部分 -->
-      <div class="w-full border rounded-xl mt-4">
+      <div class="EverPart">
         <div class="px-5 py-3 flex justify-between items-center">
           <span class="text-base font-bold">清除本地信息并退出登录</span>
           <button
@@ -235,7 +235,7 @@ let ChangeCarriedHistoryMessages = (e) => {
                   p-id="5279"></path>
               </svg>
             </span>
-            退出登录
+            <div class="truncate">退出登录</div>
           </button>
         </div>
       </div>
@@ -244,6 +244,20 @@ let ChangeCarriedHistoryMessages = (e) => {
 </template>
 
 <style scoped>
+/**
+  在 TW 中 first-of-type 用以设置当该元素是同类型的标签中，作为其父元素的第一个子元素的状态下的样式。
+  另一个先对的状态变量是 last-of-type
+ */
+/* 每一个 部分 */
+.EverPart {
+  @apply w-full border rounded-xl last-of-type:mt-4;
+}
+/* 第一部分 里面的每一个子项目 */
+.FirsPartItem {
+  @apply px-5 py-3 flex justify-between items-center border-b last-of-type:border-b-0;
+}
+
+/* 自定义的 number input 的样式 */
 .myInput {
   width: 120px;
   max-width: 40%;

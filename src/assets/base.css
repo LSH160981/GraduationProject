@@ -1,4 +1,7 @@
 /* 一些样式的重写 */
+:root {
+  
+}
 * {
   box-sizing: border-box;
 }
