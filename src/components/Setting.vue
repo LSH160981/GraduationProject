@@ -70,7 +70,7 @@ let ChangeCarriedHistoryMessages = (e) => {
   <!-- bg-rose-50 -->
   <div class="w-full h-full select-none">
     <!-- top -->
-    <div class="mb-3 flex justify-between items-center gap-1 px-2 pb-4">
+    <div class="mb-3 flex justify-between items-center gap-1 px-2 pb-2">
       <GoBackButton />
       <span class="text-2xl">GPT参数设置</span>
     </div>

@@ -97,7 +97,7 @@ const GoToChatBottom = () => {
     </el-scrollbar>
     <!-- 去到当前对话的顶部和底部 -->
     <div v-show="ShowButtonFlag" class="flex flex-col gap-1 absolute bottom-3 right-2">
-      <div @click="GoToChatTop" class="hover:bg-[#b4afaf88] cursor-pointer rounded-md p-1">
+      <div @click="GoToChatTop" class="GoToChat_TopOrBottom">
         <svg
           t="1707378937574"
           class="icon"
@@ -113,7 +113,7 @@ const GoToChatBottom = () => {
             fill="#444141"></path>
         </svg>
       </div>
-      <div @click="GoToChatBottom" class="hover:bg-[#b4afaf88] cursor-pointer rounded-md p-1">
+      <div @click="GoToChatBottom" class="GoToChat_TopOrBottom">
         <svg
           t="1707379038594"
           class="icon"
@@ -133,4 +133,8 @@ const GoToChatBottom = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.GoToChat_TopOrBottom {
+  @apply transition-all hover:bg-[#b4afaf88] cursor-pointer rounded-md p-1 active:scale-90;
+}
+</style>

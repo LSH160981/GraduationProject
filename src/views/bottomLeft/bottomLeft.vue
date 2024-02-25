@@ -136,8 +136,7 @@ const IsCloseDrawer = () => {
 
 <style scoped>
 .BottomLeft {
-  --BottomLeft-bgc: #e7f8ff;
-  @apply p-3 border-r rounded-bl bg-[color:var(--BottomLeft-bgc)];
+  @apply p-3 border-r rounded-bl bg-[color:var(--base-bgc)];
   /* @apply dark:[--BottomLeft-bgc:#e7f8ff]; */
 }
 

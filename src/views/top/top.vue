@@ -47,7 +47,7 @@ const SureDeleteAllChat = () => {
         </svg>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div class="tooltip" data-tip=" 删除所有的对话 ">
+      <div class="tooltip maxd:tooltip-right" data-tip=" 删除所有的对话 ">
         <el-popconfirm
           width="200"
           :hide-icon="true"

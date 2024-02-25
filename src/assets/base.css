@@ -1,7 +1,9 @@
-/* 一些样式的重写 */
 :root {
-  
+  /* 基础样式 全局变量 */
+  --base-bgc: white;
 }
+
+/* 一些样式的重写 */
 * {
   box-sizing: border-box;
 }
@@ -26,7 +28,8 @@ html {
 
 /* 暗黑模式 */
 html.dark {
-  background-color: #212129;
+  --base-bgc: #212129;
+  background-color: var(--base-bgc);
   color: #ddddf0;
 }
 

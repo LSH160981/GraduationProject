@@ -96,7 +96,7 @@ const StopFetch = () => {
 
 <template>
   <!-- bg-violet-100 -->
-  <div ref="ChatInput" class="w-full flex flex-col justify-between items-center">
+  <div ref="ChatInput" class="w-full flex flex-col justify-evenly items-center">
     <!-- 不要让这个按钮 破坏下面的结果 -->
     <div class="relative -top-3">
       <div v-show="CurrentChatInfo.ShowStopButtonFlag">
@@ -124,7 +124,7 @@ const StopFetch = () => {
           </div>
         </el-button>
       </div>
-      <div v-show="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px]"></div>
+      <div v-show="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
     <div class="w-full mb-2">
