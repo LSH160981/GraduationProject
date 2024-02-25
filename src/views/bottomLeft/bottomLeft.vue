@@ -149,6 +149,6 @@ const IsCloseDrawer = () => {
   @apply w-[47%] bg-white shadow-md truncate
   flex justify-evenly items-center
   p-3 rounded-lg cursor-pointer
-  hover:bg-violet-300;
+  hover:bg-violet-300 transition-all active:scale-95;
 }
 </style>

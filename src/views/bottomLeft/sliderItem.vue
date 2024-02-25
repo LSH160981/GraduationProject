@@ -120,7 +120,7 @@ const InputBlur = () => {
   <!-- 添加自定义属性[uuid]     -->
   <div
     :uuid="ChatInfo.uuid"
-    class="bg-[#fff] shadow-md mb-2 flex justify-between items-center p-3 rounded-lg cursor-pointer"
+    class="bg-[#fff] shadow-md mb-2 flex justify-between items-center p-3 rounded-lg cursor-pointer transition-all active:scale-95"
     @mouseenter="SliderItemMouseEnter"
     @mouseleave="SliderItemMouseLeave"
     @click.self="SliderItemClick($event, ChatInfo.uuid)">
