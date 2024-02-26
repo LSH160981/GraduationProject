@@ -9,7 +9,7 @@ export const useSettingStore = defineStore('Setting', () => {
     // GPT 设置 的默认值
     let GPT_Setting = reactive({
         // 记录选择的模型
-        Model: "GPT-3.5-Turbo",
+        Model: "gpt-3.5-turbo",
         // 随机性 值越大，回复越随机
         Temperature: 0.5,
         // 一种替代温度采样的方法，称为核采样，其中模型考虑具有 top_p 概率质量的标记的结果。

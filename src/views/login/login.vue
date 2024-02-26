@@ -86,7 +86,7 @@ const LoadFullScreen = () => {
 <template>
   <div class="w-screen h-screen flex justify-center items-center select-none">
     <div
-      class="flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 border-pink-500-500 shadow-lg shadow-indigo-500/50 maxd:w-5/6">
+      class="bg-white flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 border-pink-500-500 shadow-lg shadow-indigo-500/50 maxd:w-5/6 z-10">
       <div class="mb-8 text-center">
         <h1 class="my-3 text-4xl font-bold">Sign in</h1>
         <p class="text-sm dark:text-gray-400">Sign in to access your account</p>
@@ -133,7 +133,94 @@ const LoadFullScreen = () => {
         </div>
       </div>
     </div>
+    <div class="rocket">
+      <SVG name="rocket" width="128px" height="128px"></SVG>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.w-screen {
+  background: linear-gradient(#6d00a9, #190027);
+}
+.rocket {
+  pointer-events: none;
+  position: absolute;
+  top: 60%;
+  left: 15%;
+  width: 200px;
+  height: 200px;
+  font-size: 8em;
+  text-align: center;
+  line-height: 200px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 55px rgba(255, 255, 255, 0.1);
+  animation: move 5s linear infinite;
+}
+
+.rocket::before {
+  content: "";
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  width: 30%;
+  height: 60%;
+  background: #ff0;
+  transform: rotate(45deg);
+  border-radius: 50%;
+  filter: blur(15px);
+  z-index: -1;
+  animation: flue 5s linear infinite;
+}
+
+.rocket svg {
+  position: absolute;
+  top: 32px;
+  left: 39px;
+}
+@media (max-width: 767px) {
+  .rocket {
+    top: 70%;
+    left: 60px;
+  }
+}
+
+@keyframes flue {
+  0% {
+    background: #00abff;
+    transform: rotate(45deg) scaleY(1);
+  }
+  25% {
+    background: #ffff90;
+  }
+  50% {
+    background: #f100ff;
+    transform: rotate(45deg) scaleY(2);
+  }
+  75% {
+    background: #09dbff;
+  }
+  100% {
+    background: #00abff;
+    transform: rotate(45deg) scaleY(1);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translate(-20px, -20px);
+  }
+  25% {
+    transform: translate(20px, 0px);
+  }
+  50% {
+    transform: translate(-20px, 20px);
+  }
+  75% {
+    transform: translate(20px, 0px);
+  }
+  100% {
+    transform: translate(-20px, -20px);
+  }
+}
+</style>

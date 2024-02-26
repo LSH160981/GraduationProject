@@ -176,13 +176,14 @@ const DialogSure = () => {
       </div>
     </el-scrollbar>
     <!-- 添加新的预设角色 的 dialog -->
-    <el-dialog
-      v-model="DialogVisible"
-      title="添加新的预设角色"
-      :width="DialogWidth"
-      align-center>
+    <el-dialog v-model="DialogVisible" title="添加新的预设角色" :width="DialogWidth" align-center>
       <div class="flex flex-col gap-3">
-        <el-input v-focus v-model="DialogTitle" size="large" placeholder="标题" clearable />
+        <el-input
+          type="textarea"
+          v-model="DialogTitle"
+          autosize
+          placeholder="标题"
+          clearable />
         <el-input
           type="textarea"
           v-model="DialogContent"
@@ -201,4 +202,12 @@ const DialogSure = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div.el-input__wrapper {
+  background-color: #1111cb;
+}
+input.el-input__inner {
+  background-color: #1ae924;
+  color: red;
+}
+</style>

@@ -121,9 +121,6 @@ const Logout = () => {
               <el-dropdown-menu>
                 <el-dropdown-item command="gpt-3.5-turbo"> gpt-3.5-turbo </el-dropdown-item>
                 <el-dropdown-item command="gpt-4"> gpt-4 </el-dropdown-item>
-                <!-- <el-dropdown-item command="gpt-3.5-turbo-16K"> gpt-3.5-turbo-16K </el-dropdown-item>
-                <el-dropdown-item command="tts-1"> tts-1 </el-dropdown-item>
-                <el-dropdown-item command="dall-e-3"> dall-e-3 </el-dropdown-item> -->
               </el-dropdown-menu>
             </template>
           </el-dropdown>
