@@ -69,7 +69,7 @@ const SureDeleteAllChat = () => {
       <!-- GitHub -->
       <el-button link>
         <a href="https://github.com/LSH160981/GraduationProject" target="_blank">
-          <SVG name="github"></SVG>
+          <SVG name="github" width="28px" height="28px"></SVG>
         </a>
       </el-button>
     </div>

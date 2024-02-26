@@ -8,7 +8,7 @@ const GobackOne = () => {
 </script>
 
 <template>
-  <!-- 返回 -->
+  <!-- 返回  bg-[color:var(--setting-color)]-->
   <button class="btn maxd:btn-sm" @click="GobackOne">
     <div class="flex justify-start items-center cursor-pointer">
       <div>

@@ -61,29 +61,36 @@ onMounted(() => {
     <el-scrollbar>
       <div class="flex justify-evenly items-center gap-2 border-b-2 pb-2 mb-2">
         <!-- 面具 -->
-        <RouterLink
-          to="/maskplay"
-          active-class="maskplayActive"
-          @click="IsCloseDrawer"
-          class="SliderItemTop">
-          <div>
-            <SVG name="mask"></SVG>
-          </div>
-          <span>面具</span>
-        </RouterLink>
+        <div class="bg-white w-full rounded-lg">
+          <RouterLink
+            to="/maskplay"
+            active-class="MaskplayActive"
+            @click="IsCloseDrawer"
+            class="SliderItemTop">
+            <div>
+              <SVG name="mask"></SVG>
+            </div>
+            <span>面具</span>
+          </RouterLink>
+        </div>
+
         <!-- 新建对话  -->
-        <RouterLink to="/chat" @click="IsCloseDrawer" class="SliderItemTop">
-          <div>
-            <SVG name="edit"></SVG>
-          </div>
-          <span>新对话</span>
-        </RouterLink>
+        <div class="bg-white w-full rounded-lg">
+          <RouterLink to="/chat" @click="IsCloseDrawer" class="SliderItemTop">
+            <div>
+              <SVG name="edit"></SVG>
+            </div>
+            <span>新对话</span>
+          </RouterLink>
+        </div>
       </div>
 
       <div v-for="item in GlobalInformation.AllChatInfo" :key="item.uuid">
-        <RouterLink :to="{ path: `/chat/${item.uuid}` }">
-          <SliderItem :ChatInfo="item" @DeleteMsg="DeleteMsg" @ChangeTitle="ChangeTitle" />
-        </RouterLink>
+        <div class="bg-[#fff] rounded-lg">
+          <RouterLink :to="{ path: `/chat/${item.uuid}` }">
+            <SliderItem :ChatInfo="item" @DeleteMsg="DeleteMsg" @ChangeTitle="ChangeTitle" />
+          </RouterLink>
+        </div>
       </div>
     </el-scrollbar>
   </div>
@@ -94,17 +101,17 @@ onMounted(() => {
   @apply p-3 border-r rounded-bl  bg-[color:var(--container-bgc)];
   /* @apply dark:[]; */
 }
-
-/* Vue3 RouterLink 被激活的样式 */
-.maskplayActive {
-  background-color: #e49fff;
-}
 /* TW 的 复合样式 */
 .SliderItemTop {
-  @apply w-[47%] bg-white shadow-md truncate
+  @apply w-full  shadow-md truncate
   flex justify-evenly items-center
   p-3 rounded-lg cursor-pointer
   hover:bg-violet-300 transition-all active:scale-95
   text-[color:var(--base-textColor)];
+}
+
+/* Vue3 RouterLink 被激活的样式 */
+.MaskplayActive {
+  background-color: #e49fff;
 }
 </style>

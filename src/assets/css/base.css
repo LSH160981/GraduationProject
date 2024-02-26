@@ -4,6 +4,7 @@
   --base-textColor: black;
   --container-bgc: #e7f8ff;
   --svg-color: #000000;
+  --setting-color: #1f1e1e;
 }
 
 html {
@@ -13,11 +14,13 @@ html {
 /* 暗黑模式 */
 html.dark {
   background-color: var(--base-bgc);
-  color: #ddddf0;
+  color: var(--base-textColor);
   --base-bgc: #212129;
-  --base-textColor: #443e3ee7;
+  --base-textColor: #504e4ee7;
   --container-bgc: #26586a29;
   --svg-color: #dfd5d5;
+  --setting-color: #d1d1d1;
+  --el-dialog-bg-color: #270f4a;
 }
 
 /* 一些样式的重写 */
@@ -31,18 +34,11 @@ div.el-drawer__body {
 div.el-input__wrapper {
   background-color: var(--base-bgc);
 }
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-thumb {
-  width: 6px;
-  background-color: rgba(117, 119, 113, 0.726);
-  border-radius: 6px;
+input.el-input__inner {
+  color: var(--setting-color);
 }
 
-/* parseMarkdown 组件的文字的样式 */
+/* Markdown 组件的文字的样式 */
 div.vuepress-markdown-body {
   /* 背景颜色透明 */
   background-color: #ffffff00;
@@ -55,4 +51,14 @@ div.vuepress-markdown-body:not(.custom) {
     margin: 0;
     border-radius: 6px;
   }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  width: 6px;
+  background-color: rgba(117, 119, 113, 0.726);
+  border-radius: 6px;
 }

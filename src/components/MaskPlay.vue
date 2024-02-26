@@ -137,7 +137,7 @@ const DialogSure = () => {
       <input
         v-model.trim="SearchInput"
         v-focus
-        class="shadow appearance-none border rounded-xl w-[70%] h-11 maxd:h-8 py-2 px-3 text-gray-700 text-center leading-tight focus:outline-1"
+        class="bg-[color:var(--base-bgc)] text-[color:var(--setting-color)] shadow appearance-none border rounded-xl w-[70%] h-11 maxd:h-8 py-2 px-3 text-center leading-tight focus:outline-1"
         type="text"
         placeholder="搜索预设角色" />
       <!-- 新建 -->
@@ -155,10 +155,10 @@ const DialogSure = () => {
       <div
         v-for="item in ProxyMasks"
         :key="item[0]"
-        class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer transition-all active:scale-95">
-        <div class="p-3 flex flex-col hover:bg-violet-100" @click="ChoiceMaskChat(item[1])">
+        class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer transition-all text-[color:var(--setting-color)] hover:bg-violet-300 hover:text-black active:scale-95">
+        <div class="p-3 flex flex-col" @click="ChoiceMaskChat(item[1])">
           <!-- title -->
-          <span class="text-2xl font-normal whitespace-nowrap w-60 text-black">
+          <span class="text-2xl font-normal whitespace-nowrap w-60">
             {{ item[0] }}
           </span>
           <!-- content -->
@@ -170,13 +170,17 @@ const DialogSure = () => {
         <button
           v-if="item[2]"
           @click="DeleteUserMask(item[2])"
-          class="w-16 h-11 rounded-md mr-5 bg-rose-300 transition-all absolute top-1/2 right-0 -translate-y-1/2 hover:bg-rose-500 active:scale-90">
+          class="w-16 h-11 rounded-md mr-5 bg-rose-500 transition-all absolute top-1/2 right-0 -translate-y-1/2 hover:bg-rose-600 active:scale-90">
           删除
         </button>
       </div>
     </el-scrollbar>
     <!-- 添加新的预设角色 的 dialog -->
-    <el-dialog v-model="DialogVisible" title="添加新的预设角色" :width="DialogWidth" align-center>
+    <el-dialog
+      v-model="DialogVisible"
+      title="添加新的预设角色"
+      :width="DialogWidth"
+      align-center>
       <div class="flex flex-col gap-3">
         <el-input v-focus v-model="DialogTitle" size="large" placeholder="标题" clearable />
         <el-input

@@ -47,6 +47,7 @@ defineProps({
   display: flex;
   justify-content: space-between;
   max-width: 40%;
+  transition: all 1s;
 }
 .input-range:active {
   border: 1px solid rgb(29, 27, 27);
@@ -55,7 +56,7 @@ defineProps({
 input[type="range"] {
   max-width: calc(100% - 34px);
   appearance: none;
-  /* background-color: #fff; */
+  background-color: var(--base-bgc);
   color: #303030;
   transition: all 0.3s;
 }

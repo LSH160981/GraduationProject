@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
@@ -41,6 +41,8 @@ const DeleteMsg = () => {
     CurrentChatInfo.ChangeUUID("");
     // 返回 对应的路由
     $Router.push("/chat");
+    // 关闭 Drawer
+    ParametsSetting.SliderBarDrawerFlag = false;
   }
 };
 
@@ -97,7 +99,7 @@ const InputBlur = () => {
     @mouseleave="SliderItemMouseLeave"    -->
   <div
     :uuid="ChatInfo.uuid"
-    class="bg-[#ffffff] mb-2 p-3 box-border border-2 hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
+    class="mb-2 p-3 box-border border-2 hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
     @click.self="SliderItemClick">
     <span
       v-if="!ReNameFlag"

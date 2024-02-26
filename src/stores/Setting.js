@@ -48,13 +48,8 @@ export const useSettingStore = defineStore('Setting', () => {
     )
 
 
-    // 当前主题的颜色 true:晚上  false:白天
-    let Theme = ref(DayOrNight());
-    // 查询本地有没有保存过用户 主题使用习惯
-    let ThemeResult;
-    if (ThemeResult = JSON.parse(localStorage.getItem('Theme'))) {
-        Theme.value = ThemeResult;
-    }
+    // 当前主题的颜色 true:晚上  false:白天 DayOrNight()
+    let Theme = ref(false);
     // Theme 的变化
     watch(
         () => Theme.value,
@@ -68,11 +63,16 @@ export const useSettingStore = defineStore('Setting', () => {
             } else {
                 htmlElement.classList.remove("dark");
             }
-        },
-        {
-            immediate: true,
         }
     );
+    // 查询本地有没有保存过用户 主题使用习惯
+    let ThemeResult = localStorage.getItem('Theme') || '';
+    if (ThemeResult) {
+        Theme.value = JSON.parse(ThemeResult);
+    } else {
+        Theme.value = DayOrNight();
+    }
+
     return {
         GPT_Setting, Theme
     }

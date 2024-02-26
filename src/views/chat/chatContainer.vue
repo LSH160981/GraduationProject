@@ -91,7 +91,9 @@ const GoToChatBottom = () => {
             <img src="@/assets/images/chatgpt.png" alt="" />
           </div>
           <!-- 文字 -->
-          <div class="text-2xl font-medium w-60">我今天能帮你做什么?</div>
+          <div class="text-2xl font-medium w-60 text-[color:var(--setting-color)]">
+            我今天能帮你做什么?
+          </div>
         </div>
       </div>
     </el-scrollbar>

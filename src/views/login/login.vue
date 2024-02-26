@@ -9,7 +9,6 @@ let Account = ref(""); // 账号 adminboss
 let Password = ref(""); // 密码 119110112
 
 /**
- * https://login.xiaoliao.eu.org/?account=admin&password=123456
  * 登录
  */
 const SignIn = () => {
@@ -95,11 +94,6 @@ const LoadFullScreen = () => {
       <div class="space-y-12">
         <div class="space-y-4">
           <div class="py-3">
-            <!-- <label class="block mb-2 text-sm">Account</label>
-            <input
-              v-model.lazy="Account"
-              placeholder="adminboss"
-              class="w-full px-3 py-2 border rounded-md" /> -->
             <label
               class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
               <input
@@ -113,14 +107,6 @@ const LoadFullScreen = () => {
             </label>
           </div>
           <div>
-            <!-- <div class="flex justify-between mb-2">
-              <label class="text-sm">Password</label>
-            </div>
-            <input
-              v-model.lazy="Password"
-              type="password"
-              placeholder="*******"
-              class="w-full px-3 py-2 border rounded-md" /> -->
             <label
               class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
               <input
@@ -138,7 +124,9 @@ const LoadFullScreen = () => {
         </div>
         <div class="space-y-2">
           <div>
-            <button @click="SignIn" class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400">
+            <button
+              @click="SignIn"
+              class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95">
               Sign in
             </button>
           </div>

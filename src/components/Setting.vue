@@ -54,6 +54,7 @@ let ChangeN = (e) => {
     message: `如果没有特殊要求请不要改动这个配置`,
     type: "warning",
     duration: 3000,
+    grouping: true,
   });
   Setting.GPT_Setting.N = +e.target.value;
 };
@@ -75,7 +76,8 @@ const Logout = () => {
   <!-- bg-rose-50 -->
   <div class="w-full h-full select-none">
     <!-- top -->
-    <div class="mb-3 flex justify-between items-center gap-1 px-2 pb-2">
+    <div
+      class="mb-3 flex justify-between items-center gap-1 px-2 pb-2 text-[color:var(--setting-color)]">
       <GoBackButton />
       <span class="text-2xl">参数设置</span>
     </div>
@@ -107,10 +109,11 @@ const Logout = () => {
       <!-- 第二部分 -->
       <div class="EverPart">
         <!-- 第一项 模型 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
-            <span class="min-w-36 flex justify-evenly items-center rounded-xl border p-3">
+            <span
+              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)]">
               {{ Setting.GPT_Setting.Model }}
               <SVG name="bottom"></SVG>
             </span>
@@ -126,7 +129,7 @@ const Logout = () => {
           </el-dropdown>
         </div>
         <!-- 第二项 随机性 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">随机性 (temperature)</div>
             <div class="text-xs">值越大，回复越随机</div>
@@ -139,7 +142,7 @@ const Logout = () => {
             @input="ChangeTemperature" />
         </div>
         <!-- 第三项 核采样 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">核采样 (top_p)</div>
             <div class="text-xs">与随机性类似，但不要和随机性一起更改</div>
@@ -152,7 +155,7 @@ const Logout = () => {
             @input="ChangeTop_p" />
         </div>
         <!-- 第四项 单次交互所用的最大 Token 数 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">单次回复限制 (max_tokens)</div>
             <div class="text-xs">单次交互所用的最大 Token 数</div>
@@ -164,7 +167,7 @@ const Logout = () => {
             @input="ChangeMax_tokens" />
         </div>
         <!-- 第五项 话题新鲜度 (presence_penalty) -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">话题新鲜度 (presence_penalty)</div>
             <div class="text-xs">值越大，越有可能扩展到新话题</div>
@@ -177,7 +180,7 @@ const Logout = () => {
             @input="ChangePresence_penalty" />
         </div>
         <!-- 第六项 频率惩罚度 (frequency_penalty) -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">频率惩罚度 (frequency_penalty)</div>
             <div class="text-xs">值越大，越有可能降低重复字词</div>
@@ -190,7 +193,7 @@ const Logout = () => {
             @input="ChangeFrequency_penalty" />
         </div>
         <!-- 第七项 历史消息长度压缩阈值 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">历史消息长度压缩阈值</div>
             <div class="text-xs">当未压缩的历史消息超过该值时，将进行压缩</div>
@@ -202,7 +205,7 @@ const Logout = () => {
             @input="ChangeHistoryCompression" />
         </div>
         <!-- 第八项 为每个输入消息生成多少个聊天完成选项。 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">返回的聊天个数 (n)</div>
             <div class="text-xs">为每个输入消息生成多少个聊天完成选项。</div>
@@ -210,7 +213,7 @@ const Logout = () => {
           <RangeInput :value="Setting.GPT_Setting.N" :min="1" :max="2" :step="1" @input="ChangeN" />
         </div>
         <!-- 第九项 附带历史消息数。 -->
-        <div class="FirsPartItem">
+        <div class="SecondItem">
           <div>
             <div class="text-base font-bold">附带历史消息数</div>
             <div class="text-xs">每次请求携带的历史消息数</div>
@@ -229,7 +232,7 @@ const Logout = () => {
           <span class="text-base font-bold">清除本地信息并退出登录</span>
           <button
             @click="Logout"
-            class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-300 transition-all hover:bg-rose-500 active:scale-90">
+            class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-500 transition-all hover:bg-rose-600 active:scale-90">
             <span>
               <SVG name="logout"></SVG>
             </span>
@@ -248,15 +251,17 @@ const Logout = () => {
  */
 /* 每一个 部分 */
 .EverPart {
+  color: var(--setting-color);
   @apply w-full border rounded-xl mt-4 first-of-type:mt-0;
 }
 /* 第一部分 里面的每一个子项目 */
-.FirsPartItem {
+.SecondItem {
   @apply px-5 py-3 flex justify-between items-center border-b last-of-type:border-b-0;
 }
 
 /* 自定义的 number input 的样式 */
 .myInput {
+  transition: all 0.5s;
   width: 120px;
   max-width: 40%;
   user-select: none;
@@ -266,8 +271,9 @@ const Logout = () => {
   border: 1px solid #dedede;
   min-height: 36px;
   box-sizing: border-box;
-  color: black;
   padding: 0 10px;
   font-family: inherit;
+  background-color: var(--base-bgc);
+  color: var(--setting-color);
 }
 </style>
