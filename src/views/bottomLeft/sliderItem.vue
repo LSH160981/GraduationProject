@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
@@ -43,35 +43,11 @@ const DeleteMsg = () => {
     $Router.push("/chat");
   }
 };
-// SliderItem 点击之后 通过TWCSS改变背景颜色
-const SliderItemChangeBGC = ($event, uuid) => {
-  $event.target.classList.remove("bg-gray-100");
-  // 获取所有带有 'uuid' 属性的元素
-  let elements = document.querySelectorAll("[uuid]");
-  // 遍历元素并打印 uuid
-  elements.forEach((element) => {
-    let element_uuid = element.getAttribute("uuid");
-    element.classList.remove("bg-gray-300");
-    if (element_uuid === uuid) {
-      element.classList.add("bg-gray-300");
-    }
-  });
-};
-// SliderItem 鼠标进入之后 触发的回调
-const SliderItemMouseEnter = ($event) => {
-  // console.log($event.target);
-  if (!$event.target.classList.contains("bg-gray-300")) {
-    $event.target.classList.add("bg-gray-100");
-  }
-};
-// SliderItem 鼠标离开之后 触发的回调
-const SliderItemMouseLeave = ($event) => {
-  $event.target.classList.remove("bg-gray-100");
-};
+
 // SliderItem 点击之后 触发的回调
-const SliderItemClick = ($event, uuid) => {
-  // 改BGC
-  SliderItemChangeBGC($event, uuid);
+const SliderItemClick = () => {
+  // 改 Border
+  CurrentChatInfo.SliderItemChangeBorder();
   // 1.通知兄弟组件 并把UUID传过去
   // CurrentChatInfo.ChangeUUID(uuid);
   // 2.如果 w_phone为真的话 还要把 el-drawer 关掉
@@ -116,18 +92,17 @@ const InputBlur = () => {
 </script>
 
 <template>
-  <!-- bg-gray-300  hover:bg-gray-200-->
-  <!-- 添加自定义属性[uuid]     -->
+  <!-- border-green-500  hover:bg-gray-200-->
+  <!-- 添加自定义属性[uuid]    @mouseenter="SliderItemMouseEnter"
+    @mouseleave="SliderItemMouseLeave"    -->
   <div
     :uuid="ChatInfo.uuid"
-    class="bg-[#fff] shadow-md mb-2 flex justify-between items-center p-3 rounded-lg cursor-pointer transition-all active:scale-95"
-    @mouseenter="SliderItemMouseEnter"
-    @mouseleave="SliderItemMouseLeave"
-    @click.self="SliderItemClick($event, ChatInfo.uuid)">
+    class="bg-[#ffffff] mb-2 p-3 box-border border-2 hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
+    @click.self="SliderItemClick">
     <span
       v-if="!ReNameFlag"
-      @click.self="SliderItemClick($event, ChatInfo.uuid)"
-      class="truncate selection:bg-sky-300">
+      @click.self="SliderItemClick"
+      class="truncate selection:bg-sky-300 text-[color:var(--base-textColor)]">
       {{ ComputedTitle }}
     </span>
     <el-input

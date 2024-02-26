@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick, onMounted } from "vue";
 import SliderItem from "./sliderItem.vue";
 import { RouterLink } from "vue-router";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -7,7 +7,7 @@ let ParametsSetting = useParametsSettingStore();
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
-let { ChangeUUID } = useCurrentChatInfoStore();
+let { ChangeUUID, SliderItemChangeBorder } = useCurrentChatInfoStore();
 
 // 这个组件的根元素
 let BottomLeft = ref(null);
@@ -47,6 +47,11 @@ const IsCloseDrawer = () => {
     ParametsSetting.SliderBarDrawerFlag = false;
   }
 };
+
+// 通过TWCSS改变 border
+onMounted(() => {
+  SliderItemChangeBorder();
+});
 </script>
 
 <template>
@@ -86,8 +91,8 @@ const IsCloseDrawer = () => {
 
 <style scoped>
 .BottomLeft {
-  @apply p-3 border-r rounded-bl bg-[color:var(--base-bgc)];
-  /* @apply dark:[--BottomLeft-bgc:#e7f8ff]; */
+  @apply p-3 border-r rounded-bl  bg-[color:var(--container-bgc)];
+  /* @apply dark:[]; */
 }
 
 /* Vue3 RouterLink 被激活的样式 */
@@ -99,6 +104,7 @@ const IsCloseDrawer = () => {
   @apply w-[47%] bg-white shadow-md truncate
   flex justify-evenly items-center
   p-3 rounded-lg cursor-pointer
-  hover:bg-violet-300 transition-all active:scale-95;
+  hover:bg-violet-300 transition-all active:scale-95
+  text-[color:var(--base-textColor)];
 }
 </style>

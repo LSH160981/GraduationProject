@@ -27,6 +27,20 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     uuid.value = uuidStr;
   }
 
+  // 通过uuid 确定给 哪一个slideritem 加上类样式 border-green-500 // SliderItem 点击之后 通过TWCSS改变 border
+  const SliderItemChangeBorder = () => {
+    // 获取所有带有 'uuid' 属性的元素
+    let elements = document.querySelectorAll("[uuid]");
+    // 遍历元素并打印 uuid
+    elements.forEach((element) => {
+      let element_uuid = element.getAttribute("uuid");
+      element.classList.remove("border-green-500");
+      if (element_uuid === uuid.value) {
+        element.classList.add("border-green-500");
+      }
+    });
+  };
+
   /**
    * uuid 变化
    * 1.点击 sliderbaritem 传过来的
@@ -38,22 +52,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     (newValue, oldValue) => {
       console.log("current uuid改动了");
 
-      // 添加类样式
-      nextTick(() => {
-        // 加到微队列
-        Promise.resolve().then(() => {
-          // 获取所有带有 'uuid' 属性的元素
-          let elements = document.querySelectorAll("[uuid]");
-          // 遍历元素 排他  再上样式
-          elements.forEach((element) => {
-            let element_uuid = element.getAttribute("uuid");
-            element.classList.remove("bg-gray-300");
-            if (element_uuid === newValue) {
-              element.classList.add("bg-gray-300");
-            }
-          });
-        });
-      });
+      SliderItemChangeBorder();
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
@@ -105,6 +104,9 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         }
       }
     },
+    {
+      immediate: true
+    }
   )
 
   // 值为真 运行当前对话更改大仓库的标题。false：不允许
@@ -156,7 +158,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
   return {
     ShowStopButtonFlag,
-    uuid, messages, ChangeUUID, UserQuestion, GetGPTMsg,
+    uuid, messages, ChangeUUID, UserQuestion, GetGPTMsg, SliderItemChangeBorder,
     controller, signal,
     changeTltleFlag
   }

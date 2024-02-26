@@ -92,10 +92,10 @@ const Logout = () => {
             </span>
             <el-switch v-model="Setting.Theme" @change="ChooseTheme">
               <template #active-action>
-                <span class=" "> D </span>
+                <span class=" ">D</span>
               </template>
               <template #inactive-action>
-                <span class=" "> L </span>
+                <span class=" ">L</span>
               </template>
             </el-switch>
             <span>

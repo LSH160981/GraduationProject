@@ -1,5 +1,6 @@
 import { ref, reactive, watch, toRaw } from 'vue'
 import { defineStore } from 'pinia'
+import DayOrNight from '@/utils/DayOrNight.js'
 
 /**
  * 这个仓库对应的是 Setting.vue 这个组件
@@ -48,7 +49,7 @@ export const useSettingStore = defineStore('Setting', () => {
 
 
     // 当前主题的颜色 true:晚上  false:白天
-    let Theme = ref(false);
+    let Theme = ref(DayOrNight());
     // 查询本地有没有保存过用户 主题使用习惯
     let ThemeResult;
     if (ThemeResult = JSON.parse(localStorage.getItem('Theme'))) {

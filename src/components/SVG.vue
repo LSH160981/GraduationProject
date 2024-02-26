@@ -38,7 +38,7 @@ defineProps({
 
 <template>
   <!-- svg 图标的外层容器，内部与use配合使用 -->
-  <svg :style="{ width, height }">
+  <svg :style="{ width, height }" style="fill: var(--svg-color)">
     <!-- xlink: href 指定用哪一个图标 必须是以  # icon-xxx -->
     <!-- fill 是标签属性之一表示填充的颜色 -->
     <use :xlink:href="`#icon-${name}`"></use>

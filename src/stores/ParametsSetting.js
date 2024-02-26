@@ -73,6 +73,7 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   window.addEventListener('resize', () => {
     BrowserWidth.value = window.innerWidth;
     BrowserHeight.value = window.innerHeight;
+    SliderBarDrawerFlag.value = false;
   });
 
   return {
