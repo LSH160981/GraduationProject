@@ -7,8 +7,8 @@ import GoBackButton from "./GoBackButton.vue";
 import { ElMessage } from "element-plus";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
-import { useGPTSettingStore } from "@/stores/GPTSetting.js";
-let GPTSetting = useGPTSettingStore();
+import { useSettingStore } from "@/stores/Setting.js";
+let Setting = useSettingStore();
 
 // 当前主题的颜色 true:晚上  false:白天
 let Theme = ref(false);
@@ -26,6 +26,7 @@ const ChooseTheme = (val) => {
 onMounted(() => {
   Theme.value = isDaytime();
 });
+
 // 模型 选择的回调
 const ChooseModel = (m) => {
   if (m === "gpt-4") {
@@ -35,31 +36,31 @@ const ChooseModel = (m) => {
       duration: 3500,
     });
   }
-  GPTSetting.GPT_Setting.Model = m;
+  Setting.GPT_Setting.Model = m;
 };
 // 改变 随机值的函数
 let ChangeTemperature = (e) => {
-  GPTSetting.GPT_Setting.Temperature = +e.target.value;
+  Setting.GPT_Setting.Temperature = +e.target.value;
 };
 // 改变 核采样的函数
 let ChangeTop_p = (e) => {
-  GPTSetting.GPT_Setting.Top_p = +e.target.value;
+  Setting.GPT_Setting.Top_p = +e.target.value;
 };
 // 改变 单次交互所用的最大 Token 数
 let ChangeMax_tokens = ($even) => {
-  GPTSetting.GPT_Setting.Max_tokens = +$even.target.value;
+  Setting.GPT_Setting.Max_tokens = +$even.target.value;
 };
 //  改变 Presence_penalty
 let ChangePresence_penalty = (e) => {
-  GPTSetting.GPT_Setting.Presence_penalty = +e.target.value;
+  Setting.GPT_Setting.Presence_penalty = +e.target.value;
 };
 // 改变 Frequency_penalty
 let ChangeFrequency_penalty = (e) => {
-  GPTSetting.GPT_Setting.Frequency_penalty = +e.target.value;
+  Setting.GPT_Setting.Frequency_penalty = +e.target.value;
 };
 // 改变 历史消息长度压缩阈值
 let ChangeHistoryCompression = (e) => {
-  GPTSetting.GPT_Setting.HistoryCompression = +e.target.value;
+  Setting.GPT_Setting.HistoryCompression = +e.target.value;
 };
 // 改变 为每个输入消息生成多少个聊天完成选项。
 let ChangeN = (e) => {
@@ -68,11 +69,11 @@ let ChangeN = (e) => {
     type: "warning",
     duration: 3000,
   });
-  GPTSetting.GPT_Setting.N = +e.target.value;
+  Setting.GPT_Setting.N = +e.target.value;
 };
 // 改变 附带历史消息数。(GPT发送时 携带多少组信息)
 let ChangeCarriedHistoryMessages = (e) => {
-  GPTSetting.GPT_Setting.CarriedHistoryMessages = +e.target.value;
+  Setting.GPT_Setting.CarriedHistoryMessages = +e.target.value;
 };
 
 // 退出登录
@@ -148,7 +149,7 @@ const Logout = () => {
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span class="min-w-36 flex justify-evenly items-center rounded-xl border p-3">
-              {{ GPTSetting.GPT_Setting.Model }}
+              {{ Setting.GPT_Setting.Model }}
               <svg
                 t="1708079813734"
                 class="icon"
@@ -181,7 +182,7 @@ const Logout = () => {
             <div class="text-xs">值越大，回复越随机</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.Temperature"
+            :value="Setting.GPT_Setting.Temperature"
             :min="0"
             :max="2"
             :step="0.1"
@@ -194,7 +195,7 @@ const Logout = () => {
             <div class="text-xs">与随机性类似，但不要和随机性一起更改</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.Top_p"
+            :value="Setting.GPT_Setting.Top_p"
             :min="0"
             :max="1"
             :step="0.1"
@@ -207,7 +208,7 @@ const Logout = () => {
             <div class="text-xs">单次交互所用的最大 Token 数</div>
           </div>
           <input
-            :value="GPTSetting.GPT_Setting.Max_tokens"
+            :value="Setting.GPT_Setting.Max_tokens"
             class="myInput"
             type="number"
             @input="ChangeMax_tokens" />
@@ -219,7 +220,7 @@ const Logout = () => {
             <div class="text-xs">值越大，越有可能扩展到新话题</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.Presence_penalty"
+            :value="Setting.GPT_Setting.Presence_penalty"
             :min="-2"
             :max="2"
             :step="0.1"
@@ -232,7 +233,7 @@ const Logout = () => {
             <div class="text-xs">值越大，越有可能降低重复字词</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.Frequency_penalty"
+            :value="Setting.GPT_Setting.Frequency_penalty"
             :min="-2"
             :max="2"
             :step="0.1"
@@ -245,7 +246,7 @@ const Logout = () => {
             <div class="text-xs">当未压缩的历史消息超过该值时，将进行压缩</div>
           </div>
           <input
-            :value="GPTSetting.GPT_Setting.HistoryCompression"
+            :value="Setting.GPT_Setting.HistoryCompression"
             class="myInput"
             type="number"
             @input="ChangeHistoryCompression" />
@@ -257,7 +258,7 @@ const Logout = () => {
             <div class="text-xs">为每个输入消息生成多少个聊天完成选项。</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.N"
+            :value="Setting.GPT_Setting.N"
             :min="1"
             :max="2"
             :step="1"
@@ -270,7 +271,7 @@ const Logout = () => {
             <div class="text-xs">每次请求携带的历史消息数</div>
           </div>
           <RangeInput
-            :value="GPTSetting.GPT_Setting.CarriedHistoryMessages"
+            :value="Setting.GPT_Setting.CarriedHistoryMessages"
             :min="1"
             :max="100"
             :step="1"

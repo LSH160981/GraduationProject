@@ -1,7 +1,7 @@
 import { reactive, watch, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useGPTSettingStore = defineStore('GPTSetting', () => {
+export const useSettingStore = defineStore('Setting', () => {
     // GPT 设置 的默认值
     let GPT_Setting = reactive({
         // 记录选择的模型

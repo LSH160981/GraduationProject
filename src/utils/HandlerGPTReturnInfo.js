@@ -1,6 +1,6 @@
 import { ElMessage } from "element-plus";
-import { useGPTSettingStore } from "@/stores/GPTSetting.js";
-let GPTSetting = useGPTSettingStore();
+import { useSettingStore } from "@/stores/Setting.js";
+let Setting = useSettingStore();
 
 /**
  * @param {RefImpl} messages 响应式数据 
@@ -14,12 +14,12 @@ export const HandlerGPTReturnInfo = async (messages, signal, callback) => {
     const AI_API_KEY = "sk-foH2NFqFeSDLfj3OiCttrsB0Gza9JZBYBwE9RutauvBc5ipD";
     // 请求体
     const requestBody = {
-        model: GPTSetting.GPT_Setting.Model,
-        temperature: GPTSetting.GPT_Setting.Temperature,
-        max_tokens: GPTSetting.GPT_Setting.Max_tokens,
-        presence_penalty: GPTSetting.GPT_Setting.Presence_penalty,
-        frequency_penalty: GPTSetting.GPT_Setting.Frequency_penalty,
-        n: GPTSetting.GPT_Setting.N,
+        model: Setting.GPT_Setting.Model,
+        temperature: Setting.GPT_Setting.Temperature,
+        max_tokens: Setting.GPT_Setting.Max_tokens,
+        presence_penalty: Setting.GPT_Setting.Presence_penalty,
+        frequency_penalty: Setting.GPT_Setting.Frequency_penalty,
+        n: Setting.GPT_Setting.N,
         messages: messages.value,
         stream: true, // 开启流式读取
     };
