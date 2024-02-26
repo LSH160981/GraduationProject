@@ -107,7 +107,7 @@ const StopFetch = () => {
             <span>
               <SVG name="stop"></SVG>
             </span>
-            <span> 停止当前对话 </span>
+            <span class="text-[color:var(--setting-color)]"> 停止当前对话 </span>
           </div>
         </el-button>
       </div>
