@@ -169,7 +169,7 @@ const DialogSure = () => {
       <div
         v-for="item in ProxyMasks"
         :key="item[0]"
-        class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer">
+        class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer transition-all active:scale-95">
         <div class="p-3 flex flex-col hover:bg-violet-100" @click="ChoiceMaskChat(item[1])">
           <!-- title -->
           <span class="text-2xl font-normal whitespace-nowrap w-60 text-black">

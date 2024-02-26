@@ -1,9 +1,9 @@
 <script setup>
-// 父组件传递的 数据
 /**
+ * 父组件传递的 数据
  * value 默认值
  */
-const { value, min, max, step, onChange } = defineProps({
+defineProps({
   value: {
     type: Number,
     require: true,

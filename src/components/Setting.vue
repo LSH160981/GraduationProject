@@ -1,4 +1,6 @@
 <script setup>
+import { ref, watch, onMounted } from "vue";
+import isDaytime from "@/utils/Times.js";
 import { ClearAll } from "@/utils/HandlerToken.js";
 import RangeInput from "./RangeInput.vue";
 import GoBackButton from "./GoBackButton.vue";
@@ -8,14 +10,22 @@ let ParametsSetting = useParametsSettingStore();
 import { useGPTSettingStore } from "@/stores/GPTSetting.js";
 let GPTSetting = useGPTSettingStore();
 
-// 退出登录
-const Logout = () => {
-  console.log("退出登录");
-  ClearAll();
-  window.location.href = "/";
-  window.location.reload();
+// 当前主题的颜色 true:晚上  false:白天
+let Theme = ref(false);
+// 主题切换 val是组件返回的值[val: boolean]
+const ChooseTheme = (val) => {
+  console.log(val);
 };
-
+// watch(
+//   () => Theme.value,
+//   (newTheme) => {},
+//   {
+//     immediate: true,
+//   }
+// );
+onMounted(() => {
+  Theme.value = isDaytime();
+});
 // 模型 选择的回调
 const ChooseModel = (m) => {
   if (m === "gpt-4") {
@@ -64,6 +74,14 @@ let ChangeN = (e) => {
 let ChangeCarriedHistoryMessages = (e) => {
   GPTSetting.GPT_Setting.CarriedHistoryMessages = +e.target.value;
 };
+
+// 退出登录
+const Logout = () => {
+  console.log("退出登录");
+  ClearAll();
+  window.location.href = "/";
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -72,11 +90,58 @@ let ChangeCarriedHistoryMessages = (e) => {
     <!-- top -->
     <div class="mb-3 flex justify-between items-center gap-1 px-2 pb-2">
       <GoBackButton />
-      <span class="text-2xl">GPT参数设置</span>
+      <span class="text-2xl">参数设置</span>
     </div>
     <!-- 主体  -->
     <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.85" class="p-2">
       <!-- 第一部分 -->
+      <div class="EverPart">
+        <!-- 主题颜色 -->
+        <div class="px-5 py-3 flex justify-between items-center">
+          <span class="text-base font-bold">主题颜色</span>
+          <div class="flex justify-between items-center gap-2">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5" />
+                <path
+                  d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+              </svg>
+            </span>
+            <el-switch v-model="Theme" @change="ChooseTheme">
+              <template #active-action>
+                <span class=" "> D </span>
+              </template>
+              <template #inactive-action>
+                <span class=" "> L </span>
+              </template>
+            </el-switch>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- 第二部分 -->
       <div class="EverPart">
         <!-- 第一项 模型 -->
         <div class="FirsPartItem">
@@ -212,7 +277,7 @@ let ChangeCarriedHistoryMessages = (e) => {
             @input="ChangeCarriedHistoryMessages" />
         </div>
       </div>
-      <!-- 第二部分 -->
+      <!-- 第三部分 -->
       <div class="EverPart">
         <div class="px-5 py-3 flex justify-between items-center">
           <span class="text-base font-bold">清除本地信息并退出登录</span>
@@ -250,7 +315,7 @@ let ChangeCarriedHistoryMessages = (e) => {
  */
 /* 每一个 部分 */
 .EverPart {
-  @apply w-full border rounded-xl last-of-type:mt-4;
+  @apply w-full border rounded-xl mt-4 first-of-type:mt-0;
 }
 /* 第一部分 里面的每一个子项目 */
 .FirsPartItem {

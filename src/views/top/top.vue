@@ -36,7 +36,7 @@ const SureDeleteAllChat = () => {
   <div class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]">
     <div class="flex justify-evenly items-center">
       <!-- 侧边栏 -->
-      <el-button link @click="MenuBarClick">
+      <el-button link @click="MenuBarClick" class="transition-all active:scale-90">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -47,7 +47,9 @@ const SureDeleteAllChat = () => {
         </svg>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div class="tooltip maxd:tooltip-right" data-tip=" 删除所有的对话 ">
+      <div
+        class="tooltip maxd:tooltip-right transition-all active:scale-90"
+        data-tip=" 删除所有的对话 ">
         <el-popconfirm
           width="200"
           :hide-icon="true"
@@ -86,7 +88,7 @@ const SureDeleteAllChat = () => {
 
     <div class="w-28 maxd:w-24 flex justify-evenly items-center">
       <!-- setting -->
-      <router-link to="/setting">
+      <router-link to="/setting" class="transition-all active:scale-90">
         <el-button link>
           <svg
             xmlns="http://www.w3.org/2000/svg"
