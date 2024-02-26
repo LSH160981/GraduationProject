@@ -105,20 +105,7 @@ const StopFetch = () => {
         <el-button link @click="StopFetch">
           <div class="rounded-md flex justify-between items-center gap-1">
             <span>
-              <svg
-                t="1707380852288"
-                class="icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="2527"
-                width="24"
-                height="24">
-                <path
-                  d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024z m3.008-92.992a416 416 0 1 0 0-832 416 416 0 0 0 0 832zM320 320h384v384H320V320z"
-                  fill="#262626"
-                  p-id="2528"></path>
-              </svg>
+              <SVG name="stop"></SVG>
             </span>
             <span> 停止当前对话 </span>
           </div>
@@ -133,23 +120,10 @@ const StopFetch = () => {
         @keyup.enter="SendButton"
         v-focus
         size="large"
-        placeholder="我今天能帮你什么?">
+        placeholder="Enter 发送信息">
         <template #suffix>
           <button @click.stop="SendButton">
-            <svg
-              t="1706885107174"
-              class="icon"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              p-id="4259"
-              width="24"
-              height="24">
-              <path
-                d="M85.333333 896l896-384L85.333333 128v298.666667l640 85.333333-640 85.333333z"
-                p-id="4260"
-                fill="#1296db"></path>
-            </svg>
+            <SVG name="send"></SVG>
           </button>
         </template>
       </el-input>

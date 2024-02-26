@@ -1,6 +1,4 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
-import isDaytime from "@/utils/Times.js";
 import { ClearAll } from "@/utils/HandlerToken.js";
 import RangeInput from "./RangeInput.vue";
 import GoBackButton from "./GoBackButton.vue";
@@ -10,22 +8,10 @@ let ParametsSetting = useParametsSettingStore();
 import { useSettingStore } from "@/stores/Setting.js";
 let Setting = useSettingStore();
 
-// 当前主题的颜色 true:晚上  false:白天
-let Theme = ref(false);
-// 主题切换 val是组件返回的值[val: boolean]
+// 主题切换 val是[el-switch组件]返回的值[val: boolean]
 const ChooseTheme = (val) => {
-  console.log(val);
+  Setting.Theme = val;
 };
-// watch(
-//   () => Theme.value,
-//   (newTheme) => {},
-//   {
-//     immediate: true,
-//   }
-// );
-onMounted(() => {
-  Theme.value = isDaytime();
-});
 
 // 模型 选择的回调
 const ChooseModel = (m) => {
@@ -102,22 +88,9 @@ const Logout = () => {
           <span class="text-base font-bold">主题颜色</span>
           <div class="flex justify-between items-center gap-2">
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5" />
-                <path
-                  d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
-              </svg>
+              <SVG name="sun"></SVG>
             </span>
-            <el-switch v-model="Theme" @change="ChooseTheme">
+            <el-switch v-model="Setting.Theme" @change="ChooseTheme">
               <template #active-action>
                 <span class=" "> D </span>
               </template>
@@ -126,18 +99,7 @@ const Logout = () => {
               </template>
             </el-switch>
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
+              <SVG name="moon"></SVG>
             </span>
           </div>
         </div>
@@ -150,19 +112,7 @@ const Logout = () => {
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span class="min-w-36 flex justify-evenly items-center rounded-xl border p-3">
               {{ Setting.GPT_Setting.Model }}
-              <svg
-                t="1708079813734"
-                class="icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="4194"
-                width="24"
-                height="24">
-                <path
-                  d="M512.146286 619.52L245.296762 352.792381 193.584762 404.48l318.585905 318.415238 318.268952-318.415238-51.736381-51.687619z"
-                  p-id="4195"></path>
-              </svg>
+              <SVG name="bottom"></SVG>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
@@ -257,12 +207,7 @@ const Logout = () => {
             <div class="text-base font-bold">返回的聊天个数 (n)</div>
             <div class="text-xs">为每个输入消息生成多少个聊天完成选项。</div>
           </div>
-          <RangeInput
-            :value="Setting.GPT_Setting.N"
-            :min="1"
-            :max="2"
-            :step="1"
-            @input="ChangeN" />
+          <RangeInput :value="Setting.GPT_Setting.N" :min="1" :max="2" :step="1" @input="ChangeN" />
         </div>
         <!-- 第九项 附带历史消息数。 -->
         <div class="FirsPartItem">
@@ -286,20 +231,7 @@ const Logout = () => {
             @click="Logout"
             class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-300 transition-all hover:bg-rose-500 active:scale-90">
             <span>
-              <svg
-                t="1708351960587"
-                class="icon"
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                p-id="5278"
-                width="24"
-                height="24">
-                <path
-                  d="M128 213.333333c0-46.933333 38.4-85.333333 85.333333-85.333333h341.333334v85.333333H213.333333v597.333334h341.333334v85.333333H213.333333c-46.933333 0-85.333333-38.4-85.333333-85.333333V213.333333z m604.842667 256L624.64 361.130667l60.330667-60.330667 211.2 211.2-211.2 211.2-60.330667-60.330667L732.842667 554.666667H451.84v-85.333334h281.002667z"
-                  fill="#000000"
-                  p-id="5279"></path>
-              </svg>
+              <SVG name="logout"></SVG>
             </span>
             <div class="truncate">退出登录</div>
           </button>

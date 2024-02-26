@@ -98,36 +98,10 @@ const GoToChatBottom = () => {
     <!-- 去到当前对话的顶部和底部 -->
     <div v-show="ShowButtonFlag" class="flex flex-col gap-1 absolute bottom-3 right-2">
       <div @click="GoToChatTop" class="GoToChat_TopOrBottom">
-        <svg
-          t="1707378937574"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="1752"
-          width="24"
-          height="24">
-          <path
-            d="M828.21 690.33c4.5 4.5 10.6 7.03 16.97 7.03l95.2 0.01c7.13 0.01 10.71-8.62 5.66-13.66L523.01 260.68c-6.25-6.24-16.37-6.24-22.62 0L77.36 683.71c-5.05 5.04-1.47 13.67 5.66 13.66l95.2-0.01c6.37 0 12.47-2.53 16.97-7.03L511.7 373.82l316.51 316.51z"
-            p-id="1753"
-            fill="#444141"></path>
-        </svg>
+        <SVG name="top"></SVG>
       </div>
       <div @click="GoToChatBottom" class="GoToChat_TopOrBottom">
-        <svg
-          t="1707379038594"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="2396"
-          width="24"
-          height="24">
-          <path
-            d="M828.507 334.04c4.5-4.5 10.6-7.03 16.97-7.03l95.2-0.01c7.13-0.01 10.71 8.62 5.66 13.66l-423.03 423.03c-6.25 6.24-16.37 6.24-22.62 0L77.657 340.66c-5.05-5.04-1.47-13.67 5.66-13.66l95.2 0.01c6.37 0 12.47 2.53 16.97 7.03l316.51 316.51 316.51-316.51z"
-            p-id="2397"
-            fill="#444141"></path>
-        </svg>
+        <SVG name="bottom"></SVG>
       </div>
     </div>
   </div>

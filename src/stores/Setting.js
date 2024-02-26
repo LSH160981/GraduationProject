@@ -1,6 +1,9 @@
-import { reactive, watch, toRaw } from 'vue'
+import { ref, reactive, watch, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 
+/**
+ * 这个仓库对应的是 Setting.vue 这个组件
+ */
 export const useSettingStore = defineStore('Setting', () => {
     // GPT 设置 的默认值
     let GPT_Setting = reactive({
@@ -24,13 +27,13 @@ export const useSettingStore = defineStore('Setting', () => {
         // 每次请求携带的历史消息数
         CarriedHistoryMessages: 10
     })
-    // 查询本地有没有保存过用户 使用GPT的习性
-    let result;
-    if (result = JSON.parse(localStorage.getItem('GPT_Setting'))) {
+    // 查询本地有没有保存过用户 使用GPT的习惯
+    let GPT_SettingResult;
+    if (GPT_SettingResult = JSON.parse(localStorage.getItem('GPT_Setting'))) {
         // reactive 重新分配一个新对象，会`失去`响应式（可以使用`Object.assign`去整体替换）
-        GPT_Setting = Object.assign(GPT_Setting, result);
+        GPT_Setting = Object.assign(GPT_Setting, GPT_SettingResult);
     }
-
+    // GPT_Setting 的变化
     watch(
         () => GPT_Setting,
         (newSetting) => {
@@ -43,7 +46,33 @@ export const useSettingStore = defineStore('Setting', () => {
         }
     )
 
+
+    // 当前主题的颜色 true:晚上  false:白天
+    let Theme = ref(false);
+    // 查询本地有没有保存过用户 主题使用习惯
+    let ThemeResult;
+    if (ThemeResult = JSON.parse(localStorage.getItem('Theme'))) {
+        Theme.value = ThemeResult;
+    }
+    // Theme 的变化
+    watch(
+        () => Theme.value,
+        (newTheme) => {
+            let result = JSON.stringify(newTheme)
+            localStorage.setItem('Theme', result);
+            // 通过JavaScript选择HTML元素并添加class
+            let htmlElement = document.querySelector("html");
+            if (newTheme) {
+                htmlElement.classList.add("dark");
+            } else {
+                htmlElement.classList.remove("dark");
+            }
+        },
+        {
+            immediate: true,
+        }
+    );
     return {
-        GPT_Setting
+        GPT_Setting, Theme
     }
 })
