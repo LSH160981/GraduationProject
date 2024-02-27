@@ -1,4 +1,4 @@
-import { ref, toRaw, watch, nextTick } from 'vue'
+import { ref, toRaw, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { HandlerGPTReturnInfo } from '@/utils/HandlerGPTReturnInfo.js';
 import { useGlobalInformationStore } from './GlobalInformation.js'
@@ -146,7 +146,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         // 网络请求结束后把 仓库的终止信号 置空
         controller.value = null;
         signal.value = null;
-        // 这个callback 是 chatInput.vue 的
+        // 这个callback 是 chatInput.vue(调用了两次) 的
         callback && callback();
       })
     } catch (_) {

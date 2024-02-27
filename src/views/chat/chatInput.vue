@@ -92,6 +92,22 @@ const StopFetch = () => {
   // 让按钮消失
   CurrentChatInfo.ShowStopButtonFlag = false;
 };
+
+// reload-SVG 旋转的角度
+const rotation = ref(0);
+// 重新生成对话
+const ReloadChat = () => {
+  // 旋转的角度 +360
+  rotation.value += 360;
+  // 显示 停止按钮
+  CurrentChatInfo.ShowStopButtonFlag = true;
+  // 清除最后 的对话
+  CurrentChatInfo.messages.pop();
+  CurrentChatInfo.GetGPTMsg(() => {
+    // 让按钮消失
+    CurrentChatInfo.ShowStopButtonFlag = false;
+  });
+};
 </script>
 
 <template>
@@ -99,9 +115,8 @@ const StopFetch = () => {
   <div ref="ChatInput" class="w-full flex flex-col justify-evenly items-center">
     <!-- 不要让这个按钮 破坏下面的结果 -->
     <div class="relative -top-3">
-      <div v-show="CurrentChatInfo.ShowStopButtonFlag">
-        <!-- 重新生成按钮 -->
-        <!-- 停止当前对话按钮 -->
+      <!-- 停止当前对话按钮 -->
+      <div v-if="CurrentChatInfo.ShowStopButtonFlag">
         <el-button link @click="StopFetch">
           <div class="rounded-md flex justify-between items-center gap-1">
             <span>
@@ -111,7 +126,30 @@ const StopFetch = () => {
           </div>
         </el-button>
       </div>
-      <div v-show="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
+      <!-- 重新生成按钮 -->
+      <div
+        v-else-if="
+          // 停止当前对话按钮 相反
+          !CurrentChatInfo.ShowStopButtonFlag &&
+          // 数组必须有长度
+          CurrentChatInfo.messages.length > 0 &&
+          // 最后一个必须是 system
+          CurrentChatInfo.messages[CurrentChatInfo.messages.length - 1].role === 'system'
+        ">
+        <el-button link @click="ReloadChat">
+          <div
+            class="rounded-md flex justify-between items-center gap-1 transition-all active:scale-95">
+            <span
+              :style="{ transform: `rotate(${rotation}deg)` }"
+              class="transition-all duration-300">
+              <SVG name="reload" width="22px" height="22px"></SVG>
+            </span>
+            <span class="text-[color:var(--setting-color)]"> 重新生成对话 </span>
+          </div>
+        </el-button>
+      </div>
+      <!-- 占位 -->
+      <div v-else="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
     <div class="w-full mb-2">
