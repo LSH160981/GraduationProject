@@ -5,10 +5,7 @@
   --container-bgc: #e7f8ff;
   --svg-color: #000000;
   --setting-color: #1f1e1e;
-}
-
-html {
-  transition: all 0.5s;
+  --range-border-color: #1d1b1b;
 }
 
 /* 暗黑模式 */
@@ -21,6 +18,7 @@ html.dark {
   --svg-color: #dfd5d5;
   --setting-color: #d1d1d1;
   --el-dialog-bg-color: #270f4a;
+  --range-border-color: #c5bebe;
 }
 
 /* 一些样式的重写 */
@@ -28,6 +26,7 @@ html.dark {
   box-sizing: border-box;
 }
 
+/* el-plus 的部分样式重写 */
 div.el-drawer__body {
   padding: 0;
 }
@@ -38,7 +37,7 @@ input.el-input__inner {
   color: var(--setting-color);
 }
 
-/* Markdown 组件的文字的样式 */
+/* Markdown 组件的文字的样式 重写 */
 div.vuepress-markdown-body {
   /* 背景颜色透明 */
   background-color: #ffffff00;
@@ -53,6 +52,7 @@ div.vuepress-markdown-body:not(.custom) {
   }
 }
 
+/* 滚动条 样式重写 */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

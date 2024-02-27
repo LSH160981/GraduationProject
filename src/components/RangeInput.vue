@@ -50,7 +50,7 @@ defineProps({
   transition: all 1s;
 }
 .input-range:active {
-  border: 1px solid rgb(29, 27, 27);
+  border: 1px solid var(--range-border-color);
 }
 
 input[type="range"] {

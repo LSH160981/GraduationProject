@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, watch, onMounted } from "vue";
+import { ref, nextTick, watch } from "vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
