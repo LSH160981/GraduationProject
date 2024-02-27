@@ -8,8 +8,8 @@ let ParametsSetting = useParametsSettingStore();
 </script>
 
 <template>
+  <!--  -->
   <div class="relative">
-    <!--  -->
     <div
       class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
       <div

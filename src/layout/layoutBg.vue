@@ -1,5 +1,5 @@
 <template>
-  <div ref="canvasContainer" class="canvas-container"></div>
+  <div ref="canvasContainer" class="canvas-container overflow-hidden"></div>
 </template>
 
 <script>
