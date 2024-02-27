@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import loginBg from "./loginBg.vue";
 import { useRouter } from "vue-router"; // 引入路由
 import { ElMessage, ElLoading, ElNotification } from "element-plus";
 import { SetToken } from "@/utils/HandlerToken.js";
@@ -84,143 +85,63 @@ const LoadFullScreen = () => {
 </script>
 
 <template>
-  <div class="w-screen h-screen flex justify-center items-center select-none">
-    <div
-      class="bg-white flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 border-pink-500-500 shadow-lg shadow-indigo-500/50 maxd:w-5/6 z-10">
-      <div class="mb-8 text-center">
-        <h1 class="my-3 text-4xl font-bold">Sign in</h1>
-        <p class="text-sm dark:text-gray-400">Sign in to access your account</p>
-      </div>
-      <div class="space-y-12">
-        <div class="space-y-4">
-          <div class="py-3">
-            <label
-              class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-              <input
-                v-model.lazy="Account"
-                placeholder="Account"
-                class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
-              <span
-                class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
-                Account
-              </span>
-            </label>
-          </div>
-          <div>
-            <label
-              class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-              <input
-                v-model.lazy="Password"
-                type="password"
-                placeholder="Password"
-                @keydown.enter="SignIn"
-                class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
-              <span
-                class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
-                Password
-              </span>
-            </label>
-          </div>
+  <div class="login w-screen h-screen overflow-hidden select-none">
+    <div class="w-screen h-screen flex justify-center items-center">
+      <div
+        class="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 shadow-lg shadow-indigo-500/50 maxd:w-5/6 z-10">
+        <div class="mb-8 text-center">
+          <h1 class="my-3 text-4xl font-bold">Sign in</h1>
+          <p class="text-sm dark:text-gray-400">Sign in to access your account</p>
         </div>
-        <div class="space-y-2">
-          <div>
-            <button
-              @click="SignIn"
-              class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95">
-              Sign in
-            </button>
+        <div class="space-y-12">
+          <div class="space-y-4">
+            <div class="py-3">
+              <label
+                class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                <input
+                  v-model.lazy="Account"
+                  placeholder="Account"
+                  class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+                <span
+                  class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                  Account
+                </span>
+              </label>
+            </div>
+            <div>
+              <label
+                class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                <input
+                  v-model.lazy="Password"
+                  type="password"
+                  placeholder="Password"
+                  @keydown.enter="SignIn"
+                  class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+                <span
+                  class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
+                  Password
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div>
+              <button
+                @click="SignIn"
+                class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95">
+                Sign in
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="rocket">
-      <SVG name="rocket" width="128px" height="128px"></SVG>
-    </div>
+    <loginBg></loginBg>
   </div>
 </template>
 
 <style scoped>
-.w-screen {
-  background: linear-gradient(#6d00a9, #190027);
-}
-.rocket {
-  pointer-events: none;
-  position: absolute;
-  top: 60%;
-  left: 15%;
-  width: 200px;
-  height: 200px;
-  font-size: 8em;
-  text-align: center;
-  line-height: 200px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 55px rgba(255, 255, 255, 0.1);
-  animation: move 5s linear infinite;
-}
-
-.rocket::before {
-  content: "";
-  position: absolute;
-  top: 90px;
-  left: 20px;
-  width: 30%;
-  height: 60%;
-  background: #ff0;
-  transform: rotate(45deg);
-  border-radius: 50%;
-  filter: blur(15px);
-  z-index: -1;
-  animation: flue 5s linear infinite;
-}
-
-.rocket svg {
-  position: absolute;
-  top: 32px;
-  left: 39px;
-}
-@media (max-width: 767px) {
-  .rocket {
-    top: 70%;
-    left: 60px;
-  }
-}
-
-@keyframes flue {
-  0% {
-    background: #00abff;
-    transform: rotate(45deg) scaleY(1);
-  }
-  25% {
-    background: #ffff90;
-  }
-  50% {
-    background: #f100ff;
-    transform: rotate(45deg) scaleY(2);
-  }
-  75% {
-    background: #09dbff;
-  }
-  100% {
-    background: #00abff;
-    transform: rotate(45deg) scaleY(1);
-  }
-}
-
-@keyframes move {
-  0% {
-    transform: translate(-20px, -20px);
-  }
-  25% {
-    transform: translate(20px, 0px);
-  }
-  50% {
-    transform: translate(-20px, 20px);
-  }
-  75% {
-    transform: translate(20px, 0px);
-  }
-  100% {
-    transform: translate(-20px, -20px);
-  }
+.login {
+  background: linear-gradient(#000000, #200032);
 }
 </style>
