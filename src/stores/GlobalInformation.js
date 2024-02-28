@@ -1,4 +1,4 @@
-import { ref, watch, toRaw, computed, isProxy } from 'vue'
+import { ref, watch, toRaw, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useGlobalInformationStore = defineStore('GlobalInformation', () => {
