@@ -1,8 +1,4 @@
-<script setup>
-// import { useRoute } from "vue-router";
-// let $route = useRoute();
-// console.log($route);
-</script>
+<script setup></script>
 
 <template>
   <section class="w-screen h-screen flex items-center p-16 select-none dark:bg-black">

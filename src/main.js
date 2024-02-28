@@ -1,7 +1,7 @@
-
-
 // tailwindcss
 import './assets/css/main.css';
+// 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
+import '@/utils/UpdatedChecker.js'
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -54,9 +54,4 @@ app.use(GlobalDirective); // 自定义指令
 app.component('SVG', SVG); // 全局组件 SVG
 app.use(ElementPlus); // el-ui
 app.use(VMdPreview); // Markdown 插件
-
-
 app.mount('#app')
-
-// 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
-import '@/utils/UpdatedChecker.js'
