@@ -14,8 +14,8 @@ let Password = ref(""); // 密码 119110112
  */
 const SignIn = () => {
   let Loading = LoadFullScreen(); // 开始loading
-  let username = Account.value.trim();
-  let password = Password.value.trim();
+  let username = Account.value;
+  let password = Password.value;
   if (!RuleVerification(username, password)) {
     Loading.close(); // 关闭loading效果
     ElMessage({
@@ -99,7 +99,7 @@ const LoadFullScreen = () => {
               <label
                 class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
-                  v-model.lazy="Account"
+                  v-model.trim="Account"
                   placeholder="Account"
                   class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
                 <span
@@ -112,7 +112,7 @@ const LoadFullScreen = () => {
               <label
                 class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input
-                  v-model.lazy="Password"
+                  v-model.trim="Password"
                   type="password"
                   placeholder="Password"
                   @keydown.enter="SignIn"
