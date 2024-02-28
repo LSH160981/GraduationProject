@@ -2,10 +2,8 @@
 
 // 立即执行函数,其实就是一个作用域
 (() => {
-    // 获取当前时间戳
-    const timestamp = Date.now();
     // 基础完整的路径
-    const base_url = window.location.origin;
+    let base_url = window.location.origin;
     // src 的值
     let src_arr = Get_src();
     // setInterval 的 id
@@ -14,6 +12,8 @@
     // 1.获取整个页面的数据 加上时间戳，就是为了避免有缓存
     // 2.提取所有 <script></script> 中的src 并用 返回一个新的 数组
     async function Get_src() {
+        // 获取当前时间戳
+        let timestamp = Date.now();
         const result_arr = new Set();
         await fetch(`${base_url}/?${timestamp}`, {
             cache: 'no-cache',
