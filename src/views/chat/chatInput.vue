@@ -134,8 +134,8 @@ const ReloadChat = () => {
         v-else-if="
           // 停止当前对话按钮 相反
           !CurrentChatInfo.ShowStopButtonFlag &&
-          // 数组必须有长度
-          CurrentChatInfo.messages.length > 0 &&
+          // 数组必须有长度 大于1 是为了解决 第一个 是MaskPlay的提示词
+          CurrentChatInfo.messages.length > 1 &&
           // 最后一个必须是 system
           CurrentChatInfo.messages[CurrentChatInfo.messages.length - 1].role === 'system'
         ">
