@@ -33,8 +33,8 @@ let ChangeTop_p = (e) => {
   Setting.GPT_Setting.Top_p = +e.target.value;
 };
 // 改变 单次交互所用的最大 Token 数
-let ChangeMax_tokens = ($even) => {
-  Setting.GPT_Setting.Max_tokens = +$even.target.value;
+let ChangeMax_tokens = (e) => {
+  Setting.GPT_Setting.Max_tokens = +e.target.value;
 };
 //  改变 Presence_penalty
 let ChangePresence_penalty = (e) => {

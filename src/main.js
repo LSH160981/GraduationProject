@@ -1,3 +1,5 @@
+
+
 // tailwindcss
 import './assets/css/main.css';
 
@@ -55,3 +57,6 @@ app.use(VMdPreview); // Markdown 插件
 
 
 app.mount('#app')
+
+// 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
+import '@/utils/UpdatedChecker.js'
