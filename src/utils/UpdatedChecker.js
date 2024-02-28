@@ -68,7 +68,7 @@
         // 每 10 秒检查一次
         timeID = setInterval(() => {
             UpdatedChecker();
-        }, 10000);
+        }, 100000);
     }
 
     // 开启轮询检测
