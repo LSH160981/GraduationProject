@@ -90,8 +90,8 @@ const LoadFullScreen = () => {
       <div
         class="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 shadow-lg shadow-indigo-500/50 maxd:w-5/6 z-10">
         <div class="mb-8 text-center">
-          <h1 class="my-3 text-4xl font-bold">Sign in</h1>
-          <p class="text-sm dark:text-gray-400">Sign in to access your account</p>
+          <h1 class="my-3 text-4xl font-bold dark:text-white">Sign in</h1>
+          <p class="text-sm dark:text-white">Sign in to access your account</p>
         </div>
         <div class="space-y-12">
           <div class="space-y-4">
@@ -128,7 +128,7 @@ const LoadFullScreen = () => {
             <div>
               <button
                 @click="SignIn"
-                class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95">
+                class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95 dark:text-white">
                 Sign in
               </button>
             </div>
