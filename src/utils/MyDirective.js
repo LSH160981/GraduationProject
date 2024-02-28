@@ -15,8 +15,7 @@ export default {
             mounted: (el) => {
                 // 如果该元素本身就是 input 直接聚焦
                 if (el.nodeName === 'INPUT') {
-                    el.focus();
-                    el.select()
+                    el.focus(); // 原生聚焦
                     return
                 }
                 // 如果是 el-input 组件 通过querySelector选中子元素中的 input 再去聚焦
