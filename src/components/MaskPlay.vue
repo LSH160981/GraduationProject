@@ -2,17 +2,21 @@
 import { computed, ref, nextTick, watch, toRaw, onMounted } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID";
 import { ElMessage } from "element-plus";
-import GoBackButton from "./GoBackButton.vue";
+import CustomizeButton from "./CustomizeButton.vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
-
 import { useRouter } from "vue-router";
+
 let $Router = useRouter();
+// 返回上一级
+const GobackOne = () => {
+  $Router.back();
+};
 
 import masks from "@/assets/masks"; // 预设角色
-let CopyMasks = ref(masks); // 把这些提前准备好的预设角色 变为响应式的
+let CopyMasks = ref([...masks]); // 把这些提前准备好的预设角色 变为响应式的   展示在页面的数据
 let UserAddMasks = ref([]); // 用户添加的
 /**
  * UserAddMasks 变化
@@ -37,11 +41,13 @@ onMounted(() => {
 });
 // 根据时间戳删除 mask 自带的不删除
 const DeleteUserMask = (number) => {
+  // 用户添加的 根据时间戳删除
   UserAddMasks.value = UserAddMasks.value.filter((item) => {
     if (item[2]) {
       return item[2] !== number;
     }
   });
+  // 删除CopyMasks的值   展示在页面的数据
   CopyMasks.value = CopyMasks.value.filter((item) => {
     if (item[2]) {
       return item[2] !== number;
@@ -89,6 +95,10 @@ const ChoiceMaskChat = (maskStr) => {
 
 // 控制 添加新的预设角色 的对话框
 let DialogVisible = ref(false);
+// 控制 添加新的预设角色 的对话框 是否显示
+let ControlDialogVisible = () => {
+  DialogVisible.value = true;
+};
 // 对话框的宽
 let DialogWidth = computed(() => {
   if (ParametsSetting.w_phone) {
@@ -130,9 +140,9 @@ const DialogSure = () => {
   <!--  bg-violet-100 -->
   <div class="w-full h-full">
     <!-- 工具栏 -->
-    <div class="flex justify-between items-center gap-1 px-2 pb-4">
+    <div class="flex justify-between items-center gap-3 px-2 pb-4">
       <!-- 返回 -->
-      <GoBackButton />
+      <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"
@@ -141,14 +151,7 @@ const DialogSure = () => {
         type="text"
         placeholder="搜索预设角色" />
       <!-- 新建 -->
-      <button class="btn maxd:btn-sm" @click="DialogVisible = true">
-        <div class="flex justify-start items-center cursor-pointer gap-1">
-          <div>
-            <SVG name="add"></SVG>
-          </div>
-          <span>新建</span>
-        </div>
-      </button>
+      <CustomizeButton iconName="add" content="新建" :clickHandler="ControlDialogVisible" />
     </div>
     <!-- 主体  -->
     <el-scrollbar ref="El_Scrollbar" :max-height="ParametsSetting.BottomHeight * 0.85">
@@ -178,12 +181,7 @@ const DialogSure = () => {
     <!-- 添加新的预设角色 的 dialog -->
     <el-dialog v-model="DialogVisible" title="添加新的预设角色" :width="DialogWidth" align-center>
       <div class="flex flex-col gap-3">
-        <el-input
-          type="textarea"
-          v-model="DialogTitle"
-          autosize
-          placeholder="标题"
-          clearable />
+        <el-input type="textarea" v-model="DialogTitle" autosize placeholder="标题" clearable />
         <el-input
           type="textarea"
           v-model="DialogContent"

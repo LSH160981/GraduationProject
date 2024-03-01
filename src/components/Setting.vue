@@ -1,12 +1,19 @@
 <script setup>
 import { ClearAll } from "@/utils/HandlerToken.js";
 import RangeInput from "./RangeInput.vue";
-import GoBackButton from "./GoBackButton.vue";
+import CustomizeButton from "./CustomizeButton.vue";
 import { ElMessage } from "element-plus";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 import { useSettingStore } from "@/stores/Setting.js";
 let Setting = useSettingStore();
+import { useRouter } from "vue-router";
+let $Router = useRouter();
+
+// 返回上一级
+const GobackOne = () => {
+  $Router.back();
+};
 
 // 主题切换 val是[el-switch组件]返回的值[val: boolean]
 const ChooseTheme = (val) => {
@@ -77,8 +84,9 @@ const Logout = () => {
   <div class="w-full h-full select-none">
     <!-- top -->
     <div
-      class="mb-3 flex justify-between items-center gap-1 px-2 pb-2 text-[color:var(--setting-color)]">
-      <GoBackButton />
+      class="flex justify-between items-center gap-1 px-2 pb-2 text-[color:var(--setting-color)]">
+      <!-- // 返回上一级 -->
+      <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <span class="text-2xl">参数设置</span>
     </div>
     <!-- 主体  -->

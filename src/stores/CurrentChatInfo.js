@@ -1,4 +1,4 @@
-import { ref, toRaw, watch } from 'vue'
+import { ref, toRaw, watch, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import { HandlerGPTReturnInfo } from '@/utils/HandlerGPTReturnInfo.js';
 import { useGlobalInformationStore } from './GlobalInformation.js'
@@ -27,8 +27,13 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     uuid.value = uuidStr;
   }
 
-  // 通过uuid 确定给 哪一个slideritem 加上类样式 border-green-500 // SliderItem 点击之后 通过TWCSS改变 border
-  const SliderItemChangeBorder = () => {
+  /**
+   * 通过 当前uuid 确定给 哪一个slideritem 加上类样式 border-green-500
+   * SliderItem 点击之后 通过TWCSS改变 border
+   */
+  const SliderItemChangeBorder = async () => {
+    // 等待页面的 dom 更新完毕，采取执行下面的代码
+    await nextTick();
     // 获取所有带有 'uuid' 属性的元素
     let elements = document.querySelectorAll("[uuid]");
     // 遍历元素并打印 uuid
@@ -56,7 +61,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
       // 3.点击新建聊天 --> 清空UUID
       if (!newValue) {
-        console.log('新建对话 current uuid为空');
+        // console.log('新建对话 current uuid为空');
         messages.value = [];
         // 让chatInput.vue 中的停止按钮 消失
         ShowStopButtonFlag.value = false;
@@ -76,7 +81,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
         messages.value = result.messages;
         // title.value = result.title;
       } else {
-        console.log('新建对话 current uuid 有值');
+        // console.log('新建对话 current uuid 有值');
         let TempTitle = messages.value.find((item) => item.role == "user");
         // 2.新对话 重新生成的uuid 其他的组件 传过来 
         let TempChatInfo = {
@@ -117,7 +122,6 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
   watch(
     () => messages.value,
     (newValue) => {
-      console.log("Current msg 变了");
       if (toRaw(newValue).length <= 0) {
         return;
       }
