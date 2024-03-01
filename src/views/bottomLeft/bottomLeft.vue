@@ -66,25 +66,26 @@ onMounted(() => {
             to="/maskplay"
             active-class="MaskplayActive"
             @click="IsCloseDrawer"
-            class="SliderItemTop">
+            class="BottomLeftTop">
             <div>
               <SVG name="mask"></SVG>
             </div>
-            <span>面具</span>
+            <span class="767_1150:hidden">面具</span>
           </RouterLink>
         </div>
 
         <!-- 新建对话  -->
         <div class="bg-white w-full rounded-lg">
-          <RouterLink to="/chat" @click="IsCloseDrawer" class="SliderItemTop">
+          <RouterLink to="/chat" @click="IsCloseDrawer" class="BottomLeftTop">
             <div>
               <SVG name="edit"></SVG>
             </div>
-            <span>新对话</span>
+            <span class="767_1150:hidden">新对话</span>
           </RouterLink>
         </div>
       </div>
 
+      <!-- 显示对话列表 -->
       <div v-for="item in GlobalInformation.AllChatInfo" :key="item.uuid">
         <div class="bg-[#fff] rounded-lg">
           <RouterLink :to="{ path: `/chat/${item.uuid}` }">
@@ -98,16 +99,15 @@ onMounted(() => {
 
 <style scoped>
 .BottomLeft {
-  @apply p-3 border-r rounded-bl  bg-[color:var(--container-bgc)];
+  @apply p-3 border-r rounded-bl bg-[color:var(--container-bgc)];
   /* @apply dark:[]; */
 }
 /* TW 的 复合样式 */
-.SliderItemTop {
-  @apply w-full  shadow-md truncate
+.BottomLeftTop {
+  @apply w-full text-[color:var(--base-textColor)] shadow-md truncate
   flex justify-evenly items-center
-  p-3 rounded-lg cursor-pointer
-  hover:bg-violet-300 transition-all active:scale-95
-  text-[color:var(--base-textColor)];
+  p-3 rounded-lg cursor-pointer transition-all
+  hover:bg-violet-300 active:scale-95;
 }
 
 /* Vue3 RouterLink 被激活的样式 */
