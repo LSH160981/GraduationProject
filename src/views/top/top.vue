@@ -1,8 +1,10 @@
 <script setup>
-import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
-let ParametsSetting = useParametsSettingStore();
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
+import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
+let ParametsSetting = useParametsSettingStore();
+import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
+let { ChangeUUID } = useCurrentChatInfoStore();
 import { useRoute, useRouter } from "vue-router";
 let $Route = useRoute();
 let $Router = useRouter();
@@ -27,6 +29,19 @@ const SureDeleteAllChat = () => {
   if ($Route.fullPath.includes("/chat")) {
     // 在 就返回主页  作用：清空路径 清空ChatContainer的对话
     $Router.push("/chat");
+  }
+};
+// [在小屏幕的情况|和侧边栏消失] 才会升效的新建对话的按钮
+const Limit_NewChat = () => {
+  /**
+   * 小屏幕时才会显示
+   * BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col)
+   */
+  if (ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth) {
+    // 路由的跳转
+    $Router.push(`/chat`);
+    // 清除当前对话的uuid
+    ChangeUUID("");
   }
 };
 </script>
@@ -58,7 +73,16 @@ const SureDeleteAllChat = () => {
       </div>
     </div>
 
-    <div class="w-28 maxd:w-24 flex justify-evenly items-center">
+    <div class="w-28 flex justify-evenly items-center">
+      <!-- New Chat 小屏幕时才会显示 -->
+      <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
+      <div
+        v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
+        class="transition-all active:scale-90">
+        <el-button link @click="Limit_NewChat">
+          <SVG name="edit"></SVG>
+        </el-button>
+      </div>
       <!-- setting -->
       <router-link to="/setting" class="transition-all active:scale-90">
         <el-button link>

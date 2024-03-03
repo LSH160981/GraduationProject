@@ -99,13 +99,14 @@ const rotation = ref(0);
 const ReloadChat = () => {
   // 旋转的角度 +360
   rotation.value += 360;
+  // reload-SVG-container 旋转完才执行代码
   setTimeout(() => {
     // 显示 停止按钮
     CurrentChatInfo.ShowStopButtonFlag = true;
     // 清除最后 的对话
     CurrentChatInfo.messages.pop();
     CurrentChatInfo.GetGPTMsg(() => {
-      // 让按钮消失
+      // 让 停止对话按钮 消失
       CurrentChatInfo.ShowStopButtonFlag = false;
     });
     // 这个时间300ms 对应的是 reload-SVG-container 的旋转时间
