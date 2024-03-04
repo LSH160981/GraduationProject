@@ -31,7 +31,7 @@ const SureDeleteAllChat = () => {
     $Router.push("/chat");
   }
 };
-// [在小屏幕的情况|和侧边栏消失] 才会升效的新建对话的按钮
+// [在小屏幕的情况|和侧边栏消失] 才会升效的 新建对话 的按钮
 const Limit_NewChat = () => {
   /**
    * 小屏幕时才会显示
@@ -42,6 +42,17 @@ const Limit_NewChat = () => {
     $Router.push(`/chat`);
     // 清除当前对话的uuid
     ChangeUUID("");
+  }
+};
+// [在小屏幕的情况|和侧边栏消失] 才会升效的 选择面具 的按钮
+const Limit_MaskPlay = () => {
+  /**
+   * 小屏幕时才会显示
+   * BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col)
+   */
+  if (ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth) {
+    // 路由的跳转
+    $Router.push(`/maskplay`);
   }
 };
 </script>
@@ -73,7 +84,16 @@ const Limit_NewChat = () => {
       </div>
     </div>
 
-    <div class="w-28 flex justify-evenly items-center">
+    <div class="flex justify-evenly items-center gap-2">
+      <!-- MaskPlay 小屏幕时才会显示 -->
+      <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
+      <div
+        v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
+        class="transition-all active:scale-90">
+        <el-button link @click="Limit_MaskPlay">
+          <SVG name="mask"></SVG>
+        </el-button>
+      </div>
       <!-- New Chat 小屏幕时才会显示 -->
       <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
       <div

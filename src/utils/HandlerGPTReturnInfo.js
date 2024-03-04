@@ -39,7 +39,7 @@ export const HandlerGPTReturnInfo = async (messages, signal, callback) => {
     if (!response.ok) {
         let errorData = await response.json();
         ElMessage({
-            message: `网络请求发生错误,请切换 model 或者联系-小廖`,
+            message: `网络请求发生错误,请切换 model(gpt-3.5-turbo) 或者联系-小廖`,
             type: "error",
             duration: 3500
         });

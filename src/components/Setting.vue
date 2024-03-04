@@ -121,7 +121,7 @@ const Logout = () => {
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span
-              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)]">
+              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)] transition-all active:scale-95">
               {{ Setting.GPT_Setting.Model }}
               <SVG name="bottom"></SVG>
             </span>

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   // 浏览器视口宽高
@@ -69,6 +69,21 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
       BottomRightWidth.value = 18;
     }
   }
+  // 查询本地有没有保存过用户 使用 BottomLeftWidth 的习惯 由于保存的数据有0 不要直接解析出来 会影响下面的if的判断
+  let BottomLeftWidth_LocalStorage = localStorage.getItem('BottomLeftWidth') || null;
+  if (BottomLeftWidth_LocalStorage) {
+    // BottomLeftWidth_LocalStorage typeof is string
+    let temp_res = +JSON.parse(BottomLeftWidth_LocalStorage);
+    BottomLeftWidth.value = temp_res;
+    BottomRightWidth.value = 24 - temp_res;
+  }
+  // BottomLeftWidth 的变化
+  watch(
+    () => BottomLeftWidth.value,
+    (newValue) => {
+      localStorage.setItem('BottomLeftWidth', newValue)
+    }
+  )
 
   window.addEventListener('resize', () => {
     BrowserWidth.value = window.innerWidth;
