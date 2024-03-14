@@ -69,7 +69,6 @@ export const VerifyToken = (token) => {
                     message: `Token过期,请重新登录`,
                     type: "error",
                     duration: 3500,
-                    appendTo: document.querySelector("#other")
                 });
                 ClearAll();
                 // 路由跳到 登录页面
