@@ -10,8 +10,8 @@ let Setting = useSettingStore();
  */
 export const HandlerGPTReturnInfo = async (messages, signal, callback) => {
     // console.log(messages); // 输出的是一个代理对象
-    const apiUrl = "https://api.chatanywhere.com.cn/v1/chat/completions";
-    const AI_API_KEY = "sk-foH2NFqFeSDLfj3OiCttrsB0Gza9JZBYBwE9RutauvBc5ipD";
+    const AI_URL = import.meta.env.VITE_APP_AI_URL;
+    const API_KEY = import.meta.env.VITE_APP_API_KEY;
     // 请求体
     const requestBody = {
         model: Setting.GPT_Setting.Model,
@@ -28,13 +28,13 @@ export const HandlerGPTReturnInfo = async (messages, signal, callback) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${AI_API_KEY}`,
+            Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify(requestBody),
         signal: signal.value
     };
     // 发起Fetch请求
-    let response = await fetch(apiUrl, fetchOptions)
+    let response = await fetch(AI_URL, fetchOptions)
     // 返回的 数据 异常 处理
     if (!response.ok) {
         let errorData = await response.json();

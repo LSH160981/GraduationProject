@@ -1,13 +1,14 @@
 <script setup>
 import { ref } from "vue";
 import loginBg from "./loginBg.vue";
-import { useRouter } from "vue-router"; // 引入路由
 import { ElMessage, ElLoading, ElNotification } from "element-plus";
 import { SetToken } from "@/utils/HandlerToken.js";
 
+import { useRouter } from "vue-router"; // 引入路由
 let $Router = useRouter(); // 实例化路由
-let Account = ref(""); // 账号 adminboss
-let Password = ref(""); // 密码 119110112
+
+let Account = ref(""); // 账号 admin
+let Password = ref(""); // 密码 123456
 
 /**
  * 登录
@@ -26,7 +27,7 @@ const SignIn = () => {
     return;
   }
 
-  let url = `https://login.xiaoliao.eu.org/?account=${username}&password=${password}`;
+  let url = `${import.meta.env.VITE_APP_BASE_URL}/?account=${username}&password=${password}`;
   fetch(url)
     .then((response) => {
       if (response.status === 200) {

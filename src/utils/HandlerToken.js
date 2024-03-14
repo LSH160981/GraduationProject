@@ -1,3 +1,6 @@
+import { ElMessage } from "element-plus";
+import router from "@/router/index.js"; // 引入路由
+
 /**
  * 获取指定名称的Token
  * @param {string} name - 需要获取的Token的名称
@@ -50,7 +53,7 @@ export const VerifyToken = (token) => {
         return new Error(`缺少参数token`);
     }
     // 1.发送请求，看看token 有没有过期
-    let url = `https://login.xiaoliao.eu.org/?token=${token}`;
+    let url = `${import.meta.env.VITE_APP_BASE_URL}/?token=${token}`;
     fetch(url)
         .then((response) => {
             return response.json();
@@ -62,9 +65,15 @@ export const VerifyToken = (token) => {
             } else {
                 // 1.2 无效 清除本地token 以及 其他所有的 localStorage存储的数据
                 // console.log("token无效");
+                ElMessage({
+                    message: `Token过期,请重新登录`,
+                    type: "error",
+                    duration: 3500,
+                    appendTo: document.querySelector("#other")
+                });
                 ClearAll();
-                window.location.href = "/";
-                window.location.reload();
+                // 路由跳到 登录页面
+                router.push("/login");
             }
         });
     // 该函数 只能运行一次，完毕后将改为false
