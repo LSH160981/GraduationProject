@@ -29,7 +29,7 @@
 - 极快的首屏加载速度（~100kb），支持流式响应
 - 隐私安全，所有数据保存在用户浏览器本地
 - 预制角色功能（面具），方便地创建、分享和调试你的个性化对话
-- 海量的内置 prompt 列表
+- 海量的内置 prompt 列表来自 [中文](https://github.com/PlexPt/awesome-chatgpt-prompts-zh)
 - 自动压缩上下文聊天记录，在节省 Token 的同时支持超长对话
 - 在任何地方**无障碍**快速访问
 
@@ -37,7 +37,7 @@
 
 <div align="left">
 
-[接口项目](https://github.com/chatanywhere/GPT_API_free) --- [KEY的获取](https://api.chatanywhere.org/v1/oauth/free/github/render)
+[接口项目](https://github.com/chatanywhere/GPT_API_free) --- [KEY 的获取](https://api.chatanywhere.org/v1/oauth/free/github/render)
 
 </div>
 
