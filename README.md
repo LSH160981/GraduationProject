@@ -4,7 +4,7 @@
 
 # GPT
 
-本项目使用 Vue3+Vite 完成
+本项目使用 Vue3+Vite 完成 [反馈](https://github.com/LSH160981/GraduationProject/issues)
 
 ## 项目亮点
 
@@ -33,6 +33,14 @@
 - 自动压缩上下文聊天记录，在节省 Token 的同时支持超长对话
 - 在任何地方**无障碍**快速访问
 
+## GPT 接口 · KEY
+
+<div align="left">
+
+[接口项目](https://github.com/chatanywhere/GPT_API_free) --- [KEY的获取](https://api.chatanywhere.org/v1/oauth/free/github/render)
+
+</div>
+
 ## 项目初始化
 
 ```sh
@@ -50,3 +58,11 @@ pnpm dev
 ```sh
 pnpm build
 ```
+
+## 项目环境
+
+NodeJS === v20.11.0, pnpm === v8.5.1
+
+## LICENSE
+
+[MIT](https://opensource.org/license/mit/)
