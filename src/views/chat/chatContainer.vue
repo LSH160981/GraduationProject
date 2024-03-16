@@ -67,18 +67,16 @@ const GoToChatBottom = () => {
     @mouseleave="ShowButtonFlag = false">
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
     <el-scrollbar ref="El_Scrollbar" class="w-full overflow-x-hidden">
-      <div v-if="CurrentChatInfo.messages.length" class="w-full overflow-x-hidden">
-        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index">
-          <div v-if="item.role === 'system'" class="w-full overflow-x-hidden chat chat-start">
+      <div v-if="CurrentChatInfo.messages.length" class="w-full">
+        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="w-full">
+          <div v-if="item.role === 'system'" class="w-full chat chat-start">
             <div class="chat-bubble chat-bubble-accent">
               <v-md-preview :text="item.content"></v-md-preview>
             </div>
           </div>
-          <div v-else-if="item.role === 'user'" class="w-full overflow-x-hidden chat chat-end">
+          <div v-else-if="item.role === 'user'" class="w-full chat chat-end">
             <div class="chat-bubble chat-bubble-info">
-              <div class="break-words overflow-hidden">
-                <v-md-preview :text="item.content"></v-md-preview>
-              </div>
+              <v-md-preview :text="item.content"></v-md-preview>
             </div>
           </div>
         </div>
