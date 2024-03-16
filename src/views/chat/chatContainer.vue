@@ -66,8 +66,8 @@ const GoToChatBottom = () => {
     @mouseenter="Show_Up_Down_Button"
     @mouseleave="ShowButtonFlag = false">
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
-    <el-scrollbar ref="El_Scrollbar">
-      <div v-if="CurrentChatInfo.messages.length">
+    <el-scrollbar ref="El_Scrollbar" class="w-full overflow-x-hidden">
+      <div v-if="CurrentChatInfo.messages.length" class="w-full overflow-x-hidden">
         <div v-for="(item, index) in CurrentChatInfo.messages" :key="index">
           <div v-if="item.role === 'system'" class="chat chat-start">
             <div class="chat-bubble chat-bubble-accent">
