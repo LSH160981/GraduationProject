@@ -84,13 +84,13 @@ const Logout = () => {
   <div class="w-full h-full select-none">
     <!-- top -->
     <div
-      class="flex justify-between items-center gap-1 px-2 pb-2 text-[color:var(--setting-color)]">
+      class="flex justify-between items-center gap-1 px-2 pb-3 text-[color:var(--setting-color)]">
       <!-- // 返回上一级 -->
       <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <span class="text-2xl">参数设置</span>
     </div>
     <!-- 主体  -->
-    <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.85" class="p-2">
+    <el-scrollbar :max-height="ParametsSetting.BottomHeight * 0.89">
       <!-- 第一部分 -->
       <div class="EverPart">
         <!-- 主题颜色 -->

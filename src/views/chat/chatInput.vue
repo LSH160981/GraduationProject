@@ -152,7 +152,7 @@ watch(
   <!-- ChatInput bg-violet-100 -->
   <div ref="ChatInput" class="w-full flex flex-col justify-evenly items-center">
     <!-- 不要让这个按钮 破坏下面的结果 -->
-    <div class="relative -top-1">
+    <div>
       <!-- 停止当前对话按钮 -->
       <div v-if="CurrentChatInfo.ShowStopButtonFlag">
         <el-button link @click="StopFetch">

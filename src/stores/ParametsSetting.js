@@ -33,23 +33,11 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   })
   // bottomRight -> 对话容器 高
   let BottomRight_ChatContainerHeight = computed(() => {
-    if (w_phone.value) {
-      // 小屏幕
-      return BottomHeight.value * 0.9 - 8
-    } else {
-      // 大屏幕
-      return BottomHeight.value * 0.85 - 8
-    }
+    return BottomHeight.value * 0.85 - 8
   })
   // bottomRight -> 输入框 高
   let BottomRight_ChatInputHeight = computed(() => {
-    if (w_phone.value) {
-      // 小屏幕
-      return BottomHeight.value * 0.1 - 8
-    } else {
-      // 大屏幕
-      return BottomHeight.value * 0.15 - 8
-    }
+    return BottomHeight.value * 0.15 - 8
   })
   // 在layout.vue文件中 决定 BottomLeft BottomRight 的宽占比 (el-plus的el-col)
   let BottomLeftWidth = ref(6);
