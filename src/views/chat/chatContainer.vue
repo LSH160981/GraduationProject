@@ -66,15 +66,15 @@ const GoToChatBottom = () => {
     @mouseenter="Show_Up_Down_Button"
     @mouseleave="ShowButtonFlag = false">
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
-    <el-scrollbar ref="El_Scrollbar" class="w-full overflow-x-hidden">
+    <el-scrollbar ref="El_Scrollbar" class="w-full">
       <div v-if="CurrentChatInfo.messages.length" class="w-full">
-        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="w-full">
-          <div v-if="item.role === 'system'" class="w-full chat chat-start">
+        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="max-w-[90%]">
+          <div v-if="item.role === 'system'" class="chat chat-start">
             <div class="chat-bubble chat-bubble-accent">
               <v-md-preview :text="item.content"></v-md-preview>
             </div>
           </div>
-          <div v-else-if="item.role === 'user'" class="w-full chat chat-end">
+          <div v-else-if="item.role === 'user'" class="chat chat-end">
             <div class="chat-bubble chat-bubble-info">
               <v-md-preview :text="item.content"></v-md-preview>
             </div>
