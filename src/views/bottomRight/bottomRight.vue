@@ -1,26 +1,7 @@
-<script setup>
-import { ref, watch, nextTick } from "vue";
-import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
-let ParametsSetting = useParametsSettingStore();
-
-// BottomRight 组件元素
-let BottomRight = ref(null);
-// 控制BottomRight组件的高度
-watch(
-  () => ParametsSetting.BottomHeight,
-  (newValue) => {
-    nextTick(() => {
-      BottomRight.value.style.height = `${newValue}px`;
-    });
-  },
-  {
-    immediate: true,
-  }
-);
-</script>
+<script setup></script>
 
 <template>
-  <div ref="BottomRight" class="p-2">
+  <div class="h-full p-2">
     <!-- 二级路由出口 -->
     <router-view v-slot="{ Component }">
       <transition name="fade">

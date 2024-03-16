@@ -23,6 +23,7 @@ watch(
     immediate: true,
   }
 );
+
 // CurrentChatInfo.messages 的变化
 watch(
   () => CurrentChatInfo.messages,
@@ -58,14 +59,14 @@ const GoToChatBottom = () => {
 </script>
 
 <template>
-  <!--  class="bg-red-100" -->
+  <!-- ChatContainer class="bg-red-100" -->
   <div
     ref="ChatContainer"
-    class="relative"
+    class="relative h-full"
     @mouseenter="Show_Up_Down_Button"
     @mouseleave="ShowButtonFlag = false">
-    <!-- -->
-    <el-scrollbar ref="El_Scrollbar" :max-height="ParametsSetting.BottomRight_ChatContainerHeight">
+    <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
+    <el-scrollbar ref="El_Scrollbar">
       <div v-if="CurrentChatInfo.messages.length">
         <div v-for="(item, index) in CurrentChatInfo.messages" :key="index">
           <div v-if="item.role === 'system'" class="chat chat-start">

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, nextTick, watch } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID";
+import ChatPrompts from "@/components/ChatPrompts.vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
@@ -112,13 +113,39 @@ const ReloadChat = () => {
     // 这个时间300ms 对应的是 reload-SVG-container 的旋转时间
   }, 300);
 };
+
+// el-input 组件
+let El_Input = ref(null);
+// 是否展示 提示词(Prompt组件)
+let ShowPromptsFlag = ref(false);
+// 确认 提示词(Prompt) 这个函数是传给子组件的
+const SurePrompt = (Prompt) => {
+  InputValue.value = Prompt;
+  ShowPromptsFlag.value = false;
+  // 元素自动聚焦 el-input
+  El_Input.value.input.focus(); // 原生聚焦
+};
+
+// 观察 InputValue 的变化
+watch(
+  () => InputValue.value,
+  (newValue) => {
+    if (newValue.charAt(0) === "/") {
+      ShowPromptsFlag.value = true;
+      // 元素自动失去焦点 el-input
+      // El_Input.value.input.blur(); // 原生失去焦点
+    } else {
+      ShowPromptsFlag.value = false;
+    }
+  }
+);
 </script>
 
 <template>
-  <!-- bg-violet-100 -->
+  <!-- ChatInput bg-violet-100 -->
   <div ref="ChatInput" class="w-full flex flex-col justify-evenly items-center">
     <!-- 不要让这个按钮 破坏下面的结果 -->
-    <div class="relative -top-1 maxd:top-0">
+    <div class="relative -top-1">
       <!-- 停止当前对话按钮 -->
       <div v-if="CurrentChatInfo.ShowStopButtonFlag">
         <el-button link @click="StopFetch">
@@ -157,13 +184,19 @@ const ReloadChat = () => {
       <div v-else="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
-    <div class="w-full mb-2">
+    <div class="w-full mb-2 relative">
+      <transition name="fade">
+        <ChatPrompts v-if="ShowPromptsFlag" :InputValue="InputValue" :SurePrompt="SurePrompt">
+        </ChatPrompts>
+      </transition>
+
       <el-input
+        ref="El_Input"
         v-model.lazy="InputValue"
         @keyup.enter="SendButton"
         v-focus
         size="large"
-        placeholder="Enter 发送信息">
+        placeholder="Enter 发送, Shift + Enter 换行,  / 触发Prompt">
         <template #suffix>
           <button @click.stop="SendButton">
             <SVG name="send"></SVG>
@@ -174,4 +207,16 @@ const ReloadChat = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(100%); /* 初始状态从下方开始 */
+}
+.fade-enter-active {
+  transition: all 0.3s ease-out; /* 使用 ease-out 缓动效果更自然 */
+}
+.fade-enter-to {
+  opacity: 1;
+  transform: translateY(0); /* 结束状态回到原位 */
+}
+</style>
