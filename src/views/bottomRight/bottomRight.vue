@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="h-full p-2">
+  <div class="w-full h-full p-2">
     <!-- 二级路由出口 -->
     <router-view v-slot="{ Component }">
       <transition name="fade">

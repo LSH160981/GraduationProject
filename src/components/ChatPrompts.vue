@@ -1,7 +1,13 @@
 <script setup>
-import { ref, computed, watch, nextTick, onBeforeUnmount } from "vue";
+import { ref, computed, nextTick, onBeforeUnmount } from "vue";
 import prompts from "@/assets/prompts";
 let CopyPrompts = ref(prompts);
+
+// 选择的索引
+let SelectIndex = ref(1);
+
+// ChatPromptsContainer  元素
+let ChatPromptsContainer;
 
 // 父组件的数据
 let $defineProps = defineProps({
@@ -18,10 +24,6 @@ let $defineProps = defineProps({
 
 // ProxyPrompts 等于 原始数据 + InputValue
 let ProxyPrompts = computed(() => {
-  // 去到 El-Scrollbar 顶部
-  // nextTick(() => {
-  //   El_Scrollbar.value.setScrollTop(0);
-  // });
   let results = [];
   // 去除 '/'
   let keyword = $defineProps.InputValue.slice(1);
@@ -37,12 +39,6 @@ let ProxyPrompts = computed(() => {
 const SetPrompt = (prompt) => {
   $defineProps.SurePrompt(prompt);
 };
-
-// 选择的索引
-let SelectIndex = ref(1);
-
-// container  元素
-let container;
 
 // 子元素 鼠标进入事件回调
 const mouseenterHandler = ($even) => {
@@ -87,7 +83,7 @@ const keydown_handler = (even) => {
     SelectIndex.value--;
     if (SelectIndex.value > 1) {
       // typeof number
-      container.scrollTop -= 50;
+      ChatPromptsContainer.scrollTop -= 50;
     }
     let el = SelectChildElement(SelectIndex.value);
     SiblingsClearCSS(el);
@@ -96,7 +92,7 @@ const keydown_handler = (even) => {
     SelectIndex.value++;
     if (SelectIndex.value > 5) {
       // typeof number
-      container.scrollTop += 55;
+      ChatPromptsContainer.scrollTop += 55;
     }
     let el = SelectChildElement(SelectIndex.value);
     SiblingsClearCSS(el);
@@ -107,7 +103,7 @@ const keydown_handler = (even) => {
 };
 
 nextTick(() => {
-  container = document.querySelector(".container");
+  ChatPromptsContainer = document.querySelector(".ChatPromptsContainer");
   document.addEventListener("keydown", keydown_handler);
   let F_el = SelectChildElement(SelectIndex.value);
   F_el.style.borderColor = "#22c55e";
@@ -121,7 +117,7 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- ChatPrompts   -->
-  <div class="container">
+  <div class="ChatPromptsContainer">
     <!-- 主体  -->
     <div class="ChatPromptsMain">
       <!-- hover:border-green-500 first-of-type:border-green-500 -->
@@ -146,7 +142,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 /* 容器 */
-.container {
+.ChatPromptsContainer {
   @apply w-full max-h-[500px] bg-[color:var(--base-bgc)]
   absolute bottom-full
   rounded-lg p-2 mb-2

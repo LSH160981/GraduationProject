@@ -5,6 +5,8 @@ import { useGlobalInformationStore } from './GlobalInformation.js'
 let GlobalInformation = useGlobalInformationStore();
 
 export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
+  // 输入框的值
+  let InputValue = ref("");
   let uuid = ref("");
   let messages = ref([]);
   // 控制 停止对话的按钮 是否显示
@@ -56,6 +58,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     () => uuid.value,
     (newValue, oldValue) => {
       console.log("current uuid改动了");
+      InputValue.value = '';
 
       SliderItemChangeBorder();
 
@@ -162,7 +165,7 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
 
   return {
     ShowStopButtonFlag,
-    uuid, messages, ChangeUUID, UserQuestion, GetGPTMsg, SliderItemChangeBorder,
+    InputValue, uuid, messages, ChangeUUID, UserQuestion, GetGPTMsg, SliderItemChangeBorder,
     controller, signal,
     changeTltleFlag
   }

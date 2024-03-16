@@ -47,7 +47,7 @@ watch(
 </script>
 
 <template>
-  <div class="h-full flex flex-col justify-between">
+  <div class="w-full h-full flex flex-col justify-between">
     <ChatContainer></ChatContainer>
     <ChatInput></ChatInput>
   </div>

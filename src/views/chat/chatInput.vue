@@ -43,8 +43,6 @@ watch(
   }
 );
 
-// 输入框的值
-let InputValue = ref("");
 // 发送按钮 点击事件
 const SendButton = () => {
   // 如果 判断为真 说明正在发送网络请求 禁用 SendButton 函数
@@ -52,15 +50,15 @@ const SendButton = () => {
     return;
   }
   // 简单的校验
-  if (!InputValue.value.trim()) {
+  if (!CurrentChatInfo.InputValue.trim()) {
     return;
   }
   // 显示 停止按钮
   CurrentChatInfo.ShowStopButtonFlag = true;
   // 添加数据到  CurrentChatInfoStore
-  CurrentChatInfo.UserQuestion(InputValue.value);
+  CurrentChatInfo.UserQuestion(CurrentChatInfo.InputValue);
   // 置空
-  InputValue.value = "";
+  CurrentChatInfo.InputValue = "";
   let tempUUID;
   if (!CurrentChatInfo.uuid) {
     // 新建对话
@@ -118,18 +116,27 @@ const ReloadChat = () => {
 let El_Input = ref(null);
 // 是否展示 提示词(Prompt组件)
 let ShowPromptsFlag = ref(false);
+
 // 确认 提示词(Prompt) 这个函数是传给子组件的
 const SurePrompt = (Prompt) => {
-  InputValue.value = Prompt;
+  CurrentChatInfo.InputValue = Prompt;
   ShowPromptsFlag.value = false;
   // 元素自动聚焦 el-input
   El_Input.value.input.focus(); // 原生聚焦
 };
 
-// 观察 InputValue 的变化
+// el-input 组件 获得焦点回调
+const InputFocus = () => {
+  if (CurrentChatInfo.InputValue.charAt(0) === "/") {
+    ShowPromptsFlag.value = true;
+  }
+};
+
+// 观察 CurrentChatInfo.InputValue 的变化
 watch(
-  () => InputValue.value,
+  () => CurrentChatInfo.InputValue,
   (newValue) => {
+    // 第一个字符以  '/' 开头
     if (newValue.charAt(0) === "/") {
       ShowPromptsFlag.value = true;
       // 元素自动失去焦点 el-input
@@ -186,14 +193,18 @@ watch(
 
     <div class="w-full mb-2 relative">
       <transition name="fade">
-        <ChatPrompts v-if="ShowPromptsFlag" :InputValue="InputValue" :SurePrompt="SurePrompt">
+        <ChatPrompts
+          v-if="ShowPromptsFlag"
+          :InputValue="CurrentChatInfo.InputValue"
+          :SurePrompt="SurePrompt">
         </ChatPrompts>
       </transition>
 
       <el-input
         ref="El_Input"
-        v-model.lazy="InputValue"
+        v-model.lazy="CurrentChatInfo.InputValue"
         @keyup.enter="SendButton"
+        @focus="InputFocus"
         v-focus
         size="large"
         placeholder="Enter 发送, Shift + Enter 换行,  / 触发Prompt">
