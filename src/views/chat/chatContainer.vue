@@ -68,14 +68,14 @@ const GoToChatBottom = () => {
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
     <el-scrollbar ref="El_Scrollbar" class="w-full">
       <div v-if="CurrentChatInfo.messages.length" class="w-full">
-        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="max-w-[90%]">
+        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index">
           <div v-if="item.role === 'system'" class="chat chat-start">
-            <div class="chat-bubble chat-bubble-accent">
+            <div class="max-w-[90%] chat-bubble chat-bubble-accent">
               <v-md-preview :text="item.content"></v-md-preview>
             </div>
           </div>
           <div v-else-if="item.role === 'user'" class="chat chat-end">
-            <div class="chat-bubble chat-bubble-info">
+            <div class="max-w-[90%] chat-bubble chat-bubble-info">
               <v-md-preview :text="item.content"></v-md-preview>
             </div>
           </div>
