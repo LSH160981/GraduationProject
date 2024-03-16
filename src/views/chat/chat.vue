@@ -48,8 +48,12 @@ watch(
 
 <template>
   <div class="w-full h-full flex flex-col justify-between">
-    <ChatContainer></ChatContainer>
-    <ChatInput></ChatInput>
+    <div>
+      <ChatContainer></ChatContainer>
+    </div>
+    <div>
+      <ChatInput></ChatInput>
+    </div>
   </div>
 </template>
 
