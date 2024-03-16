@@ -10,6 +10,8 @@
 
 /* 暗黑模式 */
 html.dark {
+  background-color: var(--base-bgc);
+  color: var(--base-textColor);
   --base-bgc: #212129;
   --base-textColor: #504e4ee7;
   --container-bgc: #26586a29;
@@ -17,11 +19,6 @@ html.dark {
   --setting-color: #d1d1d1;
   --el-dialog-bg-color: #270f4a;
   --range-border-color: #c5bebe;
-}
-
-html {
-  background-color: var(--base-bgc);
-  color: var(--base-textColor);
 }
 
 /* 一些样式的重写 */
