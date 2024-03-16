@@ -62,7 +62,7 @@ const GoToChatBottom = () => {
   <!-- ChatContainer class="bg-red-100" -->
   <div
     ref="ChatContainer"
-    class="relative h-full"
+    class="relative w-full h-full overflow-x-hidden"
     @mouseenter="Show_Up_Down_Button"
     @mouseleave="ShowButtonFlag = false">
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
