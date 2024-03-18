@@ -1,7 +1,16 @@
 <script setup>
 import { ref, computed, watch, nextTick, onBeforeUnmount } from "vue";
+import { AddZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
 import prompts from "@/assets/prompts";
-let CopyPrompts = ref(prompts);
+let CopyPrompts = computed(() => {
+  let result = [];
+  // 给每一个描述都加上 零宽字符
+  prompts.forEach((i) => {
+    let s = [i[0], AddZeroWidthChars(i[1])];
+    result.push(s);
+  });
+  return result;
+});
 
 // 选择的索引
 let SelectIndex = ref(1);
@@ -49,7 +58,7 @@ watch(
 
 // 确认 关键的 Prompt
 const SetPrompt = (prompt) => {
-  $defineProps.SurePrompt(prompt);
+  $defineProps.SurePrompt(RemoveZeroWidthChars(prompt));
 };
 
 // 子元素 鼠标进入事件回调

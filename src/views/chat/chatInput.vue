@@ -2,6 +2,7 @@
 import { ref, nextTick, watch } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID";
 import ChatPrompts from "@/components/ChatPrompts.vue";
+import { CheckZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
@@ -44,21 +45,16 @@ watch(
 );
 
 // 发送按钮 点击事件
-const SendButton = (event) => {
-  // 如果 判断为真 说明正在发送网络请求 禁用 SendButton 函数
-  if (CurrentChatInfo.ShowStopButtonFlag) {
+const SendButton = () => {
+  if (
+    // 如果 判断为真 说明正在发送网络请求 禁用 SendButton 函数
+    CurrentChatInfo.ShowStopButtonFlag ||
+    // 简单的校验
+    !CurrentChatInfo.InputValue.trim()
+  ) {
     return;
   }
-  // 简单的校验
-  if (!CurrentChatInfo.InputValue.trim()) {
-    return;
-  }
-  // 检测是否按下了Shift + Enter
-  if (event.key === "Enter" && event.shiftKey) {
-    // 阻止默认行为（不发送表单等）   textarea 会自动添加换行符
-    event.preventDefault();
-    return;
-  }
+
   // 显示 停止按钮
   CurrentChatInfo.ShowStopButtonFlag = true;
   // 添加数据到  CurrentChatInfoStore
@@ -125,10 +121,15 @@ let ShowPromptsFlag = ref(false);
 
 // 确认 提示词(Prompt) 这个函数是传给子组件的
 const SurePrompt = (Prompt) => {
-  CurrentChatInfo.InputValue += Prompt;
+  CurrentChatInfo.InputValue = Prompt;
   ShowPromptsFlag.value = false;
-  // 元素自动聚焦 el-input-textarea
-  El_Input.value.textarea.focus(); // 原生聚焦
+  // 注意这里需要等待DOM加载完毕 直接滚动那时虚拟DOM还没有更新完毕
+  nextTick(() => {
+    // 让 textarea 滚到底
+    El_Input.value.textarea.scrollTop = El_Input.value.textarea.scrollHeight;
+    // 元素自动聚焦 el-input-textarea
+    El_Input.value.textarea.focus(); // 原生聚焦
+  });
 };
 
 // el-input 组件 获得焦点回调
@@ -153,15 +154,24 @@ watch(
 
 // el-input 组件 Enter 事件
 const InputEnterHandler = (event) => {
-  // 第一个字符以  '/' 开头
-  if (CurrentChatInfo.InputValue.charAt(0) === "/") {
-    // 去除开头所有的 (/)
-    CurrentChatInfo.InputValue = CurrentChatInfo.InputValue.replace(/^\/+/, "");
-    // 让 textarea 滚到底
-    El_Input.value.textarea.scrollTop = El_Input.value.textarea.scrollHeight;
-  } else {
-    SendButton(event);
+  // 检测是否按下了Shift + Enter
+  if (event.key === "Enter" && event.shiftKey) {
+    // 阻止默认行为（不发送表单等）   textarea 会自动添加换行符
+    // event.preventDefault();
+    return;
   }
+  //  区分 正常回车 和 ChatPrompts传参回车
+
+  // 1.判断有没有零宽字符
+  if (CheckZeroWidthChars(CurrentChatInfo.InputValue)) {
+    // 有 零宽字符 说明是 用回车选择
+    // 有的话去除  但是不要 触发 SendButton
+    CurrentChatInfo.InputValue = RemoveZeroWidthChars(CurrentChatInfo.InputValue);
+    return;
+  }
+
+  // 2.正常发送
+  SendButton(event);
 };
 </script>
 
