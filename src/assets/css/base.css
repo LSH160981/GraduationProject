@@ -36,6 +36,9 @@ div.el-input__wrapper {
 input.el-input__inner {
   color: var(--setting-color);
 }
+textarea.el-textarea__inner {
+  padding: 5px 30px 5px 11px;
+}
 
 /* Markdown 组件的文字的样式 重写 */
 div.vuepress-markdown-body {

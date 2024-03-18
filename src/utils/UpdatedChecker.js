@@ -1,16 +1,7 @@
 // 立即执行函数,其实就是一个作用域
 (() => {
-    /**
-     * development ：这是在开发环境中常见的值，此时项目处于开发阶段。
-     * production ：这是在生产环境中常见的值，此时项目已经部署并对外提供服务。
-    */
     // 检测代码运行的时间间隔
     let duration = 10000;
-    if (process.env.NODE_ENV === "development") {
-        // 在开发环境中 就不要检测这么频繁
-        duration = 500000;
-    }
-
     // 基础完整的路径
     const base_url = window.location.origin;
     let src_arr = new Set();
@@ -63,6 +54,15 @@
         CheckPolling(); // 开启轮询检测
     }
 
-    // 初始化
-    init();
+    /**
+     * development ：这是在开发环境中常见的值，此时项目处于开发阶段。
+     * production ：这是在生产环境中常见的值，此时项目已经部署并对外提供服务。
+    */
+    // 在开发环境中 就不要检测
+    if (process.env.NODE_ENV === "development") {
+        return
+    } else {
+        // 初始化
+        init();
+    }
 })();

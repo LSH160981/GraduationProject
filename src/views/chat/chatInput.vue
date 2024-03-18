@@ -44,13 +44,19 @@ watch(
 );
 
 // 发送按钮 点击事件
-const SendButton = () => {
+const SendButton = (event) => {
   // 如果 判断为真 说明正在发送网络请求 禁用 SendButton 函数
   if (CurrentChatInfo.ShowStopButtonFlag) {
     return;
   }
   // 简单的校验
   if (!CurrentChatInfo.InputValue.trim()) {
+    return;
+  }
+  // 检测是否按下了Shift + Enter
+  if (event.key === "Enter" && event.shiftKey) {
+    // 阻止默认行为（不发送表单等）   textarea 会自动添加换行符
+    event.preventDefault();
     return;
   }
   // 显示 停止按钮
@@ -119,10 +125,10 @@ let ShowPromptsFlag = ref(false);
 
 // 确认 提示词(Prompt) 这个函数是传给子组件的
 const SurePrompt = (Prompt) => {
-  CurrentChatInfo.InputValue = Prompt;
+  CurrentChatInfo.InputValue += Prompt;
   ShowPromptsFlag.value = false;
-  // 元素自动聚焦 el-input
-  El_Input.value.input.focus(); // 原生聚焦
+  // 元素自动聚焦 el-input-textarea
+  El_Input.value.textarea.focus(); // 原生聚焦
 };
 
 // el-input 组件 获得焦点回调
@@ -139,13 +145,24 @@ watch(
     // 第一个字符以  '/' 开头
     if (newValue.charAt(0) === "/") {
       ShowPromptsFlag.value = true;
-      // 元素自动失去焦点 el-input
-      // El_Input.value.input.blur(); // 原生失去焦点
     } else {
       ShowPromptsFlag.value = false;
     }
   }
 );
+
+// el-input 组件 Enter 事件
+const InputEnterHandler = (event) => {
+  // 第一个字符以  '/' 开头
+  if (CurrentChatInfo.InputValue.charAt(0) === "/") {
+    // 去除开头所有的 (/)
+    CurrentChatInfo.InputValue = CurrentChatInfo.InputValue.replace(/^\/+/, "");
+    // 让 textarea 滚到底
+    El_Input.value.textarea.scrollTop = El_Input.value.textarea.scrollHeight;
+  } else {
+    SendButton(event);
+  }
+};
 </script>
 
 <template>
@@ -191,7 +208,7 @@ watch(
       <div v-else="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
-    <div class="w-full mb-2 relative">
+    <div class="w-full relative">
       <transition name="fade">
         <ChatPrompts
           v-if="ShowPromptsFlag"
@@ -202,18 +219,18 @@ watch(
 
       <el-input
         ref="El_Input"
+        type="textarea"
         v-model.lazy="CurrentChatInfo.InputValue"
-        @keyup.enter="SendButton"
+        @keyup.enter="InputEnterHandler"
         @focus="InputFocus"
         v-focus
-        size="large"
+        :autosize="{ minRows: 2, maxRows: 3 }"
+        resize="none"
         placeholder="Enter 发送, Shift + Enter 换行,  / 触发Prompt">
-        <template #suffix>
-          <button @click.stop="SendButton">
-            <SVG name="send"></SVG>
-          </button>
-        </template>
       </el-input>
+      <button @click.stop="SendButton" class="absolute top-1/2 right-1 -translate-y-1/2">
+        <SVG name="send"></SVG>
+      </button>
     </div>
   </div>
 </template>

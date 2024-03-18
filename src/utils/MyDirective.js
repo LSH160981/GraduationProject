@@ -20,6 +20,10 @@ export default {
                 }
                 // 如果是 el-input 组件 通过querySelector选中子元素中的 input 再去聚焦
                 let input = el.querySelector("input");
+                // 为了解决 el-input 的组件 使用的是 textarea 
+                if (!input) {
+                    input = el.querySelector("textarea");
+                }
                 nextTick(() => {
                     setTimeout(() => {
                         input.focus(); // 原生聚焦

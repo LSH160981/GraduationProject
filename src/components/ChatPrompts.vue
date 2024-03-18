@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, nextTick, onBeforeUnmount } from "vue";
+import { ref, computed, watch, nextTick, onBeforeUnmount } from "vue";
 import prompts from "@/assets/prompts";
 let CopyPrompts = ref(prompts);
 
@@ -34,6 +34,18 @@ let ProxyPrompts = computed(() => {
   });
   return results;
 });
+
+watch(
+  () => $defineProps.InputValue,
+  () => {
+    // 当找不到数据 时就算了
+    if (ProxyPrompts.value.length <= 0) {
+      return;
+    }
+    let el = SelectChildElement(1);
+    SiblingsClearCSS(el);
+  }
+);
 
 // 确认 关键的 Prompt
 const SetPrompt = (prompt) => {
