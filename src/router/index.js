@@ -1,5 +1,6 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { GetToken, VerifyToken } from "@/utils/HandlerToken.js";
+// createWebHashHistory
+import { createRouter, createWebHistory } from 'vue-router'
+import { GetToken } from "@/utils/HandlerToken.js";
 
 const router = createRouter({
   history: createWebHistory(),

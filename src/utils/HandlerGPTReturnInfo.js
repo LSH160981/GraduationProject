@@ -7,6 +7,9 @@ let Setting = useSettingStore();
  * @param {AbortSignal} signal 响应式数据 终止网络请求的标记
  * @param {Function} callback 回调函数  在执行完所有的的代码后才会运行这个函数
  * @returns undefind
+ * 
+ * 下一次要修改的地方，参数减去 signal 这个函数里面自己 new AbortController()
+ * 并返回一个随时可以函数：外部 可以随时停止这个fetch的网络请求
  */
 export const HandlerGPTReturnInfo = async (messages, signal, callback) => {
     // console.log(messages); // 输出的是一个代理对象

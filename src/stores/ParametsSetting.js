@@ -73,6 +73,7 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
     }
   )
 
+  // 当页面的尺寸发生变化时
   window.addEventListener('resize', () => {
     BrowserWidth.value = window.innerWidth;
     BrowserHeight.value = window.innerHeight;
