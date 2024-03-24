@@ -140,7 +140,7 @@ const DialogSure = () => {
   <!--  bg-violet-100 -->
   <div class="w-full h-full">
     <!-- 工具栏 -->
-    <div class="flex justify-between items-center gap-3 px-2 pb-4">
+    <div class="flex justify-between items-center gap-3 px-1 pb-4">
       <!-- 返回 -->
       <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <!-- 搜索 -->

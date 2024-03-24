@@ -55,20 +55,27 @@ const Limit_MaskPlay = () => {
     $Router.push(`/maskplay`);
   }
 };
+// setting 回调
+const SettingClick = () => {
+  $Router.push("/setting");
+};
+// GitHub 回调
+const GitHubClick = () => {
+  window.open("https://github.com/LSH160981/GraduationProject", "_blank");
+};
 </script>
 
 <template>
-  <!-- rounded-t-3xl bg-rose-500 -->
+  <!-- top -->
   <div class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]">
+    <!-- top-left -->
     <div class="flex justify-evenly items-center">
       <!-- 侧边栏 -->
-      <el-button link @click="MenuBarClick" class="transition-all active:scale-90">
+      <el-button link @click="MenuBarClick" class="transition-sca-90">
         <SVG name="list"></SVG>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div
-        class="tooltip maxd:tooltip-right transition-all active:scale-90"
-        data-tip=" 删除所有的对话 ">
+      <div class="tooltip maxd:tooltip-right transition-sca-90" data-tip=" 删除所有的对话 ">
         <el-popconfirm
           width="200"
           :hide-icon="true"
@@ -83,41 +90,39 @@ const Limit_MaskPlay = () => {
         </el-popconfirm>
       </div>
     </div>
-
+    <!-- top-right -->
     <div class="flex justify-evenly items-center gap-2">
       <!-- MaskPlay 小屏幕时才会显示 -->
       <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
-      <div
+      <el-button
+        link
         v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
-        class="transition-all active:scale-90">
-        <el-button link @click="Limit_MaskPlay">
-          <SVG name="mask"></SVG>
-        </el-button>
-      </div>
+        @click="Limit_MaskPlay"
+        class="transition-sca-90">
+        <SVG name="mask"></SVG>
+      </el-button>
       <!-- New Chat 小屏幕时才会显示 -->
-      <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
-      <div
+      <el-button
+        link
         v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
-        class="transition-all active:scale-90">
-        <el-button link @click="Limit_NewChat">
-          <SVG name="edit"></SVG>
-        </el-button>
-      </div>
+        @click="Limit_NewChat"
+        class="transition-sca-90">
+        <SVG name="edit"></SVG>
+      </el-button>
       <!-- setting -->
-      <router-link to="/setting" class="transition-all active:scale-90">
-        <el-button link>
-          <SVG name="setting"></SVG>
-        </el-button>
-      </router-link>
-
+      <el-button link @click="SettingClick" class="transition-sca-90">
+        <SVG name="setting"></SVG>
+      </el-button>
       <!-- GitHub -->
-      <el-button link>
-        <a href="https://github.com/LSH160981/GraduationProject" target="_blank">
-          <SVG name="github" width="28px" height="28px"></SVG>
-        </a>
+      <el-button link @click="GitHubClick" class="transition-sca-90">
+        <SVG name="github" width="28px" height="28px"></SVG>
       </el-button>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.transition-sca-90 {
+  @apply transition-all active:scale-90;
+}
+</style>

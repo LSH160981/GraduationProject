@@ -39,6 +39,10 @@ input.el-input__inner {
 textarea.el-textarea__inner {
   padding: 5px 30px 5px 11px;
 }
+/* 当两个el-button为兄弟元素是 会有margin-left: 12px; 我们抵消一下 */
+button.el-button + button.el-button {
+  margin-left: 0px;
+}
 
 /* Markdown 组件的文字的样式 重写 */
 div.vuepress-markdown-body {
