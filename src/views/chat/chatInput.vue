@@ -14,6 +14,8 @@ let $Router = useRouter();
 
 // ChatInput组件元素
 const ChatInput = ref(null);
+// el-input 组件
+let El_Input = ref(null);
 // 控制ChatInput组件的高度
 watch(
   () => ParametsSetting.BottomRight_ChatInputHeight,
@@ -25,22 +27,6 @@ watch(
   },
   {
     immediate: true,
-  }
-);
-
-// 检测 CurrentChatInfo.controller 如果为空,说明网络 中断了 按钮也要消失
-watch(
-  () => CurrentChatInfo.controller,
-  (newValue) => {
-    if (newValue === null) {
-      // 进入这个判断说明 GPT发送的网络请求中断了  | 或者压根就没有发送过请求
-      // 无论是哪一种，都要让按钮消失
-      // 让按钮消失
-      CurrentChatInfo.ShowStopButtonFlag = false;
-    }
-  },
-  {
-    deep: true,
   }
 );
 
@@ -75,6 +61,11 @@ const SendButton = () => {
     // tempUUID有值  说明是新建对话，所以要改变当前的路由
     tempUUID && $Router.push(`/chat/${tempUUID}`);
   });
+
+  if (ParametsSetting.w_phone) {
+    // 手机模式下 发送完信息 input失去焦点
+    El_Input.value.blur();
+  }
 };
 
 // 停止当前对话
@@ -90,6 +81,8 @@ const StopFetch = () => {
   }
   // 让网络请求停止
   CurrentChatInfo.controller.abort();
+  // 置空控制按钮
+  CurrentChatInfo.controller = null;
   // 让按钮消失
   CurrentChatInfo.ShowStopButtonFlag = false;
 };
@@ -114,8 +107,6 @@ const ReloadChat = () => {
   }, 300);
 };
 
-// el-input 组件
-let El_Input = ref(null);
 // 是否展示 提示词(Prompt组件)
 let ShowPromptsFlag = ref(false);
 
@@ -171,7 +162,7 @@ const InputEnterHandler = (event) => {
   }
 
   // 2.正常发送
-  SendButton(event);
+  SendButton();
 };
 </script>
 

@@ -8,14 +8,13 @@ let ParametsSetting = useParametsSettingStore();
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 import { useRouter } from "vue-router";
-
 let $Router = useRouter();
 // 返回上一级
 const GobackOne = () => {
   $Router.back();
 };
 
-import masks from "@/assets/masks"; // 预设角色
+import masks from "@/assets/JSON/masks"; // 预设角色
 let CopyMasks = ref([...masks]); // 把这些提前准备好的预设角色 变为响应式的   展示在页面的数据
 let UserAddMasks = ref([]); // 用户添加的
 /**
@@ -200,12 +199,4 @@ const DialogSure = () => {
   </div>
 </template>
 
-<style scoped>
-div.el-input__wrapper {
-  background-color: #1111cb;
-}
-input.el-input__inner {
-  background-color: #1ae924;
-  color: red;
-}
-</style>
+<style scoped></style>

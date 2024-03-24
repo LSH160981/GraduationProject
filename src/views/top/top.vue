@@ -122,6 +122,7 @@ const GitHubClick = () => {
 </template>
 
 <style scoped>
+/* 因为使用这两个属性集合的元素太多啦 所以封装一下 */
 .transition-sca-90 {
   @apply transition-all active:scale-90;
 }

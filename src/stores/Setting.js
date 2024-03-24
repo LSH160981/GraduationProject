@@ -1,6 +1,7 @@
 import { ref, reactive, watch, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import DayOrNight from '@/utils/DayOrNight.js'
+import ChangeIOSThemeColor from '@/utils/ChangeIOSThemeColor'
 
 /**
  * 这个仓库对应的是 Setting.vue 这个组件
@@ -59,9 +60,13 @@ export const useSettingStore = defineStore('Setting', () => {
             // 通过JavaScript选择HTML元素并添加class
             let htmlElement = document.querySelector("html");
             if (newTheme) {
+                // 暗夜模式
                 htmlElement.classList.add("dark");
+                ChangeIOSThemeColor('#212129')
             } else {
+                // 白天
                 htmlElement.classList.remove("dark");
+                ChangeIOSThemeColor('#fff')
             }
         }
     );

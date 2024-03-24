@@ -141,6 +141,19 @@ export const useCurrentChatInfoStore = defineStore('CurrentChatInfo', () => {
     }, { deep: true }
   )
 
+  // 检测 controller 如果为空,说明网络 中断了 按钮也要消失
+  watch(
+    () => controller.value,
+    (newValue) => {
+      if (newValue === null) {
+        // 进入这个判断说明 GPT发送的网络请求中断了  | 或者压根就没有发送过请求
+        // 无论是哪一种，都要让按钮消失
+        // 让按钮消失
+        ShowStopButtonFlag.value = false;
+      }
+    },
+  );
+
   // 通过GPT获取问题的答案
   const GetGPTMsg = async (callback) => {
     // 每次调用该函数 就设置一次新的终止信号

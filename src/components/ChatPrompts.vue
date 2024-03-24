@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, nextTick, onBeforeUnmount } from "vue";
 import { AddZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
-import prompts from "@/assets/prompts";
+import prompts from "@/assets/JSON/prompts";
 let CopyPrompts = computed(() => {
   let result = [];
   // 给每一个描述都加上 零宽字符
