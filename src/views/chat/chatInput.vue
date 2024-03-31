@@ -1,6 +1,5 @@
 <script setup>
 import { ref, nextTick, watch } from "vue";
-import { generateUUID } from "@/utils/GenerateUUID";
 import ChatPrompts from "@/components/ChatPrompts.vue";
 import { CheckZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -51,7 +50,7 @@ const SendButton = () => {
   if (!CurrentChatInfo.uuid) {
     // 新建对话
     // 生成UUID
-    tempUUID = generateUUID();
+    tempUUID = crypto.randomUUID();
     CurrentChatInfo.ChangeUUID(tempUUID);
   }
   // 通过GPT获取回答
@@ -145,6 +144,8 @@ watch(
 
 // el-input 组件 Enter 事件
 const InputEnterHandler = (event) => {
+  // 去除文字最后的换行符
+  CurrentChatInfo.InputValue = CurrentChatInfo.InputValue.replace(/\n$/, "");
   // 检测是否按下了Shift + Enter
   if (event.key === "Enter" && event.shiftKey) {
     // 阻止默认行为（不发送表单等）   textarea 会自动添加换行符
