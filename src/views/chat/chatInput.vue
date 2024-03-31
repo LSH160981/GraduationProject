@@ -1,5 +1,6 @@
 <script setup>
 import { ref, nextTick, watch } from "vue";
+import { generateUUID } from "@/utils/GenerateUUID.js";
 import ChatPrompts from "@/components/ChatPrompts.vue";
 import { CheckZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -50,7 +51,7 @@ const SendButton = () => {
   if (!CurrentChatInfo.uuid) {
     // 新建对话
     // 生成UUID
-    tempUUID = crypto.randomUUID();
+    tempUUID = generateUUID();
     CurrentChatInfo.ChangeUUID(tempUUID);
   }
   // 通过GPT获取回答

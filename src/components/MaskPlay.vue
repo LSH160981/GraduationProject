@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, nextTick, watch, toRaw, onMounted } from "vue";
+import { generateUUID } from "@/utils/GenerateUUID.js";
 import { ElMessage } from "element-plus";
 import CustomizeButton from "./CustomizeButton.vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -79,7 +80,7 @@ const ChoiceMaskChat = (maskStr) => {
   // 允许改标题
   CurrentChatInfo.changeTltleFlag = true;
   // 生成UUID
-  let G_UUID = crypto.randomUUID();
+  let G_UUID = generateUUID();
   // 改 当前对话的UUID
   CurrentChatInfo.ChangeUUID(G_UUID);
   // 添加 当前对话的 系统提示词
