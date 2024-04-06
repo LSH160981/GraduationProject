@@ -22,9 +22,11 @@ export default defineConfig({
     }
   },
   build: {
+    minify: 'terser', // 确保使用terser进行压缩
     terserOptions: {
       compress: {
-        pure_funcs: ['console.log'] // 删除所有的console.log [只删除log]
+        // drop_console: true, // 删除所有console语句
+        pure_funcs: ['console.log'] // 如果你只想删除console.log
       }
     }
   }
