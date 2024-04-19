@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick, onMounted } from "vue";
+import { ref, watch, nextTick, onMounted, onBeforeUnmount } from "vue";
 import SliderItem from "./sliderItem.vue";
 import { RouterLink } from "vue-router";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -12,7 +12,7 @@ let { ChangeUUID, SliderItemChangeBorder } = useCurrentChatInfoStore();
 // 这个组件的根元素
 let BottomLeft = ref(null);
 // 控制BottomLeft组件的高度
-watch(
+let stopWatchBottomLeft = watch(
   () => ParametsSetting.BottomHeight,
   (newValue) => {
     nextTick(() => {
@@ -51,6 +51,12 @@ const IsCloseDrawer = () => {
 // 通过TWCSS改变 border
 onMounted(() => {
   SliderItemChangeBorder();
+});
+
+// 组件销毁
+onBeforeUnmount(() => {
+  // 停止对 BottomLeft 的监视
+  stopWatchBottomLeft();
 });
 </script>
 

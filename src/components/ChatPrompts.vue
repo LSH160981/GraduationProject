@@ -44,7 +44,8 @@ let ProxyPrompts = computed(() => {
   return results;
 });
 
-watch(
+// 对父组件传来的数据进行监视
+let stopWatchDefinePropsInputValue = watch(
   () => $defineProps.InputValue,
   () => {
     // 当找不到数据 时就算了
@@ -130,9 +131,12 @@ nextTick(() => {
   F_el.style.borderColor = "#22c55e";
 });
 
-// 组件销毁  移除监听事件
+// 组件销毁
 onBeforeUnmount(() => {
+  // 移除键盘事件的监视
   document.removeEventListener("keydown", keydown_handler);
+  // 停止对 父组件数据 的监视
+  stopWatchDefinePropsInputValue();
 });
 </script>
 

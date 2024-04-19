@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, watch } from "vue";
+import { ref, nextTick, watch, onBeforeUnmount } from "vue";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 
@@ -12,7 +12,7 @@ const ChatContainer = ref(null);
 const El_Scrollbar = ref(null);
 
 // 控制ChatContainer组件的高度 ---> 只要浏览器视口不变
-watch(
+let stopWatchChatContainer = watch(
   () => ParametsSetting.BottomRight_ChatContainerHeight,
   (newValue) => {
     nextTick(() => {
@@ -25,7 +25,7 @@ watch(
 );
 
 // CurrentChatInfo.messages 的变化
-watch(
+let stopWatchCurrentChatInfoMessages = watch(
   () => CurrentChatInfo.messages,
   () => {
     nextTick(() => {
@@ -56,6 +56,14 @@ const GoToChatTop = () => {
 const GoToChatBottom = () => {
   El_Scrollbar.value.setScrollTop(999999);
 };
+
+// 组件销毁
+onBeforeUnmount(() => {
+  // 停止对 组件 的监视
+  stopWatchChatContainer();
+  // 停止对 CurrentChatInfo.messages 的变化 的监视
+  stopWatchCurrentChatInfoMessages();
+});
 </script>
 
 <template>

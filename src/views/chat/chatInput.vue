@@ -1,5 +1,5 @@
 <script setup>
-import { ref, nextTick, watch } from "vue";
+import { ref, nextTick, watch, onBeforeUnmount } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID.js";
 import ChatPrompts from "@/components/ChatPrompts.vue";
 import { CheckZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
@@ -17,7 +17,7 @@ const ChatInput = ref(null);
 // el-input 组件
 let El_Input = ref(null);
 // 控制ChatInput组件的高度
-watch(
+let stopWatchChatInput = watch(
   () => ParametsSetting.BottomRight_ChatInputHeight,
   (newValue) => {
     nextTick(() => {
@@ -131,7 +131,7 @@ const InputFocus = () => {
 };
 
 // 观察 CurrentChatInfo.InputValue 的变化
-watch(
+let stopWatchCurrentChatInfoInputValue = watch(
   () => CurrentChatInfo.InputValue,
   (newValue) => {
     // 第一个字符以  '/' 开头
@@ -166,6 +166,14 @@ const InputEnterHandler = (event) => {
   // 2.正常发送
   SendButton();
 };
+
+// 组件销毁
+onBeforeUnmount(() => {
+  // 停止对 组件 的监视
+  stopWatchChatInput();
+  // 停止对 CurrentChatInfo.InputValue 的变化 的监视
+  stopWatchCurrentChatInfoInputValue();
+});
 </script>
 
 <template>

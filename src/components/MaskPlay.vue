@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, nextTick, watch, toRaw, onMounted } from "vue";
+import { computed, ref, nextTick, watch, toRaw, onMounted, onBeforeUnmount } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID.js";
 import { ElMessage } from "element-plus";
 import CustomizeButton from "./CustomizeButton.vue";
@@ -21,7 +21,7 @@ let UserAddMasks = ref([]); // 用户添加的
  * UserAddMasks 变化
  * 就要保存到本地 方便日后读取
  */
-watch(
+let stopWatchUserAddMasks = watch(
   () => UserAddMasks.value,
   () => {
     // 把数据保存到本地
@@ -133,6 +133,12 @@ const DialogSure = () => {
     });
   }
 };
+
+// 组件销毁
+onBeforeUnmount(() => {
+  // 停止对UserAddMasks数据的监视
+  stopWatchUserAddMasks();
+});
 </script>
 
 <template>

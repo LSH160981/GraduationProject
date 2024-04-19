@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from "vue";
+import { watch, onBeforeUnmount } from "vue";
 import { ElMessage } from "element-plus";
 
 import ChatContainer from "./chatContainer.vue";
@@ -15,7 +15,7 @@ import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
 let CurrentChatInfo = useCurrentChatInfoStore();
 
 // 路由变化 改变 CurrentChatInfo 的 UUID
-watch(
+let stopWatchRouteParams = watch(
   () => $Route.params,
   (newParams) => {
     //  路径没有带参数  再   判断本地有没有这个UUID
@@ -44,6 +44,12 @@ watch(
   },
   { deep: true, immediate: true }
 );
+
+// 组件销毁
+onBeforeUnmount(() => {
+  // 停止对 路由变化 的监视
+  stopWatchRouteParams();
+});
 </script>
 
 <template>
