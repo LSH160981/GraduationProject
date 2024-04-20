@@ -1,7 +1,8 @@
 <script setup>
-import { onMounted, ref, onBeforeUnmount } from "vue";
+import { onMounted, ref } from "vue";
+import { animationFrameTimer } from "@/utils/Animate.js";
 const canvasContainer = ref(null);
-let canvas, ctx, particles, pcount, intervalId;
+let canvas, ctx, particles, pcount;
 
 onMounted(() => {
   canvas = document.createElement("canvas");
@@ -47,11 +48,7 @@ onMounted(() => {
   canvas.height = window.innerHeight;
   canvas.style.zIndex = -1;
   canvasContainer.value.appendChild(canvas);
-  intervalId = setInterval(animate, 100 / 6);
-});
-
-onBeforeUnmount(() => {
-  clearInterval(intervalId);
+  animationFrameTimer(animate);
 });
 </script>
 

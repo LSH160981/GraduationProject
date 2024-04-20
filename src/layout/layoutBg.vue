@@ -3,12 +3,14 @@
 </template>
 
 <script>
-import { onMounted, ref, onBeforeUnmount } from "vue";
+import { onMounted, ref } from "vue";
+import { animationFrameTimer } from "@/utils/Animate.js";
 
 export default {
   setup() {
     const canvasContainer = ref(null);
-    let canvas, ctx, particles, count, intervalId;
+    let canvas, ctx, particles, count;
+
     onMounted(() => {
       canvas = document.createElement("canvas");
       ctx = canvas.getContext("2d");
@@ -81,11 +83,7 @@ export default {
       canvas.style.zIndex = "-1";
       canvasContainer.value.appendChild(canvas);
       init();
-      intervalId = setInterval(draw, 1000 / 60);
-    });
-
-    onBeforeUnmount(() => {
-      clearInterval(intervalId);
+      animationFrameTimer(draw);
     });
 
     return {
