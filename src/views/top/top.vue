@@ -91,7 +91,7 @@ const GitHubClick = () => {
       </div>
     </div>
     <!-- top-right -->
-    <div class="flex justify-evenly items-center gap-2">
+    <div class="flex justify-evenly items-center">
       <!-- MaskPlay 小屏幕时才会显示 -->
       <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
       <el-button

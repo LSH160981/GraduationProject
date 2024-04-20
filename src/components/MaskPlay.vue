@@ -184,13 +184,17 @@ onBeforeUnmount(() => {
       </div>
     </el-scrollbar>
     <!-- 添加新的预设角色 的 dialog -->
-    <el-dialog v-model="DialogVisible" title="添加新的预设角色" :width="DialogWidth" align-center>
+    <el-dialog v-model="DialogVisible" :width="DialogWidth" align-center>
+      <template #header>
+        <span class="text-[color:var(--setting-color)]">添加新的预设角色</span>
+      </template>
       <div class="flex flex-col gap-3">
-        <el-input type="textarea" v-model="DialogTitle" autosize placeholder="标题" clearable />
+        <el-input type="textarea" v-model="DialogTitle" autosize resize="none" placeholder="标题" />
         <el-input
           type="textarea"
           v-model="DialogContent"
           :autosize="{ minRows: 4, maxRows: 6 }"
+          resize="none"
           maxlength="2000"
           show-word-limit
           placeholder="预设角色的描述！" />

@@ -94,12 +94,9 @@ const InputBlur = () => {
 </script>
 
 <template>
-  <!-- border-green-500  hover:bg-gray-200-->
-  <!-- 添加自定义属性[uuid]    @mouseenter="SliderItemMouseEnter"
-    @mouseleave="SliderItemMouseLeave"    -->
   <div
     :uuid="ChatInfo.uuid"
-    class="mb-2 p-3 box-border border-2 hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
+    class="mb-2 p-3 box-border border-2 bg-white hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
     @click.self="SliderItemClick">
     <span
       v-if="!ReNameFlag"
@@ -119,7 +116,7 @@ const InputBlur = () => {
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
         <button>
-          <SVG name="more"></SVG>
+          <SVG name="more" :FixedColor="`#000`"></SVG>
         </button>
       </span>
       <template #dropdown>
@@ -139,5 +136,11 @@ const InputBlur = () => {
 <style scoped>
 .el-dropdown-link:focus-visible {
   outline: unset;
+}
+div.el-input__wrapper {
+  background-color: transparent;
+}
+input.el-input__inner {
+  color: #000;
 }
 </style>

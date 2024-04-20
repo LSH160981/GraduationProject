@@ -93,11 +93,9 @@ onBeforeUnmount(() => {
 
       <!-- 显示对话列表 -->
       <div v-for="item in GlobalInformation.AllChatInfo" :key="item.uuid">
-        <div class="bg-[#fff] rounded-lg">
-          <RouterLink :to="{ path: `/chat/${item.uuid}` }">
-            <SliderItem :ChatInfo="item" @DeleteMsg="DeleteMsg" @ChangeTitle="ChangeTitle" />
-          </RouterLink>
-        </div>
+        <RouterLink :to="{ path: `/chat/${item.uuid}` }">
+          <SliderItem :ChatInfo="item" @DeleteMsg="DeleteMsg" @ChangeTitle="ChangeTitle" />
+        </RouterLink>
       </div>
     </el-scrollbar>
   </div>

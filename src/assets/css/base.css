@@ -17,12 +17,12 @@ html.dark {
   --container-bgc: #26586a29;
   --svg-color: #dfd5d5;
   --setting-color: #d1d1d1;
-  --el-dialog-bg-color: #270f4a;
   --range-border-color: #c5bebe;
 }
 
 /* 一些样式的重写 */
 * {
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -30,18 +30,19 @@ html.dark {
 div.el-drawer__body {
   padding: 0;
 }
-div.el-input__wrapper {
-  background-color: var(--base-bgc);
-}
-input.el-input__inner {
-  color: var(--setting-color);
-}
+/* el-textarea */
 textarea.el-textarea__inner {
   padding: 5px 30px 5px 11px;
+  background-color: var(--base-bgc);
+  color: var(--setting-color);
 }
-/* 当两个el-button为兄弟元素是 会有margin-left: 12px; 我们抵消一下 */
-button.el-button + button.el-button {
-  margin-left: 0px;
+/* el-dialog */
+div.el-dialog.is-align-center {
+  background-color: var(--base-bgc);
+}
+/* el-dialog 的文字限制提示 */
+.el-textarea span.el-input__count {
+  background-color: transparent;
 }
 
 /* Markdown 组件的文字的样式 重写 */
