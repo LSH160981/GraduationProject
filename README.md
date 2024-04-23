@@ -8,17 +8,16 @@
 
 ## 项目亮点
 
-- Pinia+组合式 API 实现仓库数据存储;
-
-- VueRouter 流畅的使用单页应用(前置守卫);
-
-- 使用 TailwindCSS 完成网站整体的样式(多端适配，主题切换);
-
-- 使用 fetch 实现流式读取网络数据;
-
+- `Pinia`+组合式 `API` 实现仓库数据存储;
+- `VueRouter` 流畅的使用单页应用(前置守卫);
+- 使用 `TailwindCSS` 完成网站整体的样式(多端适配，主题切换);
+- 使用 `fetch` 实现流式读取网络数据;
 - 每隔 10 秒自动轮询检测网页是否更新;
-
-- 封装 SVG 组件 <use>标签可以减少 HTTP 请求;
+- 封装 `SVG` 组件 <use>标签可以减少 HTTP 请求;
+- 针对 `setInterval` 运行的动画函数换成 `requestAnimationFrame` 运行
+- 优化性能：在`onBeforeUnmount`停止一切监听
+- 使用`terser`处理打包后的结果
+- 针对`IOS`用户切换浏览器主题时状态栏的变化
 
 ## 主要功能
 
