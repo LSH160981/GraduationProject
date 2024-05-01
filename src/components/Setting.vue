@@ -1,7 +1,8 @@
 <script setup>
+import { defineAsyncComponent } from "vue";
+const RangeInput = defineAsyncComponent(() => import("./RangeInput.vue"));
+const CustomizeButton = defineAsyncComponent(() => import("./CustomizeButton.vue"));
 import { ClearAll } from "@/utils/HandlerToken.js";
-import RangeInput from "./RangeInput.vue";
-import CustomizeButton from "./CustomizeButton.vue";
 import { ElMessage } from "element-plus";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();

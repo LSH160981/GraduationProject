@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from "vue";
-import loginBg from "./loginBg.vue";
+import { ref, defineAsyncComponent } from "vue";
+const loginBg = defineAsyncComponent(() => import("./loginBg.vue"));
 import { ElMessage, ElLoading, ElNotification } from "element-plus";
 import { SetToken } from "@/utils/HandlerToken.js";
 

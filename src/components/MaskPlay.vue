@@ -1,8 +1,17 @@
 <script setup>
-import { computed, ref, nextTick, watch, toRaw, onMounted, onBeforeUnmount } from "vue";
+import {
+  computed,
+  ref,
+  nextTick,
+  watch,
+  toRaw,
+  onMounted,
+  onBeforeUnmount,
+  defineAsyncComponent,
+} from "vue";
 import { generateUUID } from "@/utils/GenerateUUID.js";
 import { ElMessage } from "element-plus";
-import CustomizeButton from "./CustomizeButton.vue";
+const CustomizeButton = defineAsyncComponent(() => import("./CustomizeButton.vue"));
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();
 import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";

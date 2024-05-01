@@ -1,7 +1,7 @@
 <script setup>
-import { ref, nextTick, watch, onBeforeUnmount } from "vue";
+import { ref, nextTick, watch, onBeforeUnmount, defineAsyncComponent } from "vue";
 import { generateUUID } from "@/utils/GenerateUUID.js";
-import ChatPrompts from "@/components/ChatPrompts.vue";
+const ChatPrompts = defineAsyncComponent(() => import("@/components/ChatPrompts.vue"));
 import { CheckZeroWidthChars, RemoveZeroWidthChars } from "@/utils/ZeroWidthChars";
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
 let ParametsSetting = useParametsSettingStore();

@@ -1,5 +1,6 @@
 <script setup>
-import layoutBg from "./layoutBg.vue";
+import { defineAsyncComponent } from "vue";
+const layoutBg = defineAsyncComponent(() => import("./layoutBg.vue"));
 import Top from "@/views/top/top.vue";
 import BottomLeft from "@/views/bottomLeft/bottomLeft.vue";
 import BottomRight from "@/views/bottomRight/bottomRight.vue";
