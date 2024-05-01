@@ -1,7 +1,15 @@
+/**
+   * development ：这是在开发环境中常见的值，此时项目处于开发阶段。
+   * production ：这是在生产环境中常见的值，此时项目已经部署并对外提供服务。
+   * 在开发环境中 就不要检测
+  */
+if (process.env.NODE_ENV === "production") {
+    // 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
+    import('@/utils/UpdatedChecker.js')
+}
+
 // tailwindcss
 import './assets/css/main.css';
-// 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
-import '@/utils/UpdatedChecker.js'
 
 import { createApp } from 'vue';
 import App from './App.vue';
