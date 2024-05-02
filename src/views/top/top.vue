@@ -1,4 +1,5 @@
 <script setup>
+import { ElMessageBox } from "element-plus";
 import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
 let GlobalInformation = useGlobalInformationStore();
 import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
@@ -30,6 +31,23 @@ const SureDeleteAllChat = () => {
     // 在 就返回主页  作用：清空路径 清空ChatContainer的对话
     $Router.push("/chat");
   }
+};
+// 点击【broom-SVG】的回调-打开信息确认盒子
+const openMessagePopup = async () => {
+  ElMessageBox.confirm("确定要删除所有的对话吗?", "Warning", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      // 点击确定回调
+      console.log("sure");
+      SureDeleteAllChat();
+    })
+    .catch(() => {
+      // 点击取消回调
+      console.log("canceled");
+    });
 };
 // [在小屏幕的情况|和侧边栏消失] 才会升效的 新建对话 的按钮
 const Limit_NewChat = () => {
@@ -76,18 +94,9 @@ const GitHubClick = () => {
       </el-button>
       <!-- 清除全部的对话 -->
       <div class="tooltip maxd:tooltip-right transition-sca-90" data-tip=" 删除所有的对话 ">
-        <el-popconfirm
-          width="200"
-          :hide-icon="true"
-          confirm-button-type="danger"
-          title="确定要删除所有的对话吗?"
-          @confirm="SureDeleteAllChat">
-          <template #reference>
-            <el-button link>
-              <SVG name="broom"></SVG>
-            </el-button>
-          </template>
-        </el-popconfirm>
+        <el-button link @click="openMessagePopup">
+          <SVG name="broom"></SVG>
+        </el-button>
       </div>
     </div>
     <!-- top-right -->

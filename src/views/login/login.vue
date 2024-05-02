@@ -1,24 +1,29 @@
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
 const loginBg = defineAsyncComponent(() => import("./loginBg.vue"));
-import { ElMessage, ElLoading, ElNotification } from "element-plus";
+import { ElMessage, ElNotification } from "element-plus";
 import { SetToken } from "@/utils/HandlerToken.js";
 
 import { useRouter } from "vue-router"; // 引入路由
 let $Router = useRouter(); // 实例化路由
 
-let Account = ref(""); // 账号 admin
-let Password = ref(""); // 密码 123456
+let Account = ref("admin"); // 账号 admin
+let Password = ref("123456"); // 密码 123456
+
+/**
+ * 全面添加遮罩层，并显示loading效果
+ */
+const fullscreenLoading = ref(false);
 
 /**
  * 登录
  */
 const SignIn = () => {
-  let Loading = LoadFullScreen(); // 开始loading
+  fullscreenLoading.value = true; // 开始loading
   let username = Account.value;
   let password = Password.value;
   if (!RuleVerification(username, password)) {
-    Loading.close(); // 关闭loading效果
+    fullscreenLoading.value = false; // 关闭loading效果
     ElMessage({
       message: "请输入正确的账号和密码",
       grouping: true,
@@ -35,7 +40,7 @@ const SignIn = () => {
       }
     })
     .then((result) => {
-      Loading.close(); // 关闭loading效果
+      fullscreenLoading.value = false; // 关闭loading效果
       if (result.status === 200) {
         // 保存 token
         SetToken("Token", result.token);
@@ -70,18 +75,6 @@ const RuleVerification = (username, password) => {
   // 密码规则：长度6位以上 全部是数字，不能为空
   let passwordRule = /^[0-9]{6,}$/;
   return usernameRule.test(username) && passwordRule.test(password);
-};
-
-/**
- * 全面添加遮罩层，并显示loading效果
- */
-const LoadFullScreen = () => {
-  return ElLoading.service({
-    lock: true,
-    text: "Loading",
-    background: "rgba(0, 0, 0, 0.6)",
-  });
-  // loading.close();
 };
 </script>
 
@@ -128,6 +121,8 @@ const LoadFullScreen = () => {
           <div class="space-y-2">
             <div>
               <button
+                v-loading.fullscreen.lock="fullscreenLoading"
+                element-loading-background="#205cce9c"
                 @click="SignIn"
                 class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95 dark:text-white">
                 Sign in

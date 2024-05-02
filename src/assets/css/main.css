@@ -1,3 +1,8 @@
+/* 由于按需导入el-plus部分组件会丢失样式 这个分别导入 */
+@import "element-plus/theme-chalk/el-message-box.css"; /* ElMessageBox 样式 */
+@import "element-plus/theme-chalk/el-loading.css"; /* ElLoading 样式 */
+@import "element-plus/theme-chalk/el-message.css"; /* ElMessage 样式 */
+@import "element-plus/theme-chalk/el-notification.css"; /* ElNotification 样式 */
 @import "./base.css";
 @tailwind base;
 @tailwind components;

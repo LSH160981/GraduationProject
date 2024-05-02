@@ -23,10 +23,6 @@ import GlobalDirective from "@/utils/MyDirective"; // 自定义的全局 指令
 import 'virtual:svg-icons-register' // 插件
 import SVG from '@/components/SVG.vue'// 组件
 
-// el-plus
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-
 //  Markdown   预览组件以及样式 --start
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import '@kangc/v-md-editor/lib/style/preview.css';
@@ -60,6 +56,5 @@ app.use(createPinia()); // pinia插件
 app.use(router); // 路由
 app.use(GlobalDirective); // 自定义指令
 app.component('SVG', SVG); // 全局组件 SVG
-app.use(ElementPlus); // el-ui
 app.use(VMdPreview); // Markdown 插件
 app.mount('#app')

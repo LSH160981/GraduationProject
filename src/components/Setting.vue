@@ -62,7 +62,6 @@ let ChangeN = (e) => {
     message: `如果没有特殊要求请不要改动这个配置`,
     type: "warning",
     duration: 3000,
-    grouping: true,
   });
   Setting.GPT_Setting.N = +e.target.value;
 };
