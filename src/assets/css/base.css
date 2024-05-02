@@ -44,6 +44,9 @@ div.el-dialog.is-align-center {
 .el-textarea span.el-input__count {
   background-color: transparent;
 }
+button.el-button > span {
+  color: var(--setting-color);
+}
 
 /* Markdown 组件的文字的样式 重写 */
 div.vuepress-markdown-body {
