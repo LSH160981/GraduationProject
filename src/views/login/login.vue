@@ -122,7 +122,7 @@ const RuleVerification = (username, password) => {
             <div>
               <button
                 v-loading.fullscreen.lock="fullscreenLoading"
-                element-loading-background="#205cce9c"
+                element-loading-background="#3fa7f4cf"
                 @click="SignIn"
                 class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95 dark:text-white">
                 Sign in
