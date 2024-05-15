@@ -8,6 +8,10 @@
 
 ## 项目亮点
 
+- 优化打包结果
+  - 按需加载组件`UI`;
+  - 打包结果分包`rollupOptions`;
+  - 使用`terser`移除测试代码 例如:`console.log`等等;
 - `Pinia`+组合式 `API` 实现仓库数据存储;
 - `VueRouter` 流畅的使用单页应用(前置守卫);
 - 使用 `TailwindCSS` 完成网站整体的样式(多端适配，主题切换);
