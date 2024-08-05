@@ -145,8 +145,6 @@ let stopWatchCurrentChatInfoInputValue = watch(
 
 // el-input 组件 Enter 事件
 const InputEnterHandler = (event) => {
-  // 去除文字最后的换行符
-  CurrentChatInfo.InputValue = CurrentChatInfo.InputValue.replace(/\n$/, "");
   // 检测是否按下了Shift + Enter
   if (event.key === "Enter" && event.shiftKey) {
     // 阻止默认行为（不发送表单等）   textarea 会自动添加换行符
@@ -252,7 +250,7 @@ onBeforeUnmount(() => {
   transform: translateY(100%); /* 初始状态从下方开始 */
 }
 .fade-enter-active {
-  transition: all 0.3s ease-out; /* 使用 ease-out 缓动效果更自然 */
+  transition: all 0.5s ease-out; /* 使用 ease-out 缓动效果更自然 */
 }
 .fade-enter-to {
   opacity: 1;

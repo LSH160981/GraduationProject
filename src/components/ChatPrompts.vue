@@ -170,9 +170,9 @@ onBeforeUnmount(() => {
 .ChatPromptsContainer {
   @apply w-full max-h-[500px] bg-[color:var(--base-bgc)]
   absolute bottom-full
-  rounded-lg p-2 mb-2
-  border shadow-inner
-  overflow-scroll overflow-x-hidden z-10;
+  border rounded-lg p-2 mb-2
+  shadow-slate-400 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)]
+  overflow-scroll overflow-x-hidden;
 }
 /* 每一个 部分 */
 .EverPart {
