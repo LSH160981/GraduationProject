@@ -4,7 +4,7 @@
    * 在开发环境中 就不要检测
   */
 if (process.env.NODE_ENV === "production") {
-    // 代码每 10 秒检查一次 网页 文件是否有更新; 引入就可以,里面会执行
+    // 代码每 隔一段时间 检查 文件是否有更新; 引入就可以,里面会执行
     import('@/utils/UpdatedChecker.js')
 }
 
