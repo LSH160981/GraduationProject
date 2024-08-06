@@ -1,49 +1,49 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { animationFrameTimer } from "@/utils/Animate.js";
+
 const canvasContainer = ref(null);
-let canvas, ctx, particles, pcount;
+const particles = [];
+const pcount = 1000;
+let canvas = document.createElement("canvas");
+let ctx = canvas.getContext("2d");
+
+class Particle {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = Math.random();
+  }
+  update() {
+    const centerX = this.canvas.width / 2;
+    const centerY = this.canvas.height / 2;
+    const deg = Math.atan2(this.y - centerY, this.x - centerX);
+    const r = Math.sqrt(Math.pow(this.x - centerX, 2) + Math.pow(this.y - centerY, 2));
+    this.x = r * Math.cos(deg + this.vx / 200) + centerX;
+    this.y = r * Math.sin(deg + this.vx / 200) + centerY;
+  }
+  draw() {
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, 1 + this.vx, 0, Math.PI * 2);
+    this.ctx.fillStyle = `rgba(255,255,255,${this.vx})`;
+    this.ctx.fill();
+  }
+}
+
+const animate = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (particles.length < pcount) {
+    particles.push(new Particle(canvas));
+  }
+  for (const p of particles) {
+    p.update();
+    p.draw();
+  }
+};
 
 onMounted(() => {
-  canvas = document.createElement("canvas");
-  ctx = canvas.getContext("2d");
-  particles = [];
-  pcount = 1000;
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.vx = Math.random();
-    }
-    update() {
-      let deg = Math.atan2(this.y - canvas.height / 2, this.x - canvas.width / 2);
-      let r = Math.sqrt(
-        Math.pow(this.x - canvas.width / 2, 2) + Math.pow(this.y - canvas.height / 2, 2)
-      );
-      this.x = r * Math.cos(deg + this.vx / 200) + canvas.width / 2;
-      this.y = r * Math.sin(deg + this.vx / 200) + canvas.height / 2;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, 1 + this.vx, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${this.vx})`;
-      ctx.fill();
-    }
-  }
-
-  const animate = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (particles.length < pcount) {
-      particles.push(new Particle());
-    }
-    for (let i in particles) {
-      let p = particles[i];
-      p.update();
-      p.draw();
-    }
-  };
-
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   canvas.style.zIndex = -1;
@@ -104,6 +104,7 @@ onMounted(() => {
   top: 32px;
   left: 39px;
 }
+
 @media (max-width: 767px) {
   .rocket {
     top: 70%;

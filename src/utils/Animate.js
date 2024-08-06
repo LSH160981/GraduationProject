@@ -1,11 +1,8 @@
-
 // 定义一个函数，该函数接收一个回调函数作为参数
 // 只有当每一帧之间的时间大于16毫秒时，才会调用该回调函数
-function animationFrameTimer(callback) {
+function animationFrameTimer(callback, gapTime = 16) {
     // 初始化上一帧的时间戳
     let lastFrameTime = null;
-    // 间隔时间
-    let gapTime = 16;
 
     // 定义步骤函数，它将被 requestAnimationFrame 调用
     function step(timestamp) {
