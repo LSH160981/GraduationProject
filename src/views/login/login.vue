@@ -18,7 +18,7 @@ const fullscreenLoading = ref(false);
 /**
  * 登录
  */
-const SignIn = () => {
+const SignIn = async () => {
   fullscreenLoading.value = true; // 开始loading
   let username = Account.value;
   let password = Password.value;
@@ -33,14 +33,10 @@ const SignIn = () => {
   }
 
   let url = `${import.meta.env.VITE_APP_BASE_URL}/?account=${username}&password=${password}`;
-  fetch(url)
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-    })
-    .then((result) => {
-      fullscreenLoading.value = false; // 关闭loading效果
+  try {
+    const response = await fetch(url);
+    if (response.status === 200) {
+      const result = await response.json();
       if (result.status === 200) {
         // 保存 token
         SetToken("Token", result.token);
@@ -60,7 +56,15 @@ const SignIn = () => {
           type: "error",
         });
       }
+    }
+  } catch (error) {
+    ElMessage({
+      message: "请求失败，请稍后重试",
+      type: "error",
     });
+  } finally {
+    fullscreenLoading.value = false; // 关闭loading效果
+  }
 };
 
 /**

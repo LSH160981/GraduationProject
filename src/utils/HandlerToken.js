@@ -39,42 +39,40 @@ export const ClearAll = () => {
     localStorage.clear();
 }
 
-// 用于控制 该验证函数 只能运行一次
-let VerifyFlag = true;
 /**
  * 验证token 是否有效
+ * @param {string} token - 用于验证的token
  * @returns {void} 无返回值
  */
-export const VerifyToken = (token) => {
-    if (!VerifyFlag) {
-        return;
-    }
+export const VerifyToken = async (token) => {
     if (!token) {
-        return new Error(`缺少参数token`);
+        throw new Error(`缺少参数token`);
     }
-    // 1.发送请求，看看token 有没有过期
+
+    // 1.发送请求，看看token有没有过期
     let url = `${import.meta.env.VITE_APP_BASE_URL}/?token=${token}`;
-    fetch(url)
-        .then((response) => {
-            return response.json();
-        })
-        .then((result) => {
-            if (result.status === 200) {
-                // 1.1 有效 无事发生
-                // console.log("token有效");
-            } else {
-                // 1.2 无效 清除本地token 以及 其他所有的 localStorage存储的数据
-                // console.log("token无效");
-                ElMessage({
-                    message: `Token过期,请重新登录`,
-                    type: "error",
-                    duration: 3500,
-                });
-                ClearAll();
-                // 路由跳到 登录页面
-                router.push("/login");
-            }
-        });
-    // 该函数 只能运行一次，完毕后将改为false
-    VerifyFlag = false;
+
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (result.status === 200) {
+            // 1.1 有效，无事发生
+            // console.log("token有效");
+        } else {
+            // 1.2 无效，清除本地token以及其他所有的localStorage存储的数据
+            // console.log("token无效");
+            ElMessage({
+                message: `Token过期,请重新登录`,
+                type: "error",
+                duration: 3500,
+            });
+            ClearAll();
+            // 路由跳到登录页面
+            router.push("/login");
+        }
+    } catch (error) {
+        // 处理请求错误
+        console.error("请求失败:", error);
+    }
 }
