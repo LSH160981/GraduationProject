@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
 /* TW 的 复合样式 */
 .BottomLeftTop {
   @apply w-full text-[color:var(--base-textColor)] shadow-md truncate
-  flex justify-evenly items-center
+  flex justify-evenly items-center gap-1
   p-3 rounded-lg cursor-pointer transition-all
   hover:bg-violet-300 active:scale-95;
 }

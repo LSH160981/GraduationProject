@@ -34,6 +34,10 @@ const SureDeleteAllChat = () => {
 };
 // 点击【broom-SVG】的回调-打开信息确认盒子
 const openMessagePopup = async () => {
+  // 如果没有数据 就不弹框
+  if (GlobalInformation.AllChatInfo.length === 0) {
+    return;
+  }
   ElMessageBox.confirm("确定要删除所有的对话吗?", "Warning", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
