@@ -32,52 +32,56 @@ const SignIn = async () => {
     return;
   }
 
-  try {
-    setTimeout(() => {
-      // 保存 token
-      SetToken("Token", "Token");
-      // 路由跳到 对话页面
-      $Router.push("/");
-      // 提示成功信息
-      ElNotification({
-        type: "success",
-        duration: 2700,
-        message: `登录成功`,
-        title: `欢迎回来`,
-      });
-    }, 1000);
-    // let url = `${import.meta.env.VITE_APP_BASE_URL}/?account=${username}&password=${password}`;
-    // const response = await fetch(url);
-    // if (response.status === 200) {
-    //   const result = await response.json();
-    //   if (result.status === 200) {
-    //     // 保存 token
-    //     SetToken("Token", result.token);
-    //     // 路由跳到 对话页面
-    //     $Router.push("/chat");
-    //     // 提示成功信息
-    //     ElNotification({
-    //       type: "success",
-    //       duration: 2700,
-    //       message: `登录成功`,
-    //       title: `欢迎回来`,
-    //     });
-    //   } else if (result.status === 201) {
-    //     // 提示失败信息
-    //     ElMessage({
-    //       message: "账号或密码错误",
-    //       type: "error",
-    //     });
-    //   }
-    // }
-  } catch (error) {
-    ElMessage({
-      message: "请求失败，请稍后重试",
-      type: "error",
+  // 模拟请求
+  setTimeout(() => {
+    // 保存 token
+    SetToken("Token", "Token-Test");
+    // 路由跳到 对话页面
+    $Router.push("/");
+    // 提示成功信息
+    ElNotification({
+      type: "success",
+      duration: 2700,
+      message: `登录成功`,
+      title: `欢迎回来`,
     });
-  } finally {
-    fullscreenLoading.value = false; // 关闭loading效果
-  }
+    // 关闭loading效果
+    fullscreenLoading.value = false;
+  }, 700);
+
+  // try {
+  //   let url = `${import.meta.env.VITE_APP_BASE_URL}/?account=${username}&password=${password}`;
+  //   const response = await fetch(url);
+  //   if (response.status === 200) {
+  //     const result = await response.json();
+  //     if (result.status === 200) {
+  //       // 保存 token
+  //       SetToken("Token", result.token);
+  //       // 路由跳到 对话页面
+  //       $Router.push("/chat");
+  //       // 提示成功信息
+  //       ElNotification({
+  //         type: "success",
+  //         duration: 2700,
+  //         message: `登录成功`,
+  //         title: `欢迎回来`,
+  //       });
+  //     } else if (result.status === 201) {
+  //       // 提示失败信息
+  //       ElMessage({
+  //         message: "账号或密码错误",
+  //         type: "error",
+  //       });
+  //     }
+  //   }
+  // } catch (error) {
+  //   ElMessage({
+  //     message: "请求失败，请稍后重试",
+  //     type: "error",
+  //   });
+  // } finally {
+  //   fullscreenLoading.value = false; // 关闭loading效果
+  // }
 };
 
 /**
