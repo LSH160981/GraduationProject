@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
   absolute bottom-full
   border rounded-lg p-2 mb-2
   shadow-slate-400 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)]
-  overflow-scroll overflow-x-hidden;
+  overflow-scroll overflow-x-hidden z-[3];
 }
 /* 每一个 部分 */
 .EverPart {

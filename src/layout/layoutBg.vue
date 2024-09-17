@@ -82,7 +82,6 @@ const init = () => {
   Frame && Frame.stop();
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  canvas.style.zIndex = "-1";
   canvasContainer.value.appendChild(canvas);
   Frame = animationFrameTimer(draw);
 };

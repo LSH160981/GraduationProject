@@ -113,7 +113,7 @@ const InputBlur = () => {
       @focus="InputFocus"
       @blur="InputBlur"
       @keyup.enter="InputBlur" />
-    <el-dropdown trigger="click">
+    <el-dropdown trigger="hover">
       <span class="el-dropdown-link">
         <div class="tooltip transition-sca-90" data-tip="选项">
           <SVG name="more" :FixedColor="`#000`"></SVG>
