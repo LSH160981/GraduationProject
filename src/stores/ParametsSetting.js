@@ -81,7 +81,7 @@ export const useParametsSettingStore = defineStore('ParametsSetting', () => {
   });
 
   return {
-    BrowserWidth, w_phone, ContainerWidth, ContainerHeight,
+    BrowserWidth, BrowserHeight, w_phone, ContainerWidth, ContainerHeight,
     SliderBarDrawerFlag,
     BottomHeight, BottomRight_ChatContainerHeight, BottomRight_ChatInputHeight,
     BottomLeftWidth, BottomRightWidth, ChangeBottomWidth

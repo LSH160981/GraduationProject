@@ -1,11 +1,15 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { watchEffect, ref, nextTick, onUnmounted } from "vue";
 import { animationFrameTimer } from "@/utils/Animate.js";
+import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
+let ParametsSetting = useParametsSettingStore();
 
 const canvasContainer = ref(null);
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 const particles = [];
+// 数量
+const pcount = 98;
 
 class Particle {
   constructor() {
@@ -56,13 +60,14 @@ const getRandomColor = () => [
 ];
 
 const initParticles = () => {
-  const count = (canvas.width * canvas.height) / 10000;
-  for (let i = 0; i < count; i++) {
+  if (particles.length < pcount) {
+    // console.log("init particles");
     particles.push(new Particle());
   }
 };
 
 const draw = () => {
+  initParticles();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach((particle) => {
     particle.update();
@@ -70,18 +75,34 @@ const draw = () => {
   });
 };
 
-onMounted(() => {
+// 接收animationFrameTimer的返回值
+let Frame = null;
+// 初始化 canvas
+const init = () => {
+  Frame && Frame.stop();
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   canvas.style.zIndex = "-1";
   canvasContainer.value.appendChild(canvas);
-  initParticles();
-  animationFrameTimer(draw);
+  Frame = animationFrameTimer(draw);
+};
+
+watchEffect(() => {
+  // 收集依赖 等待触发更新
+  ParametsSetting.BrowserWidth, ParametsSetting.BrowserHeight;
+  nextTick(() => {
+    init();
+  });
+});
+
+onUnmounted(() => {
+  // 释放资源
+  Frame && Frame.stop();
 });
 </script>
 
 <template>
-  <div ref="canvasContainer" class="canvas-container overflow-hidden"></div>
+  <div ref="canvasContainer" class="canvas-container"></div>
 </template>
 
 <style scoped>
@@ -91,5 +112,6 @@ onMounted(() => {
   position: absolute;
   top: 0;
   z-index: -2;
+  overflow: hidden;
 }
 </style>

@@ -1,6 +1,8 @@
 // 定义一个函数，该函数接收一个回调函数作为参数
 // 只有当每一帧之间的时间大于16毫秒时，才会调用该回调函数
 function animationFrameTimer(callback, gapTime = 16) {
+    // 保存 requestAnimationFrame 的返回值
+    let requestId;
     // 初始化上一帧的时间戳
     let lastFrameTime = null;
 
@@ -18,11 +20,20 @@ function animationFrameTimer(callback, gapTime = 16) {
         }
 
         // 继续请求下一帧动画，当浏览器准备好下一帧时，step 函数将再次被调用
-        requestAnimationFrame(step);
+        requestId = requestAnimationFrame(step);
     }
 
     // 请求第一帧动画，开始循环
-    requestAnimationFrame(step);
+    requestId = requestAnimationFrame(step);
+
+    return {
+        // 返回停止函数，用于停止动画循环
+        stop: () => {
+            console.log('stop animation')
+            cancelAnimationFrame(requestId)
+            requestId = null;
+        }
+    };
 }
 
 // 导出

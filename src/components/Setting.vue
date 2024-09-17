@@ -74,8 +74,7 @@ let ChangeCarriedHistoryMessages = (e) => {
 const Logout = () => {
   console.log("退出登录");
   ClearAll();
-  window.location.href = "/";
-  window.location.reload();
+  $Router.push("/login");
 };
 </script>
 
