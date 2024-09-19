@@ -159,7 +159,7 @@ onBeforeUnmount(() => {
         <div class="text-sm truncate">{{ item[1] }}</div>
       </div>
     </div>
-    <div v-show="ProxyPrompts.length === 0" class="text-center text-red-400">
+    <div v-if="ProxyPrompts.length === 0" class="text-center text-red-400">
       抱歉! 没有找到您想要的~~
     </div>
   </div>
