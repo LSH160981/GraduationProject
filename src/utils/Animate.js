@@ -1,6 +1,9 @@
 // 定义一个函数，该函数接收一个回调函数作为参数
-// 只有当每一帧之间的时间大于16毫秒时，才会调用该回调函数
+// 只有当每一帧之间的时间大于gapTime时，才会调用该回调函数
 function animationFrameTimer(callback, gapTime = 16) {
+    if (typeof callback !== 'function') {
+        throw new Error('Callback必须是一个函数');
+    }
     // 保存 requestAnimationFrame 的返回值
     let requestId;
     // 初始化上一帧的时间戳
