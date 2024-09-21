@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "install": "pnpm install",
+    "ins": "pnpm install",
     "dev": "vite --open --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
