@@ -1,20 +1,22 @@
 <script setup>
-import { defineAsyncComponent } from "vue";
-const layoutBg = defineAsyncComponent(() => import("./layoutBg.vue"));
-import Top from "@/views/top/top.vue";
-import BottomLeft from "@/views/bottomLeft/bottomLeft.vue";
-import BottomRight from "@/views/bottomRight/bottomRight.vue";
-import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
-let ParametsSetting = useParametsSettingStore();
+import { defineAsyncComponent } from 'vue'
+const layoutBg = defineAsyncComponent(() => import('./layoutBg.vue'))
+import Top from '@/views/top/top.vue'
+import BottomLeft from '@/views/bottomLeft/bottomLeft.vue'
+import BottomRight from '@/views/bottomRight/bottomRight.vue'
+import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
+let ParametsSetting = useParametsSettingStore()
 </script>
 
 <template>
   <!-- layout -->
   <div class="relative">
     <div
-      class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
+      class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden"
+    >
       <div
-        class="w-70vw h-83vh border-2 bg-[var(--base-bgc)] border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0 maxd:rounded-none">
+        class="w-70vw h-83vh border-2 bg-[var(--base-bgc)] border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0 maxd:rounded-none"
+      >
         <el-row>
           <el-col :span="24">
             <Top></Top>
@@ -39,7 +41,8 @@ let ParametsSetting = useParametsSettingStore();
     size="75%"
     direction="ltr"
     :show-close="false"
-    :with-header="false">
+    :with-header="false"
+  >
     <BottomLeft></BottomLeft>
   </el-drawer>
 </template>

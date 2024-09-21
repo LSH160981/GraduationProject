@@ -26,18 +26,18 @@ defineProps({
   },
   width: {
     type: String,
-    default: "24px",
+    default: '24px',
   },
   height: {
     type: String,
-    default: "24px",
+    default: '24px',
   },
   // 固定颜色  fill不会随主题变化而变化
   FixedColor: {
     type: String,
     default: null,
   },
-});
+})
 </script>
 
 <template>
@@ -46,7 +46,13 @@ defineProps({
   <!-- fill 是标签属性之一表示填充的颜色 
         使用三目运算符 确认是否固定用某一种颜色
   -->
-  <svg :style="{ width, height, fill: FixedColor ? FixedColor : `var(--svg-color)` }">
+  <svg
+    :style="{
+      width,
+      height,
+      fill: FixedColor ? FixedColor : `var(--svg-color)`,
+    }"
+  >
     <!-- xlink: href 指定用哪一个图标 必须是以  # icon-xxx -->
     <use :xlink:href="`#icon-${name}`"></use>
   </svg>

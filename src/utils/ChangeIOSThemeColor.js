@@ -5,12 +5,12 @@
  * @param {string} color 颜色的16进制
  */
 const ChangeIOSThemeColor = (color) => {
-    // 获取标签
-    let metaThemeColor = document.querySelector('meta[name=theme-color]');
-    if (metaThemeColor) {
-        // 更改标签的content
-        metaThemeColor.setAttribute("content", color);
-    }
+  // 获取标签
+  let metaThemeColor = document.querySelector('meta[name=theme-color]')
+  if (metaThemeColor) {
+    // 更改标签的content
+    metaThemeColor.setAttribute('content', color)
+  }
 }
 
 export default ChangeIOSThemeColor
