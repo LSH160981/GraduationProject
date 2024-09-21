@@ -15,19 +15,17 @@ import 'virtual:svg-icons-register' // 插件
  */
 export function registerGlobalComponents(app) {
     if (!app) throw new Error('app 实例未传入');
-
     try {
         // 动态导入 components 文件夹下的所有 .vue 文件，包括子文件夹
         const components = import.meta.glob('@/components/**/*.vue');
-
         // 遍历所有导入的组件，并注册为全局组件
         for (const [path, component] of Object.entries(components)) {
             if (component) { // 确保组件存在
                 // 自动生成组件名称，如：MyComponent.vue -> MyComponent
                 const componentName = path.split('/').pop().replace(/\.vue$/, ''); // 直接去除 .vue 后缀
-
                 // console.log(`注册全局组件: ${componentName}`);
-
+                const com_Name = path.split('/').pop().replace(/\.vue$/, ''); // 直接去除 .vue 后缀
+                // console.log(`注册全局组件: ${componentName}`);
                 // 注册全局组件
                 app.component(componentName, component);
             } else {
