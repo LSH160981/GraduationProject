@@ -1,5 +1,5 @@
-import { ElMessage } from "element-plus";
-import router from "@/router/index.js"; // 引入路由
+import { ElMessage } from 'element-plus'
+import router from '@/router/index.js' // 引入路由
 
 /**
  * 获取指定名称的Token
@@ -7,8 +7,8 @@ import router from "@/router/index.js"; // 引入路由
  * @returns {string} 返回得到的Token，如果未找到则返回null
  */
 export const GetToken = (name) => {
-    let token = localStorage.getItem(name);
-    return token ? token : null;
+  let token = localStorage.getItem(name)
+  return token ? token : null
 }
 
 /**
@@ -18,7 +18,7 @@ export const GetToken = (name) => {
  * @returns {void} 无返回值
  */
 export const SetToken = (name, value) => {
-    localStorage.setItem(name, value);
+  localStorage.setItem(name, value)
 }
 
 /**
@@ -27,7 +27,7 @@ export const SetToken = (name, value) => {
  * @returns {void} 无返回值
  */
 export const DeleteToken = (name) => {
-    localStorage.removeItem(name);
+  localStorage.removeItem(name)
 }
 
 /**
@@ -35,8 +35,8 @@ export const DeleteToken = (name) => {
  * @returns {void} 无返回值
  */
 export const ClearAll = () => {
-    // 移除本页面 所有 相关数据
-    localStorage.clear();
+  // 移除本页面 所有 相关数据
+  localStorage.clear()
 }
 
 /**
@@ -45,34 +45,34 @@ export const ClearAll = () => {
  * @returns {void} 无返回值
  */
 export const VerifyToken = async (token) => {
-    if (!token) {
-        throw new Error(`缺少参数token`);
+  if (!token) {
+    throw new Error(`缺少参数token`)
+  }
+
+  // 1.发送请求，看看token有没有过期
+  let url = `${import.meta.env.VITE_APP_BASE_URL}/?token=${token}`
+
+  try {
+    const response = await fetch(url)
+    const result = await response.json()
+
+    if (result.status === 200) {
+      // 1.1 有效，无事发生
+      // console.log("token有效");
+    } else {
+      // 1.2 无效，清除本地token以及其他所有的localStorage存储的数据
+      // console.log("token无效");
+      ElMessage({
+        message: `Token过期,请重新登录`,
+        type: 'error',
+        duration: 3500,
+      })
+      ClearAll()
+      // 路由跳到登录页面
+      router.push('/login')
     }
-
-    // 1.发送请求，看看token有没有过期
-    let url = `${import.meta.env.VITE_APP_BASE_URL}/?token=${token}`;
-
-    try {
-        const response = await fetch(url);
-        const result = await response.json();
-
-        if (result.status === 200) {
-            // 1.1 有效，无事发生
-            // console.log("token有效");
-        } else {
-            // 1.2 无效，清除本地token以及其他所有的localStorage存储的数据
-            // console.log("token无效");
-            ElMessage({
-                message: `Token过期,请重新登录`,
-                type: "error",
-                duration: 3500,
-            });
-            ClearAll();
-            // 路由跳到登录页面
-            router.push("/login");
-        }
-    } catch (error) {
-        // 处理请求错误
-        console.error("请求失败:", error);
-    }
+  } catch (error) {
+    // 处理请求错误
+    console.error('请求失败:', error)
+  }
 }

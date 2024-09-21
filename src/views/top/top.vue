@@ -1,58 +1,58 @@
 <script setup>
-import { ElMessageBox } from "element-plus";
-import { useGlobalInformationStore } from "@/stores/GlobalInformation.js";
-let GlobalInformation = useGlobalInformationStore();
-import { useParametsSettingStore } from "@/stores/ParametsSetting.js";
-let ParametsSetting = useParametsSettingStore();
-import { useCurrentChatInfoStore } from "@/stores/CurrentChatInfo.js";
-let { ChangeUUID } = useCurrentChatInfoStore();
-import { useRoute, useRouter } from "vue-router";
-let $Route = useRoute();
-let $Router = useRouter();
+import { ElMessageBox } from 'element-plus'
+import { useGlobalInformationStore } from '@/stores/GlobalInformation.js'
+let GlobalInformation = useGlobalInformationStore()
+import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
+let ParametsSetting = useParametsSettingStore()
+import { useCurrentChatInfoStore } from '@/stores/CurrentChatInfo.js'
+let { ChangeUUID } = useCurrentChatInfoStore()
+import { useRoute, useRouter } from 'vue-router'
+let $Route = useRoute()
+let $Router = useRouter()
 
 // 菜单栏 点击回调
 const MenuBarClick = () => {
   // 判断处于什么状态 当浏览器视口宽度【小于767px 结果为true】 【大于767px 结果为false】
   if (ParametsSetting.w_phone) {
     // 抽屉形式{出现|消失} BottomLeft组件
-    ParametsSetting.SliderBarDrawerFlag = true;
+    ParametsSetting.SliderBarDrawerFlag = true
   } else {
     // 大屏幕 {出现|消失} BottomLeft组件
-    ParametsSetting.ChangeBottomWidth();
+    ParametsSetting.ChangeBottomWidth()
   }
-};
+}
 // 对话提示框 的 确认按钮的回调
 const SureDeleteAllChat = () => {
   // 清空所有的对话信息
-  GlobalInformation.ClearAllChatInfo();
+  GlobalInformation.ClearAllChatInfo()
   // 比如说，我在[/setting]页面 就不要返回 '/'
   // 判断当前的路径是否在聊天的页面
-  if ($Route.fullPath.includes("/chat")) {
+  if ($Route.fullPath.includes('/chat')) {
     // 在 就返回主页  作用：清空路径 清空ChatContainer的对话
-    $Router.push("/chat");
+    $Router.push('/chat')
   }
-};
+}
 // 点击【broom-SVG】的回调-打开信息确认盒子
 const openMessagePopup = async () => {
   // 如果没有数据 就不弹框
   if (GlobalInformation.AllChatInfo.length === 0) {
-    return;
+    return
   }
-  ElMessageBox.confirm("确定要删除所有的对话吗?", "Warning", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
+  ElMessageBox.confirm('确定要删除所有的对话吗?', 'Warning', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
   })
     .then(() => {
       // 点击确定回调
-      console.log("sure");
-      SureDeleteAllChat();
+      console.log('sure')
+      SureDeleteAllChat()
     })
     .catch(() => {
       // 点击取消回调
-      console.log("canceled");
-    });
-};
+      console.log('canceled')
+    })
+}
 // [在小屏幕的情况|和侧边栏消失] 才会升效的 新建对话 的按钮
 const Limit_NewChat = () => {
   /**
@@ -61,11 +61,11 @@ const Limit_NewChat = () => {
    */
   if (ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth) {
     // 路由的跳转
-    $Router.push(`/chat`);
+    $Router.push(`/chat`)
     // 清除当前对话的uuid
-    ChangeUUID("");
+    ChangeUUID('')
   }
-};
+}
 // [在小屏幕的情况|和侧边栏消失] 才会升效的 选择面具 的按钮
 const Limit_MaskPlay = () => {
   /**
@@ -74,22 +74,24 @@ const Limit_MaskPlay = () => {
    */
   if (ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth) {
     // 路由的跳转
-    $Router.push(`/maskplay`);
+    $Router.push(`/maskplay`)
   }
-};
+}
 // setting 回调
 const SettingClick = () => {
-  $Router.push("/setting");
-};
+  $Router.push('/setting')
+}
 // GitHub 回调
 const GitHubClick = () => {
-  window.open("https://github.com/LSH160981/GraduationProject", "_blank");
-};
+  window.open('https://github.com/LSH160981/GraduationProject', '_blank')
+}
 </script>
 
 <template>
   <!-- top -->
-  <div class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]">
+  <div
+    class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]"
+  >
     <!-- top-left -->
     <div class="flex justify-evenly items-center">
       <!-- 侧边栏 -->
@@ -97,7 +99,10 @@ const GitHubClick = () => {
         <SVG name="list"></SVG>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div class="tooltip maxd:tooltip-right transition-sca-90" data-tip=" 删除所有的对话 ">
+      <div
+        class="tooltip maxd:tooltip-right transition-sca-90"
+        data-tip=" 删除所有的对话 "
+      >
         <el-button link @click="openMessagePopup">
           <SVG name="broom"></SVG>
         </el-button>
@@ -111,7 +116,8 @@ const GitHubClick = () => {
         link
         v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
         @click="Limit_MaskPlay"
-        class="transition-sca-90">
+        class="transition-sca-90"
+      >
         <SVG name="mask"></SVG>
       </el-button>
       <!-- New Chat 小屏幕时才会显示 -->
@@ -119,7 +125,8 @@ const GitHubClick = () => {
         link
         v-if="ParametsSetting.w_phone || !ParametsSetting.BottomLeftWidth"
         @click="Limit_NewChat"
-        class="transition-sca-90">
+        class="transition-sca-90"
+      >
         <SVG name="edit"></SVG>
       </el-button>
       <!-- setting -->

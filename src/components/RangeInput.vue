@@ -24,13 +24,20 @@ defineProps({
     type: Function,
     require: true,
   },
-});
+})
 </script>
 
 <template>
   <div class="input-range">
     {{ value }}
-    <input type="range" :value="value" :min="min" :max="max" :step="step" @input="onChange" />
+    <input
+      type="range"
+      :value="value"
+      :min="min"
+      :max="max"
+      :step="step"
+      @input="onChange"
+    />
   </div>
 </template>
 
@@ -53,19 +60,19 @@ defineProps({
   border: 1px solid var(--range-border-color);
 }
 
-input[type="range"] {
+input[type='range'] {
   max-width: calc(100% - 34px);
   appearance: none;
   background-color: var(--base-bgc);
   color: #303030;
   transition: all 0.3s;
 }
-input[type="range"]:hover {
+input[type='range']:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   appearance: none;
   width: var(--RangeContent-w);
   height: var(--RangeContent-h);
@@ -73,7 +80,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 5px;
 }
 
-input[type="range"]::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
   width: var(--RangeContent-w);
   height: var(--RangeContent-h);
   background: var(--RangeContent-bgc);
