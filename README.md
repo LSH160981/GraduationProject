@@ -4,9 +4,9 @@
 
 # GPT-Web-Url
 
-main - [https://1.sudofly.xyz](https://1.sudofly.xyz)
-main_vercel - [https://1.sudofly.com](https://1.sudofly.com)
-xiaoliao - [https://xiaoliao.sudofly.xyz](https://xiaoliao.sudofly.xyz)
+- main - [https://1.sudofly.xyz](https://1.sudofly.xyz)
+- main_vercel - [https://1.sudofly.com](https://1.sudofly.com)
+- xiaoliao - [https://xiaoliao.sudofly.xyz](https://xiaoliao.sudofly.xyz)
 
 # GPT
 
