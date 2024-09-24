@@ -2,6 +2,12 @@
 
 ![cover](./docs/images/cover.png)
 
+# GPT-Web-Url
+
+main - [https://1.sudofly.xyz](https://1.sudofly.xyz)
+main_vercel - [https://1.sudofly.com](https://1.sudofly.com)
+xiaoliao - [https://xiaoliao.sudofly.xyz](https://xiaoliao.sudofly.xyz)
+
 # GPT
 
 本项目使用 Vue3+Vite 完成 [反馈](https://github.com/LSH160981/GraduationProject/issues)
