@@ -70,8 +70,8 @@ pnpm build
 
 ## 项目环境
 
-Node.js[(.nvmrc)](./.nvmrc) === v20.11.0
-pnpm[(pnpm-lock.yaml)](./pnpm-lock.yaml) === v9.0
+- Node.js[(.nvmrc)](./.nvmrc) === v20.11.0
+- pnpm[(pnpm-lock.yaml)](./pnpm-lock.yaml) === v9.0
 
 ## LICENSE
 
