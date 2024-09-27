@@ -42,7 +42,12 @@ export default defineConfig({
       output: {
         // 分包打包，凡是node_modules的库 单独打包 --->自己写的代码也单独打包
         manualChunks(id) {
-          if (id.includes('node_modules')) {
+          // console.log('id', id)
+          if (id.includes('element-plus')) {
+            return 'element-plus'
+          } else if (id.includes('lodash')) {
+            return 'lodash'
+          } else if (id.includes('node_modules')) {
             return 'vendor'
           }
         },
