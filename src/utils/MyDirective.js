@@ -22,8 +22,7 @@ export default {
           }
 
           // 尝试获取子元素中的 input 或 textarea
-          const input =
-            el.querySelector('input') || el.querySelector('textarea')
+          const input = el.querySelector('input') || el.querySelector('textarea')
 
           if (input) {
             nextTick(() => {

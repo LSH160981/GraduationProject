@@ -30,10 +30,7 @@ import { animationFrameTimer } from '@/utils/Animate.js'
   async function UpdatedChecker() {
     const src_temp = new Set(src_arr)
     await Get_src()
-    if (
-      src_temp.size !== src_arr.size ||
-      ![...src_temp].every((item) => src_arr.has(item))
-    ) {
+    if (src_temp.size !== src_arr.size || ![...src_temp].every((item) => src_arr.has(item))) {
       ConfirmationBox()
     }
   }

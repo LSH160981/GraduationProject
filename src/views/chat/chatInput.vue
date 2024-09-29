@@ -1,10 +1,7 @@
 <script setup>
 import { ref, nextTick, watch, onBeforeUnmount } from 'vue'
 import { generateUUID } from '@/utils/GenerateUUID.js'
-import {
-  CheckZeroWidthChars,
-  RemoveZeroWidthChars,
-} from '@/utils/ZeroWidthChars'
+import { CheckZeroWidthChars, RemoveZeroWidthChars } from '@/utils/ZeroWidthChars'
 import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
 let ParametsSetting = useParametsSettingStore()
 
@@ -159,9 +156,7 @@ const InputEnterHandler = (event) => {
   if (CheckZeroWidthChars(CurrentChatInfo.InputValue)) {
     // 有 零宽字符 说明是 用回车选择
     // 有的话去除  但是不要 触发 SendButton
-    CurrentChatInfo.InputValue = RemoveZeroWidthChars(
-      CurrentChatInfo.InputValue
-    )
+    CurrentChatInfo.InputValue = RemoveZeroWidthChars(CurrentChatInfo.InputValue)
     return
   }
 
@@ -190,9 +185,7 @@ onBeforeUnmount(() => {
             <span>
               <SVG name="stop"></SVG>
             </span>
-            <span class="text-[color:var(--setting-color)]">
-              停止当前对话
-            </span>
+            <span class="text-[color:var(--setting-color)]"> 停止当前对话 </span>
           </div>
         </el-button>
       </div>
@@ -204,41 +197,26 @@ onBeforeUnmount(() => {
           // 数组必须有长度 大于1 是为了解决 第一个 是MaskPlay的提示词
           CurrentChatInfo.messages.length > 1 &&
           // 最后一个必须是 system
-          CurrentChatInfo.messages[CurrentChatInfo.messages.length - 1].role ===
-            'system'
+          CurrentChatInfo.messages[CurrentChatInfo.messages.length - 1].role === 'system'
         "
       >
         <el-button link @click="ReloadChat">
-          <div
-            class="rounded-md flex justify-between items-center gap-1 transition-all active:scale-95"
-          >
+          <div class="rounded-md flex justify-between items-center gap-1 transition-all active:scale-95">
             <!-- reload-SVG-container -->
-            <span
-              :style="{ transform: `rotate(${rotation}deg)` }"
-              class="transition-all duration-300"
-            >
+            <span :style="{ transform: `rotate(${rotation}deg)` }" class="transition-all duration-300">
               <SVG name="reload" width="22px" height="22px"></SVG>
             </span>
-            <span class="text-[color:var(--setting-color)]">
-              重新生成对话
-            </span>
+            <span class="text-[color:var(--setting-color)]"> 重新生成对话 </span>
           </div>
         </el-button>
       </div>
       <!-- 占位 -->
-      <div
-        v-else="!CurrentChatInfo.ShowStopButtonFlag"
-        class="h-[30px] w-[10px] maxd:h-5"
-      ></div>
+      <div v-else="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
     <div class="w-full relative">
       <transition name="fade">
-        <ChatPrompts
-          v-if="ShowPromptsFlag"
-          :InputValue="CurrentChatInfo.InputValue"
-          :SurePrompt="SurePrompt"
-        >
+        <ChatPrompts v-if="ShowPromptsFlag" :InputValue="CurrentChatInfo.InputValue" :SurePrompt="SurePrompt">
         </ChatPrompts>
       </transition>
 
@@ -254,10 +232,7 @@ onBeforeUnmount(() => {
         placeholder="Enter 发送, Shift + Enter 换行,  / 触发Prompt"
       >
       </el-input>
-      <button
-        @click.stop="SendButton"
-        class="absolute top-1/2 right-1 -translate-y-1/2"
-      >
+      <button @click.stop="SendButton" class="absolute top-1/2 right-1 -translate-y-1/2">
         <SVG name="send"></SVG>
       </button>
     </div>

@@ -77,52 +77,32 @@ onBeforeUnmount(() => {
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
     <el-scrollbar ref="El_Scrollbar" class="w-full">
       <div v-if="CurrentChatInfo.messages.length" class="w-full">
-        <div
-          v-for="(item, index) in CurrentChatInfo.messages"
-          :key="index"
-          class="w-full"
-        >
+        <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="w-full">
           <div v-if="item.role === 'system'" class="w-full chat chat-start">
             <div class="w-auto chat-bubble chat-bubble-accent">
-              <v-md-preview
-                :text="item.content"
-                indeasdasd="hiouwhdoui"
-              ></v-md-preview>
+              <v-md-preview :text="item.content" indeasdasd="hiouwhdoui"></v-md-preview>
             </div>
           </div>
           <div v-else-if="item.role === 'user'" class="w-full chat chat-end">
             <div class="w-auto chat-bubble chat-bubble-info">
-              <v-md-preview
-                :text="item.content"
-                indeasdasd="hiouwhdoui"
-              ></v-md-preview>
+              <v-md-preview :text="item.content" indeasdasd="hiouwhdoui"></v-md-preview>
             </div>
           </div>
         </div>
       </div>
-      <div
-        v-else
-        class="select-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-      >
+      <div v-else class="select-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="flex flex-col justify-center items-center gap-6">
           <!-- 图标 -->
           <div class="w-20 h-20">
             <img src="@/assets/images/chatgpt.png" alt="" />
           </div>
           <!-- 文字 -->
-          <div
-            class="text-2xl font-medium w-60 text-[color:var(--setting-color)]"
-          >
-            我今天能帮你做什么?
-          </div>
+          <div class="text-2xl font-medium w-60 text-[color:var(--setting-color)]">我今天能帮你做什么?</div>
         </div>
       </div>
     </el-scrollbar>
     <!-- 去到当前对话的顶部和底部 -->
-    <div
-      v-show="ShowButtonFlag"
-      class="flex flex-col gap-1 absolute bottom-3 right-2"
-    >
+    <div v-show="ShowButtonFlag" class="flex flex-col gap-1 absolute bottom-3 right-2">
       <div @click="GoToChatTop" class="GoToChat_TopOrBottom">
         <SVG name="top"></SVG>
       </div>

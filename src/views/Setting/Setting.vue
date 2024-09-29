@@ -79,15 +79,9 @@ const Logout = () => {
   <!-- bg-rose-50 -->
   <div class="w-full h-full select-none">
     <!-- top -->
-    <div
-      class="flex justify-between items-center gap-1 px-1 pb-3 text-[color:var(--setting-color)]"
-    >
+    <div class="flex justify-between items-center gap-1 px-1 pb-3 text-[color:var(--setting-color)]">
       <!-- // 返回上一级 -->
-      <CustomizeButton
-        iconName="left"
-        content="返回"
-        :clickHandler="GobackOne"
-      />
+      <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <span class="text-2xl">参数设置</span>
     </div>
     <!-- 主体  -->
@@ -129,9 +123,7 @@ const Logout = () => {
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="gpt-3.5-turbo">
-                  gpt-3.5-turbo
-                </el-dropdown-item>
+                <el-dropdown-item command="gpt-3.5-turbo"> gpt-3.5-turbo </el-dropdown-item>
                 <el-dropdown-item command="gpt-4"> gpt-4 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -157,13 +149,7 @@ const Logout = () => {
             <div class="text-base font-bold">核采样 (top_p)</div>
             <div class="text-xs">与随机性类似，但不要和随机性一起更改</div>
           </div>
-          <RangeInput
-            :value="Setting.GPT_Setting.Top_p"
-            :min="0"
-            :max="1"
-            :step="0.1"
-            @input="ChangeTop_p"
-          />
+          <RangeInput :value="Setting.GPT_Setting.Top_p" :min="0" :max="1" :step="0.1" @input="ChangeTop_p" />
         </div>
         <!-- 第四项 单次交互所用的最大 Token 数 -->
         <div class="SecondItem">
@@ -171,12 +157,7 @@ const Logout = () => {
             <div class="text-base font-bold">单次回复限制 (max_tokens)</div>
             <div class="text-xs">单次交互所用的最大 Token 数</div>
           </div>
-          <input
-            :value="Setting.GPT_Setting.Max_tokens"
-            class="myInput"
-            type="number"
-            @input="ChangeMax_tokens"
-          />
+          <input :value="Setting.GPT_Setting.Max_tokens" class="myInput" type="number" @input="ChangeMax_tokens" />
         </div>
         <!-- 第五项 话题新鲜度 (presence_penalty) -->
         <div class="SecondItem">
@@ -195,9 +176,7 @@ const Logout = () => {
         <!-- 第六项 频率惩罚度 (frequency_penalty) -->
         <div class="SecondItem">
           <div>
-            <div class="text-base font-bold">
-              频率惩罚度 (frequency_penalty)
-            </div>
+            <div class="text-base font-bold">频率惩罚度 (frequency_penalty)</div>
             <div class="text-xs">值越大，越有可能降低重复字词</div>
           </div>
           <RangeInput
@@ -227,13 +206,7 @@ const Logout = () => {
             <div class="text-base font-bold">返回的聊天个数 (n)</div>
             <div class="text-xs">为每个输入消息生成多少个聊天完成选项。</div>
           </div>
-          <RangeInput
-            :value="Setting.GPT_Setting.N"
-            :min="1"
-            :max="2"
-            :step="1"
-            @input="ChangeN"
-          />
+          <RangeInput :value="Setting.GPT_Setting.N" :min="1" :max="2" :step="1" @input="ChangeN" />
         </div>
         <!-- 第九项 附带历史消息数。 -->
         <div class="SecondItem">

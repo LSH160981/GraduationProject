@@ -11,9 +11,7 @@ let ParametsSetting = useParametsSettingStore()
 <template>
   <!-- layout -->
   <div class="relative">
-    <div
-      class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden"
-    >
+    <div class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
       <div
         class="w-70vw h-83vh border-2 bg-[var(--base-bgc)] border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0 maxd:rounded-none"
       >

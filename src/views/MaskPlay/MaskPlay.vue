@@ -1,13 +1,5 @@
 <script setup>
-import {
-  computed,
-  ref,
-  nextTick,
-  watch,
-  toRaw,
-  onMounted,
-  onBeforeUnmount,
-} from 'vue'
+import { computed, ref, nextTick, watch, toRaw, onMounted, onBeforeUnmount } from 'vue'
 import { generateUUID } from '@/utils/GenerateUUID.js'
 import { ElMessage } from 'element-plus'
 import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
@@ -32,10 +24,7 @@ let stopWatchUserAddMasks = watch(
   () => UserAddMasks.value,
   () => {
     // 把数据保存到本地
-    localStorage.setItem(
-      'UserAddMasks',
-      JSON.stringify(toRaw(UserAddMasks.value))
-    )
+    localStorage.setItem('UserAddMasks', JSON.stringify(toRaw(UserAddMasks.value)))
   },
   {
     deep: true,
@@ -157,11 +146,7 @@ onBeforeUnmount(() => {
     <!-- 工具栏 -->
     <div class="flex justify-between items-center gap-3 px-1 pb-4">
       <!-- 返回 -->
-      <CustomizeButton
-        iconName="left"
-        content="返回"
-        :clickHandler="GobackOne"
-      />
+      <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"
@@ -171,17 +156,10 @@ onBeforeUnmount(() => {
         placeholder="搜索预设角色"
       />
       <!-- 新建 -->
-      <CustomizeButton
-        iconName="add"
-        content="新建"
-        :clickHandler="ControlDialogVisible"
-      />
+      <CustomizeButton iconName="add" content="新建" :clickHandler="ControlDialogVisible" />
     </div>
     <!-- 主体  -->
-    <el-scrollbar
-      ref="El_Scrollbar"
-      :max-height="ParametsSetting.BottomHeight * 0.85"
-    >
+    <el-scrollbar ref="El_Scrollbar" :max-height="ParametsSetting.BottomHeight * 0.85">
       <div
         v-for="item in ProxyMasks"
         :key="item[0]"
@@ -213,13 +191,7 @@ onBeforeUnmount(() => {
         <span class="text-[color:var(--setting-color)]">添加新的预设角色</span>
       </template>
       <div class="flex flex-col gap-3">
-        <el-input
-          type="textarea"
-          v-model="DialogTitle"
-          autosize
-          resize="none"
-          placeholder="标题"
-        />
+        <el-input type="textarea" v-model="DialogTitle" autosize resize="none" placeholder="标题" />
         <el-input
           type="textarea"
           v-model="DialogContent"

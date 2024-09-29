@@ -89,9 +89,7 @@ const GitHubClick = () => {
 
 <template>
   <!-- top -->
-  <div
-    class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]"
-  >
+  <div class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]">
     <!-- top-left -->
     <div class="flex justify-evenly items-center">
       <!-- 侧边栏 -->
@@ -99,10 +97,7 @@ const GitHubClick = () => {
         <SVG name="list"></SVG>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div
-        class="tooltip maxd:tooltip-right transition-sca-90"
-        data-tip=" 删除所有的对话 "
-      >
+      <div class="tooltip maxd:tooltip-right transition-sca-90" data-tip=" 删除所有的对话 ">
         <el-button link @click="openMessagePopup">
           <SVG name="broom"></SVG>
         </el-button>

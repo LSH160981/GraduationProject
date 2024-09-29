@@ -30,9 +30,7 @@ class Particle {
     const centerX = this.canvas.width / 2
     const centerY = this.canvas.height / 2
     const deg = Math.atan2(this.y - centerY, this.x - centerX)
-    const r = Math.sqrt(
-      Math.pow(this.x - centerX, 2) + Math.pow(this.y - centerY, 2)
-    )
+    const r = Math.sqrt(Math.pow(this.x - centerX, 2) + Math.pow(this.y - centerY, 2))
     this.x = r * Math.cos(deg + this.vx / 200) + centerX
     this.y = r * Math.sin(deg + this.vx / 200) + centerY
   }

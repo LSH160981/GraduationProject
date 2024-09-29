@@ -68,12 +68,7 @@ onBeforeUnmount(() => {
       <div class="flex justify-evenly items-center gap-2 border-b-2 pb-2 mb-2">
         <!-- 面具 -->
         <div class="bg-white w-full rounded-lg">
-          <RouterLink
-            to="/maskplay"
-            active-class="MaskplayActive"
-            @click="IsCloseDrawer"
-            class="BottomLeftTop"
-          >
+          <RouterLink to="/maskplay" active-class="MaskplayActive" @click="IsCloseDrawer" class="BottomLeftTop">
             <div>
               <SVG name="mask"></SVG>
             </div>
@@ -95,11 +90,7 @@ onBeforeUnmount(() => {
       <!-- 显示对话列表 -->
       <div v-for="item in GlobalInformation.AllChatInfo" :key="item.uuid">
         <RouterLink :to="{ path: `/chat/${item.uuid}` }">
-          <SliderItem
-            :ChatInfo="item"
-            @DeleteMsg="DeleteMsg"
-            @ChangeTitle="ChangeTitle"
-          />
+          <SliderItem :ChatInfo="item" @DeleteMsg="DeleteMsg" @ChangeTitle="ChangeTitle" />
         </RouterLink>
       </div>
     </el-scrollbar>
