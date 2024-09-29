@@ -96,7 +96,7 @@ const InputBlur = () => {
 <template>
   <div
     :uuid="ChatInfo.uuid"
-    class="mb-2 p-3 box-border border-2 bg-white hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer transition-all active:scale-95"
+    class="mb-2 p-3 box-border border-2 bg-white hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer"
     @click.self="SliderItemClick"
   >
     <span

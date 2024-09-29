@@ -1,11 +1,5 @@
 <script setup>
-import {
-  ref,
-  nextTick,
-  watch,
-  onBeforeUnmount,
-  defineAsyncComponent,
-} from 'vue'
+import { ref, nextTick, watch, onBeforeUnmount } from 'vue'
 import { generateUUID } from '@/utils/GenerateUUID.js'
 import {
   CheckZeroWidthChars,

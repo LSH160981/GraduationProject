@@ -2,49 +2,51 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { GetToken } from '@/utils/HandlerToken.js'
 
+const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/login.vue'),
+  },
+  {
+    path: '/',
+    name: '/',
+    component: () => import('@/layout/layout.vue'),
+    redirect: '/chat',
+    children: [
+      {
+        path: 'chat/:uuid?',
+        name: 'chat',
+        component: () => import('@/views/chat/chat.vue'),
+      },
+      {
+        path: 'setting',
+        name: 'setting',
+        component: () => import('@/views/Setting/Setting.vue'),
+      },
+      {
+        path: 'maskplay',
+        name: 'maskplay',
+        component: () => import('@/views/MaskPlay/MaskPlay.vue'),
+      },
+    ],
+  },
+  // 404
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404/404.vue'),
+  },
+  // 兜底路由
+  {
+    path: '/:pathMatch(.*)',
+    component: () => import('@/views/404/404.vue'),
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/login/login.vue'),
-    },
-    {
-      path: '/',
-      name: '/',
-      component: () => import('@/layout/layout.vue'),
-      redirect: '/chat',
-      children: [
-        {
-          path: 'chat/:uuid?',
-          name: 'chat',
-          component: () => import('@/views/chat/chat.vue'),
-        },
-        {
-          path: 'setting',
-          name: 'setting',
-          component: () => import('@/components/Setting.vue'),
-        },
-        {
-          path: 'maskplay',
-          name: 'maskplay',
-          component: () => import('@/components/MaskPlay.vue'),
-        },
-      ],
-    },
-    // 404
-    {
-      path: '/404',
-      name: '404',
-      component: () => import('@/views/404/404.vue'),
-    },
-    // 兜底路由
-    {
-      path: '/:pathMatch(.*)',
-      component: () => import('@/views/404/404.vue'),
-    },
-  ],
+  routes,
   // 当页面发生跳转的时候 新页面的top为0
   scrollBehavior() {
     return {

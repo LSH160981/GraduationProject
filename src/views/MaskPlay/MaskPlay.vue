@@ -7,13 +7,9 @@ import {
   toRaw,
   onMounted,
   onBeforeUnmount,
-  defineAsyncComponent,
 } from 'vue'
 import { generateUUID } from '@/utils/GenerateUUID.js'
 import { ElMessage } from 'element-plus'
-const CustomizeButton = defineAsyncComponent(
-  () => import('./CustomizeButton.vue')
-)
 import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
 let ParametsSetting = useParametsSettingStore()
 import { useCurrentChatInfoStore } from '@/stores/CurrentChatInfo.js'
