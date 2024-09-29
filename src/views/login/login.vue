@@ -100,10 +100,10 @@ const RuleVerification = (username, password) => {
 </script>
 
 <template>
-  <div class="login w-screen h-screen overflow-hidden select-none">
-    <div class="w-screen h-screen flex justify-center items-center">
+  <div class="login h-screen w-screen select-none overflow-hidden">
+    <div class="flex h-screen w-screen items-center justify-center">
       <div
-        class="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 flex flex-col w-2/4 max-w-md p-6 rounded-lg border-2 shadow-lg shadow-indigo-500/50 maxd:w-5/6 z-10">
+        class="z-10 flex w-2/4 max-w-md flex-col rounded-lg border-2 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 p-6 shadow-lg shadow-indigo-500/50 maxd:w-5/6">
         <div class="mb-8 text-center">
           <h1 class="my-3 text-4xl font-bold">Sign in</h1>
           <p class="text-sm">Sign in to access your account</p>
@@ -116,7 +116,7 @@ const RuleVerification = (username, password) => {
                 <input
                   v-model.trim="Account"
                   placeholder="Account"
-                  class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+                  class="sm:text-sm peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0" />
                 <span
                   class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
                   Account
@@ -131,7 +131,7 @@ const RuleVerification = (username, password) => {
                   type="password"
                   placeholder="Password"
                   @keydown.enter="SignIn"
-                  class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
+                  class="sm:text-sm peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0" />
                 <span
                   class="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs">
                   Password
@@ -146,7 +146,7 @@ const RuleVerification = (username, password) => {
                 element-loading-text="Loading..."
                 element-loading-background="#e4ecf794"
                 @click="SignIn"
-                class="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 transition-all active:scale-95">
+                class="w-full rounded-md bg-violet-400 px-8 py-3 font-semibold transition-all active:scale-95">
                 Sign in
               </button>
             </div>

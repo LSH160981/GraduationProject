@@ -65,9 +65,9 @@ onBeforeUnmount(() => {
   <div ref="BottomLeft" class="BottomLeft">
     <!-- max-height="20px" -->
     <el-scrollbar>
-      <div class="flex justify-evenly items-center gap-2 border-b-2 pb-2 mb-2">
+      <div class="mb-2 flex items-center justify-evenly gap-2 border-b-2 pb-2">
         <!-- 面具 -->
-        <div class="bg-white w-full rounded-lg">
+        <div class="w-full rounded-lg bg-white">
           <RouterLink to="/maskplay" active-class="MaskplayActive" @click="IsCloseDrawer" class="BottomLeftTop">
             <div>
               <SVG name="mask"></SVG>
@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- 新建对话  -->
-        <div class="bg-white w-full rounded-lg">
+        <div class="w-full rounded-lg bg-white">
           <RouterLink to="/chat" @click="IsCloseDrawer" class="BottomLeftTop">
             <div>
               <SVG name="edit"></SVG>
@@ -99,15 +99,12 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .BottomLeft {
-  @apply p-3 border-r rounded-bl bg-[color:var(--container-bgc)];
+  @apply rounded-bl border-r bg-[color:var(--container-bgc)] p-3;
   /* @apply dark:[]; */
 }
 /* TW 的 复合样式 */
 .BottomLeftTop {
-  @apply w-full text-[color:var(--base-textColor)] shadow-md truncate
-  flex justify-evenly items-center gap-1
-  p-3 rounded-lg cursor-pointer transition-all
-  hover:bg-violet-300 active:scale-95;
+  @apply flex w-full cursor-pointer items-center justify-evenly gap-1 truncate rounded-lg p-3 text-[color:var(--base-textColor)] shadow-md transition-all hover:bg-violet-300 active:scale-95;
 }
 
 /* Vue3 RouterLink 被激活的样式 */

@@ -21,9 +21,9 @@ defineProps({
 <template>
   <!-- 返回  bg-[color:var(--setting-color)]-->
   <button
-    class="box-content w-[52px] h-12 px-4 bg-gray-100 rounded-lg text-sm font-bold transition-all maxd:h-7 hover:bg-gray-300 active:scale-95"
+    class="box-content h-12 w-[52px] rounded-lg bg-gray-100 px-4 text-sm font-bold transition-all hover:bg-gray-300 active:scale-95 maxd:h-7"
     @click="clickHandler">
-    <div class="flex justify-center items-center cursor-pointer truncate">
+    <div class="flex cursor-pointer items-center justify-center truncate">
       <div>
         <SVG :name="iconName"></SVG>
       </div>

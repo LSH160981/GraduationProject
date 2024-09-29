@@ -77,9 +77,9 @@ const Logout = () => {
 
 <template>
   <!-- bg-rose-50 -->
-  <div class="w-full h-full select-none">
+  <div class="h-full w-full select-none">
     <!-- top -->
-    <div class="flex justify-between items-center gap-1 px-1 pb-3 text-[color:var(--setting-color)]">
+    <div class="flex items-center justify-between gap-1 px-1 pb-3 text-[color:var(--setting-color)]">
       <!-- // 返回上一级 -->
       <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <span class="text-2xl">参数设置</span>
@@ -89,9 +89,9 @@ const Logout = () => {
       <!-- 第一部分 -->
       <div class="EverPart">
         <!-- 主题颜色 -->
-        <div class="px-5 py-3 flex justify-between items-center">
+        <div class="flex items-center justify-between px-5 py-3">
           <span class="text-base font-bold">主题颜色</span>
-          <div class="flex justify-between items-center gap-2">
+          <div class="flex items-center justify-between gap-2">
             <span>
               <SVG name="sun"></SVG>
             </span>
@@ -116,7 +116,7 @@ const Logout = () => {
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span
-              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)] transition-all active:scale-95">
+              class="flex min-w-36 items-center justify-evenly rounded-xl border p-3 text-[color:var(--setting-color)] transition-all active:scale-95">
               {{ Setting.GPT_Setting.Model }}
               <SVG name="bottom"></SVG>
             </span>
@@ -219,11 +219,11 @@ const Logout = () => {
       </div>
       <!-- 第三部分 -->
       <div class="EverPart">
-        <div class="px-5 py-3 flex justify-between items-center">
+        <div class="flex items-center justify-between px-5 py-3">
           <span class="text-base font-bold">清除本地信息并退出登录</span>
           <button
             @click="Logout"
-            class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-500 transition-all hover:bg-rose-600 active:scale-90">
+            class="flex justify-evenly gap-2 rounded-md bg-rose-500 p-3 transition-all hover:bg-rose-600 active:scale-90">
             <span>
               <SVG name="logout"></SVG>
             </span>
@@ -243,11 +243,11 @@ const Logout = () => {
 /* 每一个 部分 */
 .EverPart {
   color: var(--setting-color);
-  @apply w-full border rounded-xl mt-4 first-of-type:mt-0;
+  @apply mt-4 w-full rounded-xl border first-of-type:mt-0;
 }
 /* 第一部分 里面的每一个子项目 */
 .SecondItem {
-  @apply px-5 py-3 flex justify-between items-center border-b last-of-type:border-b-0;
+  @apply flex items-center justify-between border-b px-5 py-3 last-of-type:border-b-0;
 }
 
 /* 自定义的 number input 的样式 */

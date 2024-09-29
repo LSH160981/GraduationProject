@@ -70,38 +70,38 @@ onBeforeUnmount(() => {
   <!-- ChatContainer class="bg-red-100" -->
   <div
     ref="ChatContainer"
-    class="relative w-full h-full overflow-x-hidden"
+    class="relative h-full w-full overflow-x-hidden"
     @mouseenter="Show_Up_Down_Button"
     @mouseleave="ShowButtonFlag = false">
     <!-- :max-height="ParametsSetting.BottomRight_ChatContainerHeight" -->
     <el-scrollbar ref="El_Scrollbar" class="w-full">
       <div v-if="CurrentChatInfo.messages.length" class="w-full">
         <div v-for="(item, index) in CurrentChatInfo.messages" :key="index" class="w-full">
-          <div v-if="item.role === 'system'" class="w-full chat chat-start">
-            <div class="w-auto chat-bubble chat-bubble-accent">
+          <div v-if="item.role === 'system'" class="chat chat-start w-full">
+            <div class="chat-bubble chat-bubble-accent w-auto">
               <v-md-preview :text="item.content" indeasdasd="hiouwhdoui"></v-md-preview>
             </div>
           </div>
-          <div v-else-if="item.role === 'user'" class="w-full chat chat-end">
-            <div class="w-auto chat-bubble chat-bubble-info">
+          <div v-else-if="item.role === 'user'" class="chat chat-end w-full">
+            <div class="chat-bubble chat-bubble-info w-auto">
               <v-md-preview :text="item.content" indeasdasd="hiouwhdoui"></v-md-preview>
             </div>
           </div>
         </div>
       </div>
-      <div v-else class="select-none absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div class="flex flex-col justify-center items-center gap-6">
+      <div v-else class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform select-none">
+        <div class="flex flex-col items-center justify-center gap-6">
           <!-- 图标 -->
-          <div class="w-20 h-20">
+          <div class="h-20 w-20">
             <img src="@/assets/images/chatgpt.png" alt="" />
           </div>
           <!-- 文字 -->
-          <div class="text-2xl font-medium w-60 text-[color:var(--setting-color)]">我今天能帮你做什么?</div>
+          <div class="w-60 text-2xl font-medium text-[color:var(--setting-color)]">我今天能帮你做什么?</div>
         </div>
       </div>
     </el-scrollbar>
     <!-- 去到当前对话的顶部和底部 -->
-    <div v-show="ShowButtonFlag" class="flex flex-col gap-1 absolute bottom-3 right-2">
+    <div v-show="ShowButtonFlag" class="absolute bottom-3 right-2 flex flex-col gap-1">
       <div @click="GoToChatTop" class="GoToChat_TopOrBottom">
         <SVG name="top"></SVG>
       </div>
@@ -114,6 +114,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .GoToChat_TopOrBottom {
-  @apply transition-all hover:bg-[#b4afaf88] cursor-pointer rounded-md p-1 active:scale-90;
+  @apply cursor-pointer rounded-md p-1 transition-all hover:bg-[#b4afaf88] active:scale-90;
 }
 </style>

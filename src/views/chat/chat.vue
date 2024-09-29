@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col justify-between">
+  <div class="flex h-full w-full flex-col justify-between">
     <ChatContainer></ChatContainer>
     <ChatInput></ChatInput>
   </div>

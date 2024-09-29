@@ -154,9 +154,9 @@ onBeforeUnmount(() => {
         @mouseenter="mouseenterHandler"
         class="EverPart">
         <!-- title -->
-        <div class="text-sm font-bold whitespace-nowrap">{{ item[0] }}</div>
+        <div class="whitespace-nowrap text-sm font-bold">{{ item[0] }}</div>
         <!-- 主题的内容 -->
-        <div class="text-sm truncate">{{ item[1] }}</div>
+        <div class="truncate text-sm">{{ item[1] }}</div>
       </div>
     </div>
     <div v-if="ProxyPrompts.length === 0" class="text-center text-red-400">抱歉! 没有找到您想要的~~</div>
@@ -166,16 +166,10 @@ onBeforeUnmount(() => {
 <style scoped>
 /* 容器 */
 .ChatPromptsContainer {
-  @apply w-full max-h-[500px] bg-[color:var(--base-bgc)]
-  absolute bottom-full
-  border rounded-lg p-2 mb-2
-  shadow-slate-400 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)]
-  overflow-scroll overflow-x-hidden z-[3];
+  @apply absolute bottom-full z-[3] mb-2 max-h-[500px] w-full overflow-scroll overflow-x-hidden rounded-lg border bg-[color:var(--base-bgc)] p-2 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)] shadow-slate-400;
 }
 /* 每一个 部分 */
 .EverPart {
-  @apply text-[color:var(--setting-color)] border border-[color:var(--base-bgc)] 
-  rounded-lg p-1 mb-1 cursor-pointer 
-  transition-all duration-500;
+  @apply mb-1 cursor-pointer rounded-lg border border-[color:var(--base-bgc)] p-1 text-[color:var(--setting-color)] transition-all duration-500;
 }
 </style>
