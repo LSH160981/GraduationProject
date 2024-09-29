@@ -6,11 +6,13 @@ import BottomLeft from '@/views/bottomLeft/bottomLeft.vue'
 import BottomRight from '@/views/bottomRight/bottomRight.vue'
 import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
 let ParametsSetting = useParametsSettingStore()
+
+const version_info = window.$AppVersion
 </script>
 
 <template>
   <!-- layout -->
-  <div class="relative">
+  <div class="layout" :version_info="`v${version_info}`">
     <div class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
       <div
         class="w-70vw h-83vh border-2 bg-[var(--base-bgc)] border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0 maxd:rounded-none"
@@ -45,4 +47,13 @@ let ParametsSetting = useParametsSettingStore()
   </el-drawer>
 </template>
 
-<style scoped></style>
+<style scoped>
+.layout {
+  @apply relative;
+}
+
+.layout::after {
+  content: attr(version_info); /* 对应的内容 */
+  @apply text-gray-400 text-sm select-none -z-10 absolute bottom-0 right-0;
+}
+</style>
