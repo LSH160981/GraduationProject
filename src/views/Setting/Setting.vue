@@ -1,22 +1,22 @@
 <script setup>
-import { ClearAll } from '@/utils/HandlerToken.js'
-import { ElMessage } from 'element-plus'
-import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
-let ParametsSetting = useParametsSettingStore()
-import { useSettingStore } from '@/stores/Setting.js'
-let Setting = useSettingStore()
-import { useRouter } from 'vue-router'
-let $Router = useRouter()
+import { ClearAll } from '@/utils/HandlerToken.js';
+import { ElMessage } from 'element-plus';
+import { useParametsSettingStore } from '@/stores/ParametsSetting.js';
+let ParametsSetting = useParametsSettingStore();
+import { useSettingStore } from '@/stores/Setting.js';
+let Setting = useSettingStore();
+import { useRouter } from 'vue-router';
+let $Router = useRouter();
 
 // 返回上一级
 const GobackOne = () => {
-  $Router.back()
-}
+  $Router.back();
+};
 
 // 主题切换 val是[el-switch组件]返回的值[val: boolean]
 const ChooseTheme = (val) => {
-  Setting.Theme = val
-}
+  Setting.Theme = val;
+};
 
 // 模型 选择的回调
 const ChooseModel = (m) => {
@@ -25,54 +25,54 @@ const ChooseModel = (m) => {
       message: `GPT-4,每天只能用3次。每天00:00更新, 想要更多次请联系-小廖`,
       type: 'warning',
       duration: 3500,
-    })
+    });
   }
-  Setting.GPT_Setting.Model = m
-}
+  Setting.GPT_Setting.Model = m;
+};
 // 改变 随机值的函数
 let ChangeTemperature = (e) => {
-  Setting.GPT_Setting.Temperature = +e.target.value
-}
+  Setting.GPT_Setting.Temperature = +e.target.value;
+};
 // 改变 核采样的函数
 let ChangeTop_p = (e) => {
-  Setting.GPT_Setting.Top_p = +e.target.value
-}
+  Setting.GPT_Setting.Top_p = +e.target.value;
+};
 // 改变 单次交互所用的最大 Token 数
 let ChangeMax_tokens = (e) => {
-  Setting.GPT_Setting.Max_tokens = +e.target.value
-}
+  Setting.GPT_Setting.Max_tokens = +e.target.value;
+};
 //  改变 Presence_penalty
 let ChangePresence_penalty = (e) => {
-  Setting.GPT_Setting.Presence_penalty = +e.target.value
-}
+  Setting.GPT_Setting.Presence_penalty = +e.target.value;
+};
 // 改变 Frequency_penalty
 let ChangeFrequency_penalty = (e) => {
-  Setting.GPT_Setting.Frequency_penalty = +e.target.value
-}
+  Setting.GPT_Setting.Frequency_penalty = +e.target.value;
+};
 // 改变 历史消息长度压缩阈值
 let ChangeHistoryCompression = (e) => {
-  Setting.GPT_Setting.HistoryCompression = +e.target.value
-}
+  Setting.GPT_Setting.HistoryCompression = +e.target.value;
+};
 // 改变 为每个输入消息生成多少个聊天完成选项。
 let ChangeN = (e) => {
   ElMessage({
     message: `如果没有特殊要求请不要改动这个配置`,
     type: 'warning',
     duration: 3000,
-  })
-  Setting.GPT_Setting.N = +e.target.value
-}
+  });
+  Setting.GPT_Setting.N = +e.target.value;
+};
 // 改变 附带历史消息数。(GPT发送时 携带多少组信息)
 let ChangeCarriedHistoryMessages = (e) => {
-  Setting.GPT_Setting.CarriedHistoryMessages = +e.target.value
-}
+  Setting.GPT_Setting.CarriedHistoryMessages = +e.target.value;
+};
 
 // 退出登录
 const Logout = () => {
-  console.log('退出登录')
-  ClearAll()
-  $Router.push('/login')
-}
+  console.log('退出登录');
+  ClearAll();
+  $Router.push('/login');
+};
 </script>
 
 <template>
@@ -116,8 +116,7 @@ const Logout = () => {
           <span class="text-base font-bold">模型 (model)</span>
           <el-dropdown trigger="click" class="h-9" @command="ChooseModel">
             <span
-              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)] transition-all active:scale-95"
-            >
+              class="min-w-36 flex justify-evenly items-center rounded-xl border p-3 text-[color:var(--setting-color)] transition-all active:scale-95">
               {{ Setting.GPT_Setting.Model }}
               <SVG name="bottom"></SVG>
             </span>
@@ -140,8 +139,7 @@ const Logout = () => {
             :min="0"
             :max="2"
             :step="0.1"
-            @input="ChangeTemperature"
-          />
+            @input="ChangeTemperature" />
         </div>
         <!-- 第三项 核采样 -->
         <div class="SecondItem">
@@ -170,8 +168,7 @@ const Logout = () => {
             :min="-2"
             :max="2"
             :step="0.1"
-            @input="ChangePresence_penalty"
-          />
+            @input="ChangePresence_penalty" />
         </div>
         <!-- 第六项 频率惩罚度 (frequency_penalty) -->
         <div class="SecondItem">
@@ -184,8 +181,7 @@ const Logout = () => {
             :min="-2"
             :max="2"
             :step="0.1"
-            @input="ChangeFrequency_penalty"
-          />
+            @input="ChangeFrequency_penalty" />
         </div>
         <!-- 第七项 历史消息长度压缩阈值 -->
         <div class="SecondItem">
@@ -197,8 +193,7 @@ const Logout = () => {
             :value="Setting.GPT_Setting.HistoryCompression"
             class="myInput"
             type="number"
-            @input="ChangeHistoryCompression"
-          />
+            @input="ChangeHistoryCompression" />
         </div>
         <!-- 第八项 为每个输入消息生成多少个聊天完成选项。 -->
         <div class="SecondItem">
@@ -219,8 +214,7 @@ const Logout = () => {
             :min="1"
             :max="100"
             :step="1"
-            @input="ChangeCarriedHistoryMessages"
-          />
+            @input="ChangeCarriedHistoryMessages" />
         </div>
       </div>
       <!-- 第三部分 -->
@@ -229,8 +223,7 @@ const Logout = () => {
           <span class="text-base font-bold">清除本地信息并退出登录</span>
           <button
             @click="Logout"
-            class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-500 transition-all hover:bg-rose-600 active:scale-90"
-          >
+            class="rounded-md p-3 flex justify-evenly gap-2 bg-rose-500 transition-all hover:bg-rose-600 active:scale-90">
             <span>
               <SVG name="logout"></SVG>
             </span>

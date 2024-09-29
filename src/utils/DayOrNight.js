@@ -3,15 +3,15 @@
  * @returns {boolean} true:晚上  false:白天
  */
 function DayOrNight() {
-  let date = new Date()
-  let hours = date.getHours()
+  let date = new Date();
+  let hours = date.getHours();
 
   //  true:晚上  false:白天
   if (hours >= 6 && hours < 18) {
-    return false
+    return false;
   } else {
-    return true
+    return true;
   }
 }
 
-export default DayOrNight
+export default DayOrNight;

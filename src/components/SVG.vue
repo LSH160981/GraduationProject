@@ -37,7 +37,7 @@ defineProps({
     type: String,
     default: null,
   },
-})
+});
 </script>
 
 <template>
@@ -51,8 +51,7 @@ defineProps({
       width,
       height,
       fill: FixedColor ? FixedColor : `var(--svg-color)`,
-    }"
-  >
+    }">
     <!-- xlink: href 指定用哪一个图标 必须是以  # icon-xxx -->
     <use :xlink:href="`#icon-${name}`"></use>
   </svg>

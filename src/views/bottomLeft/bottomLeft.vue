@@ -1,63 +1,63 @@
 <script setup>
-import { ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
-import SliderItem from './sliderItem.vue'
-import { RouterLink } from 'vue-router'
-import { useParametsSettingStore } from '@/stores/ParametsSetting.js'
-let ParametsSetting = useParametsSettingStore()
-import { useGlobalInformationStore } from '@/stores/GlobalInformation.js'
-let GlobalInformation = useGlobalInformationStore()
-import { useCurrentChatInfoStore } from '@/stores/CurrentChatInfo.js'
-let { ChangeUUID, SliderItemChangeBorder } = useCurrentChatInfoStore()
+import { ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
+import SliderItem from './sliderItem.vue';
+import { RouterLink } from 'vue-router';
+import { useParametsSettingStore } from '@/stores/ParametsSetting.js';
+let ParametsSetting = useParametsSettingStore();
+import { useGlobalInformationStore } from '@/stores/GlobalInformation.js';
+let GlobalInformation = useGlobalInformationStore();
+import { useCurrentChatInfoStore } from '@/stores/CurrentChatInfo.js';
+let { ChangeUUID, SliderItemChangeBorder } = useCurrentChatInfoStore();
 
 // 这个组件的根元素
-let BottomLeft = ref(null)
+let BottomLeft = ref(null);
 // 控制BottomLeft组件的高度
 let stopWatchBottomLeft = watch(
   () => ParametsSetting.BottomHeight,
   (newValue) => {
     nextTick(() => {
       if (ParametsSetting.w_phone) {
-        BottomLeft.value.style.height = `100vh`
+        BottomLeft.value.style.height = `100vh`;
       } else {
-        BottomLeft.value.style.height = `${newValue}px`
+        BottomLeft.value.style.height = `${newValue}px`;
       }
-    })
+    });
   },
   {
     immediate: true,
   }
-)
+);
 
 // 通过UUID更改 某一个对话的title
 const ChangeTitle = (uuid, title) => {
-  GlobalInformation.ChangeChatTitleByUUID(uuid, title)
-}
+  GlobalInformation.ChangeChatTitleByUUID(uuid, title);
+};
 
 // 根据UUID  删除 某一个对话
 const DeleteMsg = (uuid) => {
-  GlobalInformation.DeleteChatByUUID(uuid)
-}
+  GlobalInformation.DeleteChatByUUID(uuid);
+};
 
 // 点击面具和新建对话的回调
 const IsCloseDrawer = () => {
   // 默认新建对话
-  ChangeUUID('')
+  ChangeUUID('');
   // 如果 w_phone为真的话 还要把 el-drawer 关掉
   if (ParametsSetting.w_phone) {
-    ParametsSetting.SliderBarDrawerFlag = false
+    ParametsSetting.SliderBarDrawerFlag = false;
   }
-}
+};
 
 // 通过TWCSS改变 border
 onMounted(() => {
-  SliderItemChangeBorder()
-})
+  SliderItemChangeBorder();
+});
 
 // 组件销毁
 onBeforeUnmount(() => {
   // 停止对 BottomLeft 的监视
-  stopWatchBottomLeft()
-})
+  stopWatchBottomLeft();
+});
 </script>
 
 <template>

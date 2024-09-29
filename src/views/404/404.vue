@@ -9,8 +9,7 @@
         <p class="my-6"></p>
         <router-link
           to="/"
-          class="px-8 py-3 font-semibold rounded bg-violet-500 shadow-lg shadow-violet-500/50 dark:text-white transition-all active:scale-90"
-        >
+          class="px-8 py-3 font-semibold rounded bg-violet-500 shadow-lg shadow-violet-500/50 dark:text-white transition-all active:scale-90">
           Back to homepage
         </router-link>
       </div>

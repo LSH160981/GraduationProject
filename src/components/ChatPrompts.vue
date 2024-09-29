@@ -1,22 +1,22 @@
 <script setup>
-import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
-import { AddZeroWidthChars, RemoveZeroWidthChars } from '@/utils/ZeroWidthChars'
-import prompts from '@/assets/JSON/prompts'
+import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue';
+import { AddZeroWidthChars, RemoveZeroWidthChars } from '@/utils/ZeroWidthChars';
+import prompts from '@/assets/JSON/prompts';
 let CopyPrompts = computed(() => {
-  let result = []
+  let result = [];
   // 给每一个描述都加上 零宽字符
   prompts.forEach((i) => {
-    let s = [i[0], AddZeroWidthChars(i[1])]
-    result.push(s)
-  })
-  return result
-})
+    let s = [i[0], AddZeroWidthChars(i[1])];
+    result.push(s);
+  });
+  return result;
+});
 
 // 选择的索引
-let SelectIndex = ref(1)
+let SelectIndex = ref(1);
 
 // ChatPromptsContainer  元素
-let ChatPromptsContainer
+let ChatPromptsContainer;
 
 // 父组件的数据
 let $defineProps = defineProps({
@@ -29,20 +29,20 @@ let $defineProps = defineProps({
     type: String,
     require: true,
   },
-})
+});
 
 // ProxyPrompts 等于 原始数据 + InputValue
 let ProxyPrompts = computed(() => {
-  let results = []
+  let results = [];
   // 去除 '/'
-  let keyword = $defineProps.InputValue.slice(1)
+  let keyword = $defineProps.InputValue.slice(1);
   CopyPrompts.value.forEach((item) => {
     if (item[0].includes(keyword) || item[1].includes(keyword)) {
-      results.push(item)
+      results.push(item);
     }
-  })
-  return results
-})
+  });
+  return results;
+});
 
 // 对父组件传来的数据进行监视
 let stopWatchDefinePropsInputValue = watch(
@@ -50,94 +50,94 @@ let stopWatchDefinePropsInputValue = watch(
   () => {
     // 当找不到数据 时就算了
     if (ProxyPrompts.value.length <= 0) {
-      return
+      return;
     }
-    let el = SelectChildElement(1)
-    SiblingsClearCSS(el)
+    let el = SelectChildElement(1);
+    SiblingsClearCSS(el);
   }
-)
+);
 
 // 确认 关键的 Prompt
 const SetPrompt = (prompt) => {
-  $defineProps.SurePrompt(RemoveZeroWidthChars(prompt))
-}
+  $defineProps.SurePrompt(RemoveZeroWidthChars(prompt));
+};
 
 // 子元素 鼠标进入事件回调
 const mouseenterHandler = ($even) => {
-  SiblingsClearCSS($even.target)
-  SelectIndex.value = +$even.target.getAttribute('index')
-}
+  SiblingsClearCSS($even.target);
+  SelectIndex.value = +$even.target.getAttribute('index');
+};
 
 // 所有兄弟元素 清除 border 样式  自己添加固定样式
 const SiblingsClearCSS = (elem) => {
   // 获取父元素
-  const parent = elem.parentNode
+  const parent = elem.parentNode;
   // 遍历父元素下的所有子元素
   Array.from(parent.children).forEach((child) => {
-    child.style.borderColor = 'var(--base-bgc)'
-  })
+    child.style.borderColor = 'var(--base-bgc)';
+  });
   // 目标元素 添加样式
-  elem.style.borderColor = '#22c55e'
-}
+  elem.style.borderColor = '#22c55e';
+};
 
 // ChatPromptsMain 的 子元素 返回这个元素
 const SelectChildElement = (index) => {
   // 判断 index 是否 合法
   if (index < 1) {
-    SelectIndex.value = index = 1
+    SelectIndex.value = index = 1;
   }
   if (index >= ProxyPrompts.value.length) {
-    SelectIndex.value = index = ProxyPrompts.value.length
+    SelectIndex.value = index = ProxyPrompts.value.length;
   }
 
   // 选择 对应的子元素
   if (index === 1) {
-    return document.querySelector('.ChatPromptsMain > :first-child')
+    return document.querySelector('.ChatPromptsMain > :first-child');
   } else {
-    return document.querySelector(`.ChatPromptsMain > :nth-child(${index})`)
+    return document.querySelector(`.ChatPromptsMain > :nth-child(${index})`);
   }
-}
+};
 
 // 键盘按下事件
 const keydown_handler = (even) => {
   if (even.key === 'ArrowUp') {
-    even.preventDefault()
-    SelectIndex.value--
+    even.preventDefault();
+    SelectIndex.value--;
     if (SelectIndex.value > 1) {
       // typeof number
-      ChatPromptsContainer.scrollTop -= 50
+      ChatPromptsContainer.scrollTop -= 50;
     }
-    let el = SelectChildElement(SelectIndex.value)
-    SiblingsClearCSS(el)
+    let el = SelectChildElement(SelectIndex.value);
+    SiblingsClearCSS(el);
   } else if (even.key === 'ArrowDown') {
-    even.preventDefault()
-    SelectIndex.value++
+    even.preventDefault();
+    SelectIndex.value++;
     if (SelectIndex.value > 5) {
       // typeof number
-      ChatPromptsContainer.scrollTop += 55
+      ChatPromptsContainer.scrollTop += 55;
     }
-    let el = SelectChildElement(SelectIndex.value)
-    SiblingsClearCSS(el)
+    let el = SelectChildElement(SelectIndex.value);
+    SiblingsClearCSS(el);
   } else if (even.key === 'Enter') {
-    even.preventDefault()
-    $defineProps.SurePrompt(SelectChildElement(SelectIndex.value).children[1].textContent)
+    even.preventDefault();
+    $defineProps.SurePrompt(SelectChildElement(SelectIndex.value).children[1].textContent);
   }
-}
+};
 
 nextTick(() => {
-  ChatPromptsContainer = document.querySelector('.ChatPromptsContainer')
-  document.addEventListener('keydown', keydown_handler)
-  let F_el = SelectChildElement(SelectIndex.value)
-  F_el.style.borderColor = '#22c55e'
-})
+  ChatPromptsContainer = document.querySelector('.ChatPromptsContainer');
+  document.addEventListener('keydown', keydown_handler);
+  let F_el = SelectChildElement(SelectIndex.value);
+  F_el.style.borderColor = '#22c55e';
+});
 
 // 组件销毁
 onBeforeUnmount(() => {
   // 移除键盘事件的监视
-  document.removeEventListener('keydown', keydown_handler)
+  document.removeEventListener('keydown', keydown_handler);
   // 停止对 父组件数据 的监视
-  stopWatchDefinePropsInputValue()
-})
+  stopWatchDefinePropsInputValue();
+});
 </script>
 
 <template>
@@ -152,8 +152,7 @@ onBeforeUnmount(() => {
         :index="index + 1"
         @click="SetPrompt(item[1])"
         @mouseenter="mouseenterHandler"
-        class="EverPart"
-      >
+        class="EverPart">
         <!-- title -->
         <div class="text-sm font-bold whitespace-nowrap">{{ item[0] }}</div>
         <!-- 主题的内容 -->

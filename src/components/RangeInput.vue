@@ -24,7 +24,7 @@ defineProps({
     type: Function,
     require: true,
   },
-})
+});
 </script>
 
 <template>
