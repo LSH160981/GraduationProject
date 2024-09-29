@@ -6,11 +6,11 @@
  */
 const ChangeIOSThemeColor = (color) => {
   // 获取标签
-  let metaThemeColor = document.querySelector('meta[name=theme-color]')
+  let metaThemeColor = document.querySelector('meta[name=theme-color]');
   if (metaThemeColor) {
     // 更改标签的content
-    metaThemeColor.setAttribute('content', color)
+    metaThemeColor.setAttribute('content', color);
   }
-}
+};
 
-export default ChangeIOSThemeColor
+export default ChangeIOSThemeColor;

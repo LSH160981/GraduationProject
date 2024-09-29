@@ -1,7 +1,7 @@
-import { ref, reactive, watch, toRaw } from 'vue'
-import { defineStore } from 'pinia'
-import DayOrNight from '@/utils/DayOrNight.js'
-import ChangeIOSThemeColor from '@/utils/ChangeIOSThemeColor'
+import { ref, reactive, watch, toRaw } from 'vue';
+import { defineStore } from 'pinia';
+import DayOrNight from '@/utils/DayOrNight.js';
+import ChangeIOSThemeColor from '@/utils/ChangeIOSThemeColor';
 
 /**
  * 这个仓库对应的是 Setting.vue 这个组件
@@ -28,57 +28,57 @@ export const useSettingStore = defineStore('Setting', () => {
     N: 1,
     // 每次请求携带的历史消息数
     CarriedHistoryMessages: 10,
-  })
+  });
   // 查询本地有没有保存过用户 使用GPT的习惯
-  let GPT_SettingResult
+  let GPT_SettingResult;
   if ((GPT_SettingResult = JSON.parse(localStorage.getItem('GPT_Setting')))) {
     // reactive 重新分配一个新对象，会`失去`响应式（可以使用`Object.assign`去整体替换）
-    GPT_Setting = Object.assign(GPT_Setting, GPT_SettingResult)
+    GPT_Setting = Object.assign(GPT_Setting, GPT_SettingResult);
   }
   // GPT_Setting 的变化
   watch(
     () => GPT_Setting,
     (newSetting) => {
-      let result = JSON.stringify(toRaw(newSetting))
-      localStorage.setItem('GPT_Setting', result)
+      let result = JSON.stringify(toRaw(newSetting));
+      localStorage.setItem('GPT_Setting', result);
     },
     {
       deep: true,
       immediate: true,
     }
-  )
+  );
 
   // 当前主题的颜色 true:晚上  false:白天 DayOrNight()
-  let Theme = ref(false)
+  let Theme = ref(false);
   // Theme 的变化
   watch(
     () => Theme.value,
     (newTheme) => {
-      let result = JSON.stringify(newTheme)
-      localStorage.setItem('Theme', result)
+      let result = JSON.stringify(newTheme);
+      localStorage.setItem('Theme', result);
       // 通过JavaScript选择HTML元素并添加class
-      let htmlElement = document.querySelector('html')
+      let htmlElement = document.querySelector('html');
       if (newTheme) {
         // 暗夜模式
-        htmlElement.classList.add('dark')
-        ChangeIOSThemeColor('#212129')
+        htmlElement.classList.add('dark');
+        ChangeIOSThemeColor('#212129');
       } else {
         // 白天
-        htmlElement.classList.remove('dark')
-        ChangeIOSThemeColor('#fff')
+        htmlElement.classList.remove('dark');
+        ChangeIOSThemeColor('#fff');
       }
     }
-  )
+  );
   // 查询本地有没有保存过用户 主题使用习惯
-  let ThemeResult = localStorage.getItem('Theme') || ''
+  let ThemeResult = localStorage.getItem('Theme') || '';
   if (ThemeResult) {
-    Theme.value = JSON.parse(ThemeResult)
+    Theme.value = JSON.parse(ThemeResult);
   } else {
-    Theme.value = DayOrNight()
+    Theme.value = DayOrNight();
   }
 
   return {
     GPT_Setting,
     Theme,
-  }
-})
+  };
+});

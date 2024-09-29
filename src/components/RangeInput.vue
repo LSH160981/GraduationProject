@@ -24,20 +24,13 @@ defineProps({
     type: Function,
     require: true,
   },
-})
+});
 </script>
 
 <template>
   <div class="input-range">
     {{ value }}
-    <input
-      type="range"
-      :value="value"
-      :min="min"
-      :max="max"
-      :step="step"
-      @input="onChange"
-    />
+    <input type="range" :value="value" :min="min" :max="max" :step="step" @input="onChange" />
   </div>
 </template>
 

@@ -1,13 +1,13 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
 // svg 的插件引入
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import path from 'path';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -44,14 +44,14 @@ export default defineConfig({
         manualChunks(id) {
           // console.log('id', id)
           if (id.includes('element-plus')) {
-            return 'element-plus'
+            return 'element-plus';
           } else if (id.includes('lodash')) {
-            return 'lodash'
+            return 'lodash';
           } else if (id.includes('node_modules')) {
-            return 'vendor'
+            return 'vendor';
           }
         },
       },
     },
   },
-})
+});
