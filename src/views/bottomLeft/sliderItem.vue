@@ -96,12 +96,12 @@ const InputBlur = () => {
 <template>
   <div
     :uuid="ChatInfo.uuid"
-    class="mb-2 p-3 box-border border-2 bg-white hover:bg-gray-300 shadow-md flex justify-between items-center rounded-lg cursor-pointer"
+    class="mb-2 box-border flex cursor-pointer items-center justify-between rounded-lg border-2 bg-white p-3 shadow-md hover:bg-gray-300"
     @click.self="SliderItemClick">
     <span
       v-if="!ReNameFlag"
       @click.self="SliderItemClick"
-      class="truncate selection:bg-sky-300 text-[color:var(--base-textColor)]">
+      class="truncate text-[color:var(--base-textColor)] selection:bg-sky-300">
       {{ ComputedTitle }}
     </span>
     <el-input
@@ -115,7 +115,7 @@ const InputBlur = () => {
       @keyup.enter="InputBlur" />
     <el-dropdown trigger="hover">
       <span class="el-dropdown-link">
-        <div class="tooltip transition-sca-90" data-tip="选项">
+        <div class="transition-sca-90 tooltip" data-tip="选项">
           <SVG name="more" :FixedColor="`#000`"></SVG>
         </div>
       </span>

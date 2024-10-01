@@ -142,16 +142,16 @@ onBeforeUnmount(() => {
 
 <template>
   <!--  bg-violet-100 -->
-  <div class="w-full h-full">
+  <div class="h-full w-full">
     <!-- 工具栏 -->
-    <div class="flex justify-between items-center gap-3 px-1 pb-4">
+    <div class="flex items-center justify-between gap-3 px-1 pb-4">
       <!-- 返回 -->
       <CustomizeButton iconName="left" content="返回" :clickHandler="GobackOne" />
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"
         v-focus
-        class="bg-[color:var(--base-bgc)] text-[color:var(--setting-color)] shadow appearance-none border rounded-xl w-[70%] h-11 maxd:h-8 py-2 px-3 text-center leading-tight focus:outline-1"
+        class="h-11 w-[70%] appearance-none rounded-xl border bg-[color:var(--base-bgc)] px-3 py-2 text-center leading-tight text-[color:var(--setting-color)] shadow focus:outline-1 maxd:h-8"
         type="text"
         placeholder="搜索预设角色" />
       <!-- 新建 -->
@@ -162,10 +162,10 @@ onBeforeUnmount(() => {
       <div
         v-for="item in ProxyMasks"
         :key="item[0]"
-        class="relative border-2 rounded-xl shadow-md mb-3 cursor-pointer transition-all text-[color:var(--setting-color)] hover:bg-violet-300 hover:text-black active:scale-95">
-        <div class="p-3 flex flex-col" @click="ChoiceMaskChat(item[1])">
+        class="relative mb-3 cursor-pointer rounded-xl border-2 text-[color:var(--setting-color)] shadow-md transition-all hover:bg-violet-300 hover:text-black active:scale-95">
+        <div class="flex flex-col p-3" @click="ChoiceMaskChat(item[1])">
           <!-- title -->
-          <span class="text-2xl font-normal whitespace-nowrap w-60">
+          <span class="w-60 whitespace-nowrap text-2xl font-normal">
             {{ item[0] }}
           </span>
           <!-- content -->
@@ -177,7 +177,7 @@ onBeforeUnmount(() => {
         <button
           v-if="item[2]"
           @click="DeleteUserMask(item[2])"
-          class="w-16 h-11 rounded-md mr-5 bg-rose-500 transition-all absolute top-1/2 right-0 -translate-y-1/2 hover:bg-rose-600 active:scale-90">
+          class="absolute right-0 top-1/2 mr-5 h-11 w-16 -translate-y-1/2 rounded-md bg-rose-500 transition-all hover:bg-rose-600 active:scale-90">
           删除
         </button>
       </div>

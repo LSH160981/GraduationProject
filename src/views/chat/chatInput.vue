@@ -175,13 +175,13 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- ChatInput bg-violet-100 -->
-  <div ref="ChatInput" class="w-full flex flex-col justify-evenly items-center">
+  <div ref="ChatInput" class="flex w-full flex-col items-center justify-evenly">
     <!-- 不要让这个按钮 破坏下面的结构 -->
     <div>
       <!-- 停止当前对话按钮 -->
       <div v-if="CurrentChatInfo.ShowStopButtonFlag">
         <el-button link @click="StopFetch">
-          <div class="rounded-md flex justify-between items-center gap-1">
+          <div class="flex items-center justify-between gap-1 rounded-md">
             <span>
               <SVG name="stop"></SVG>
             </span>
@@ -200,7 +200,7 @@ onBeforeUnmount(() => {
           CurrentChatInfo.messages[CurrentChatInfo.messages.length - 1].role === 'system'
         ">
         <el-button link @click="ReloadChat">
-          <div class="rounded-md flex justify-between items-center gap-1 transition-all active:scale-95">
+          <div class="flex items-center justify-between gap-1 rounded-md transition-all active:scale-95">
             <!-- reload-SVG-container -->
             <span :style="{ transform: `rotate(${rotation}deg)` }" class="transition-all duration-300">
               <SVG name="reload" width="22px" height="22px"></SVG>
@@ -213,7 +213,7 @@ onBeforeUnmount(() => {
       <div v-else="!CurrentChatInfo.ShowStopButtonFlag" class="h-[30px] w-[10px] maxd:h-5"></div>
     </div>
 
-    <div class="w-full relative">
+    <div class="relative w-full">
       <transition name="fade">
         <ChatPrompts v-if="ShowPromptsFlag" :InputValue="CurrentChatInfo.InputValue" :SurePrompt="SurePrompt">
         </ChatPrompts>
@@ -230,7 +230,7 @@ onBeforeUnmount(() => {
         resize="none"
         placeholder="Enter 发送, Shift + Enter 换行,  / 触发Prompt">
       </el-input>
-      <button @click.stop="SendButton" class="absolute top-1/2 right-1 -translate-y-1/2">
+      <button @click.stop="SendButton" class="absolute right-1 top-1/2 -translate-y-1/2">
         <SVG name="send"></SVG>
       </button>
     </div>

@@ -89,22 +89,22 @@ const GitHubClick = () => {
 
 <template>
   <!-- top -->
-  <div class="w-full h-[60px] border-b p-3 flex justify-between items-center maxd:h-[45px]">
+  <div class="flex h-[60px] w-full items-center justify-between border-b p-3 maxd:h-[45px]">
     <!-- top-left -->
-    <div class="flex justify-evenly items-center">
+    <div class="flex items-center justify-evenly">
       <!-- 侧边栏 -->
       <el-button link @click="MenuBarClick" class="transition-sca-90">
         <SVG name="list"></SVG>
       </el-button>
       <!-- 清除全部的对话 -->
-      <div class="tooltip maxd:tooltip-right transition-sca-90" data-tip=" 删除所有的对话 ">
+      <div class="transition-sca-90 tooltip maxd:tooltip-right" data-tip=" 删除所有的对话 ">
         <el-button link @click="openMessagePopup">
           <SVG name="broom"></SVG>
         </el-button>
       </div>
     </div>
     <!-- top-right -->
-    <div class="flex justify-evenly items-center">
+    <div class="flex items-center justify-evenly">
       <!-- MaskPlay 小屏幕时才会显示 -->
       <!-- BottomLeftWidth 只能等于6或者等于0 -> 在layout.vue文件中 决定 BottomLeft BottomRight 组件的宽占比 (el-plus的el-col) -->
       <el-button

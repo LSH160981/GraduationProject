@@ -13,9 +13,9 @@ const version_info = window.$AppVersion;
 <template>
   <!-- layout -->
   <div class="layout" :version_info="`v${version_info}`">
-    <div class="w-screen h-screen max-w-[100vw] max-h-[100vh] flex justify-center items-center overflow-hidden">
+    <div class="flex h-screen max-h-[100vh] w-screen max-w-[100vw] items-center justify-center overflow-hidden">
       <div
-        class="w-70vw h-83vh border-2 bg-[var(--base-bgc)] border-indigo-300 shadow-lg shadow-indigo-500/50 rounded-lg maxd:w-full maxd:h-full maxd:border-0 maxd:rounded-none">
+        class="h-83vh w-70vw rounded-lg border-2 border-indigo-300 bg-[var(--base-bgc)] shadow-lg shadow-indigo-500/50 maxd:h-full maxd:w-full maxd:rounded-none maxd:border-0">
         <el-row>
           <el-col :span="24">
             <Top></Top>
@@ -52,6 +52,6 @@ const version_info = window.$AppVersion;
 
 .layout::after {
   content: attr(version_info); /* 对应的内容 */
-  @apply text-gray-400 text-sm select-none -z-10 absolute bottom-0 right-0;
+  @apply absolute bottom-0 right-0 -z-10 select-none text-sm text-gray-400;
 }
 </style>

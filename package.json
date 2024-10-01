@@ -16,6 +16,7 @@
     "element-plus": "^2.5.3",
     "pinia": "^2.1.7",
     "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "terser": "^5.30.3",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
