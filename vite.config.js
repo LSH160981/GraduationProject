@@ -40,9 +40,15 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        // 分包打包，凡是node_modules的库 单独打包 --->自己写的代码也单独打包
+        /**
+         * 自定义打包 一开始index.js 太大了，所以把里面比较大的包分离出来
+         * element-plus    element-plus-[hash].js
+         * lodash          lodash-[hash].js
+         * node_modules    vendor-[hash].js
+         * src代码         index-[hash].js
+         */
         manualChunks(id) {
-          // console.log('id', id)
+          console.log(`打包中-${id}`);
           if (id.includes('element-plus')) {
             return 'element-plus';
           } else if (id.includes('lodash')) {

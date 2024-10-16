@@ -21,5 +21,16 @@ export default {
       // => @media (min-width: 767px) and (max-width: 1150px) { ... }
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [
+    require('daisyui'),
+    // 自定义TW插件
+    function ({ addUtilities }) {
+      addUtilities({
+        // 隐藏滚动条
+        '.scrollbar-hidden': {
+          'scrollbar-width': 'none',
+        },
+      });
+    },
+  ],
 };

@@ -166,7 +166,8 @@ onBeforeUnmount(() => {
 <style scoped>
 /* 容器 */
 .ChatPromptsContainer {
-  @apply absolute bottom-full z-[3] mb-2 max-h-[500px] w-full overflow-scroll overflow-x-hidden rounded-lg border bg-[color:var(--base-bgc)] p-2 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)] shadow-slate-400;
+  /* scrollbar-hidden 自定义TW属性 隐藏滚动条 具体看tailwind.config.js的plugins */
+  @apply scrollbar-hidden absolute bottom-full z-[3] mb-2 max-h-[500px] w-full overflow-scroll overflow-x-hidden rounded-lg border bg-[color:var(--base-bgc)] p-2 shadow-[inset_2px_20px_30px_-10px_rgba(0,0,0,0.3)] shadow-slate-400;
 }
 /* 每一个 部分 */
 .EverPart {
