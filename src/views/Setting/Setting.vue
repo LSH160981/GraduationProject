@@ -58,6 +58,7 @@ let ChangeN = (e) => {
   ElMessage({
     message: `如果没有特殊要求请不要改动这个配置`,
     type: 'warning',
+    grouping: true,
     duration: 3000,
   });
   Setting.GPT_Setting.N = +e.target.value;

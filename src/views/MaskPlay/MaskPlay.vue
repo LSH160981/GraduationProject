@@ -150,7 +150,6 @@ onBeforeUnmount(() => {
       <!-- 搜索 -->
       <input
         v-model.trim="SearchInput"
-        v-focus
         class="h-11 w-[70%] appearance-none rounded-xl border bg-[color:var(--base-bgc)] px-3 py-2 text-center leading-tight text-[color:var(--setting-color)] shadow focus:outline-1 maxd:h-8"
         type="text"
         placeholder="搜索预设角色" />
