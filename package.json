@@ -1,6 +1,6 @@
 {
   "name": "gpt",
-  "version": "0.17.102.16",
+  "version": "0.17.103.19",
   "private": true,
   "type": "module",
   "scripts": {
